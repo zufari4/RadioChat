@@ -4,9 +4,10 @@
 
 #if DEBUG_MODE == 1
 
+#include "Utils.h"
 #include <HardwareSerial.h>
-#define INIT_LOG() Serial.begin(SERIAL_BAUDRATE)
-#define LOG(...) Serial.printf(__VA_ARGS__)
+#define INIT_LOG() { Serial.begin(SERIAL_BAUDRATE); Serial.printf("Init log\n"); Serial.flush(); }
+#define LOG(...) { Serial.printf("%s: ", utils::currentDateTime()); Serial.printf(__VA_ARGS__); }
 
 #else
 

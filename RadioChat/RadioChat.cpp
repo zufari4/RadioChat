@@ -55,10 +55,10 @@ void RadioChat::loop()
 
 void RadioChat::onKeyUp(uint16_t symbol)
 {
-
+    ui_->onKeyUp(symbol);
 }
 
 void RadioChat::onKeyCommand(KeyCommand cmd)
 {
-
+    ui_->onKeyCommand(cmd);
 }

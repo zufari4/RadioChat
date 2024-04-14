@@ -13,4 +13,5 @@
 #define KEY_CODE_DOWN   0x2193
 #define KEY_CODE_BACKSPACE 0x0008
 
+#define DISPLAY_MODEL U8G2_ST7920_128X64_F_HW_SPI
 #define DISPLAY_FONT u8g2_font_6x12_t_cyrillic

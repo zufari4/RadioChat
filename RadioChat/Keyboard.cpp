@@ -22,7 +22,7 @@ Keyboard::~Keyboard()
 
 void Keyboard::init()
 {
-    LOG("%s SH %u INH %u CLK %u QH %u\n", __FUNCTION__, shPin_, inhPin_, clkPin_, qhPin_);
+    LOG("SH %u INH %u CLK %u QH %u\n", shPin_, inhPin_, clkPin_, qhPin_);
     
     pinMode(shPin_, OUTPUT);
     pinMode(inhPin_   , OUTPUT);

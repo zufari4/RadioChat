@@ -8,3 +8,5 @@ enum class Language: uint8_t
     English = 1,
     Count
 };
+
+const char* lang2str(Language lang);

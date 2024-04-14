@@ -7,7 +7,7 @@
 #include "KeyMapRus.h"
 #include "KeyMapEng.h"
 #include "Logger.h"
-#include "StrUtils.h"
+#include "Utils.h"
 
 KeyHandler::KeyHandler()
     : keyboard_(nullptr)
@@ -41,7 +41,7 @@ void KeyHandler::check()
 
 void KeyHandler::onKeyUpRaw(uint8_t raw1, uint8_t raw2, uint8_t raw3)
 {
-    LOG("Press buttons: %u %u %u\n", raw1, raw2, raw3);
+    LOG("Buttons up: %u %u %u\n", raw1, raw2, raw3);
     bool isFnKey = raw1 == fnKey_ || raw2 == fnKey_ || raw3 == fnKey_;
     bool isEnterKey = raw1 == enterKey_ || raw2 == enterKey_ || raw3 == enterKey_;
     if (isFnKey && isEnterKey) {
@@ -95,7 +95,7 @@ void KeyHandler::switchLang()
 
 void KeyHandler::setLanguage(Language lang)
 {
-    LOG("\nSet language: %u\n", (uint8_t)lang);
+    LOG("Set language to %s\n", lang2str(lang));
     if (keyMap_ != nullptr) {
         delete keyMap_;
     }
