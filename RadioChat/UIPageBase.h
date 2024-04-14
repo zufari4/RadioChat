@@ -22,12 +22,13 @@ protected:
     uint8_t getMaxStrLen() const;
     uint8_t getTextHeight() const;
     uint8_t getMaxCountLines() const;
-    
+    uint8_t getTextWidth(const std::string& str) const;
+
 private:
     const UIPageType type_;
     UISettings settings_;
     Display* display_;
     const uint8_t maxStrLen_;
-    const uint8_t textHeight_;
+    const uint8_t  textHeight_;
     const uint8_t maxCountLines_;
 };

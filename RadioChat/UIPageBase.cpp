@@ -37,3 +37,8 @@ uint8_t UIPageBase::getMaxCountLines() const
 {
     return maxCountLines_;
 }
+
+uint8_t UIPageBase::getTextWidth(const std::string& str) const
+{
+    return display_->getStrWidth(str.c_str());
+}

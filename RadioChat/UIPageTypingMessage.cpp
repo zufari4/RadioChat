@@ -7,6 +7,9 @@
 UIPageTypingMessage::UIPageTypingMessage(const UISettings& settings, Display* display)
     : UIPageBase(UIPageType::Chat, settings, display)
     , typingMessage_{""}
+    , carriageChar_(settings.carriageChar)
+    , carriageVisible_(false)
+    , carriageShowTime_(settings.carriageShowTime)
 {
 }
 
@@ -17,25 +20,46 @@ UIPageTypingMessage::~UIPageTypingMessage()
 void UIPageTypingMessage::draw()
 {
     uint8_t y = 0;
-    for (const auto& line : typingMessage_) {
-        drawText(0, y, line);
-        y += getTextHeight();
+    uint8_t h = getTextHeight();
+
+    if (Clock::now() > nextCarriageShow_) {
+        nextCarriageShow_ = Clock::now() + carriageShowTime_;
+        carriageVisible_ = !carriageVisible_;
+    }
+
+    for (int i = 0; i < typingMessage_.size(); ++i) {
+        if (carriageVisible_ && (i + 1 == typingMessage_.size())) {
+            drawText(0, y, typingMessage_[i] + carriageChar_);
+        }
+        else {
+            drawText(0, y, typingMessage_[i]);
+            y += h;
+        }
     }
 }
 
 void UIPageTypingMessage::onKeyUp(uint16_t symbol)
 {
-    std::string* typingMessage = &typingMessage_.back();
-    if (utils::utf8_len(*typingMessage) >= getMaxStrLen()) {
-        if (typingMessage_.size() >= getMaxCountLines()) {
-            LOG("Text is full\n");
-            return;
-        }
-        LOG("New line\n");
-        typingMessage_.emplace_back();
-        typingMessage = &typingMessage_.back();
+    std::string& typingMessage = typingMessage_.back();
+    int len = utils::utf8_len(typingMessage);
+    const uint8_t maxLen = getMaxStrLen();
+
+    if (len < maxLen) {
+        utils::add_to_str(symbol, typingMessage);
     }
-    utils::add_to_str(symbol, *typingMessage);
+
+    if (len+1 >= maxLen) {
+        if (typingMessage_.size() <= getMaxCountLines()) {
+            LOG("New line\n");
+            typingMessage_.emplace_back();
+        }
+        else {
+            LOG("Text is full\n");  
+        }
+    }
+
+    nextCarriageShow_ = Clock::now() + carriageShowTime_;
+    carriageVisible_ = true;
 }
 
 void UIPageTypingMessage::onKeyCommand(KeyCommand cmd)
