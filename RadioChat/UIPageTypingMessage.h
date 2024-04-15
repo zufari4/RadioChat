@@ -11,7 +11,7 @@ public:
     UIPageTypingMessage(const UISettings& settings, Display* display);
     ~UIPageTypingMessage();
     void draw() override;
-    void onKeyUp(uint16_t symbol) override;
+    void onChar(uint16_t symbol) override;
     void onKeyCommand(KeyCommand cmd) override;
 
 private:

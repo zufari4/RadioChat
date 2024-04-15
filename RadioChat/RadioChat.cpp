@@ -34,7 +34,7 @@ void RadioChat::init()
 
     KeyboardSettings kbSettings = settings_->keyboard();
     keyHandler_->init(kbSettings, 
-                      std::bind(&RadioChat::onKeyUp, this, std::placeholders::_1), 
+                      std::bind(&RadioChat::onChar, this, std::placeholders::_1), 
                       std::bind(&RadioChat::onKeyCommand, this, std::placeholders::_1));
 
     WiFiSettings wifiSettings = settings_->wifi();
@@ -53,9 +53,9 @@ void RadioChat::loop()
     ui_->draw();
 }
 
-void RadioChat::onKeyUp(uint16_t symbol)
+void RadioChat::onChar(uint16_t symbol)
 {
-    ui_->onKeyUp(symbol);
+    ui_->onChar(symbol);
 }
 
 void RadioChat::onKeyCommand(KeyCommand cmd)

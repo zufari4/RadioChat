@@ -18,6 +18,10 @@ UIPageBase::~UIPageBase()
 {
 }
 
+void UIPageBase::draw() {}
+void UIPageBase::onChar(uint16_t symbol) {}
+void UIPageBase::onKeyCommand(KeyCommand cmd) {}
+
 void UIPageBase::drawText(uint8_t x, uint8_t y, const std::string& str)
 {
     display_->drawStr(x, y, str);

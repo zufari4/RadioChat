@@ -22,7 +22,7 @@ void UIPageChat::draw()
     }
 }
 
-void UIPageChat::onKeyUp(uint16_t symbol)
+void UIPageChat::onChar(uint16_t symbol)
 {
     std::string& typingMessage = typingMessage_.back();
     if (utils::utf8_len(typingMessage) >= getMaxStrLen()) {

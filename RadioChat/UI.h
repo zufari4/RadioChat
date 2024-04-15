@@ -14,7 +14,7 @@ public:
     ~UI();
     void init(const UISettings& settings, Display* display);
     void draw();
-    void onKeyUp(uint16_t symbol);
+    void onChar(uint16_t symbol);
     void onKeyCommand(KeyCommand cmd);
 
 private:

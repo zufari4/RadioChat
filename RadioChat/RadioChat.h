@@ -19,7 +19,7 @@ public:
     void loop();
 
 private:
-    void onKeyUp(uint16_t symbol);
+    void onChar(uint16_t symbol);
     void onKeyCommand(KeyCommand cmd);
 
     Settings*   settings_;

@@ -24,9 +24,9 @@ void UI::draw()
     display_->flush();
 }
 
-void UI::onKeyUp(uint16_t symbol)
+void UI::onChar(uint16_t symbol)
 {
-    currentPage_->onKeyUp(symbol);
+    currentPage_->onChar(symbol);
 }
 
 void UI::onKeyCommand(KeyCommand cmd)

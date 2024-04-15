@@ -38,7 +38,7 @@ void UIPageTypingMessage::draw()
     }
 }
 
-void UIPageTypingMessage::onKeyUp(uint16_t symbol)
+void UIPageTypingMessage::onChar(uint16_t symbol)
 {
     std::string& typingMessage = typingMessage_.back();
     int len = utils::utf8_len(typingMessage);

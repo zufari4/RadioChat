@@ -1,36 +1,33 @@
 #pragma once
+#include "KeyboardSettings.h"
+#include "KeyState.h"
 #include <stdint.h>
 #include <functional>
+#include <map>
+#include <vector>
 
 /* Class for 74HC165 */
 class Keyboard
 {
 public:
-    using KeyCallback = std::function<void(uint8_t keyNum1, uint8_t keyNum2, uint8_t keyNum3)>;
+    using KeyCallback = std::function<void(uint8_t keyNum)>;
 
-    Keyboard(uint8_t SH_LD, // pin 1  - SH/LD 
-             uint8_t INH,   // pin 15 - INH
-             uint8_t QH,    // pin 9 - QH
-             uint8_t CLK,   // pin 2 - CLK
-             uint8_t countRegisters,
-             KeyCallback onKeyUp);
+    Keyboard();
     ~Keyboard();
-    void init();
+    void init(const KeyboardSettings& settings, KeyCallback onKeyDown, KeyCallback onKeyUp);
     void check();
-
+    KeyState getState(uint8_t keyNum) const;
+    
 private:
-    void get(uint8_t& key1, uint8_t& key2, uint8_t& key3);
+    void updatePressed();
 
-    uint8_t shPin_;
-    uint8_t inhPin_;
-    uint8_t qhPin_;
-    uint8_t clkPin_;
-    uint8_t countRegisters_;
+    KeyboardSettings settings_;
+    KeyCallback onKeyDown_;
     KeyCallback onKeyUp_;
-    uint8_t key1_;
-    uint8_t key2_;
-    uint8_t key3_;
-    uint8_t key1_prev;
-    uint8_t key2_prev;
-    uint8_t key3_prev;
+    std::map<uint8_t, KeyState> state_;
+    uint8_t key1_, key2_, key3_;
+    uint8_t registerValue_;
+    uint8_t bitNum_;
+    uint8_t countPressed_;
+    uint8_t countKeys_;
 };

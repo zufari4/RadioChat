@@ -7,6 +7,7 @@
 #include <string>
 #include "c_types.h"
 #include <stdint.h>
+#include <memory>
 
 class Keyboard;
 class KeyMapBase;
@@ -24,16 +25,19 @@ public:
     Language getLang() const;
 
 private:
-    void onKeyUpRaw(uint8_t raw1, uint8_t raw2, uint8_t raw3);
+    void onKeyDown(uint8_t keyNum);
+    void onKeyUp(uint8_t keyNum);
     void setLanguage(Language lang);
     void switchLang();
     void handleSymbol(uint16_t symbol);
     void handleCommand(KeyCommand cmd);
 
-    Keyboard* keyboard_;
+    std::unique_ptr<Keyboard> keyboard_;
     CharCallback onChar_;
     CmdCallback onCmd_;
-    KeyMapBase* keyMap_;
+    std::unique_ptr<KeyMapBase> keyMap_;
     uint8_t fnKey_;
     uint8_t enterKey_;
+    bool fnKeyPressed_;
+    bool fnKeyHandled_;
 };

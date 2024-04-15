@@ -3,7 +3,6 @@
 #define DEBUG_MODE 1
 #define SERIAL_BAUDRATE 9600
 #define SETTINGS_FILENAME "config.json"
-#define COUNT_KEYBOUARD_REGISTERS 5
 
 #define KEY_CODE_FN     0x0001
 #define KEY_CODE_ENTER  0x000A

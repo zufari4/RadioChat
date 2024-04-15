@@ -9,7 +9,7 @@ public:
     UIPageChat(const UISettings& settings, Display* display);
     ~UIPageChat();
     void draw() override;
-    void onKeyUp(uint16_t symbol) override;
+    void onChar(uint16_t symbol) override;
     void onKeyCommand(KeyCommand cmd) override;
 
 private:

@@ -10,10 +10,9 @@
 #include "Utils.h"
 
 KeyHandler::KeyHandler()
-    : keyboard_(nullptr)
-    , fnKey_(0)
+    : fnKey_(0)
     , enterKey_(0)
-    , keyMap_(nullptr)
+    , fnKeyPressed_(false)
 {
 }
 
@@ -24,14 +23,15 @@ KeyHandler::~KeyHandler()
 void KeyHandler::init(const KeyboardSettings& settings, CharCallback onChar, CmdCallback onCmd)
 {
     onChar_ = onChar;
-    onCmd_ = onCmd;
-    using namespace std::placeholders;
-    auto rawCallback = std::bind(&KeyHandler::onKeyUpRaw, this, _1, _2, _3);
-    keyboard_ = new Keyboard(settings.pins.SH_LD, settings.pins.INH, settings.pins.QH, settings.pins.CLK, COUNT_KEYBOUARD_REGISTERS, rawCallback);
-    keyboard_->init();
+    onCmd_  = onCmd;
+    auto keyDownCb = std::bind(&KeyHandler::onKeyDown, this, std::placeholders::_1);
+    auto keyUpCb = std::bind(&KeyHandler::onKeyUp, this, std::placeholders::_1);
+    keyboard_ = std::make_unique<Keyboard>();
+    keyboard_->init(settings, keyDownCb, keyUpCb);
     setLanguage(settings.lang);
     fnKey_ = settings.fnKey;
     enterKey_ = settings.enterKey;
+    LOG("FN key %u Enter key %u\n", fnKey_, enterKey_);
 }
 
 void KeyHandler::check()
@@ -39,42 +39,56 @@ void KeyHandler::check()
     keyboard_->check();
 }
 
-void KeyHandler::onKeyUpRaw(uint8_t raw1, uint8_t raw2, uint8_t raw3)
+void KeyHandler::onKeyDown(uint8_t keyNum)
 {
-    LOG("Buttons up: %u %u %u\n", raw1, raw2, raw3);
-    bool isFnKey = raw1 == fnKey_ || raw2 == fnKey_ || raw3 == fnKey_;
-    bool isEnterKey = raw1 == enterKey_ || raw2 == enterKey_ || raw3 == enterKey_;
-    if (isFnKey && isEnterKey) {
-        switchLang();
+    LOG("Button down: %u\n", keyNum);
+
+    if (keyNum == fnKey_) {
+        fnKeyPressed_ = true;
+        fnKeyHandled_ = false;
     }
-    else if (isFnKey) {
-        if (raw1 == fnKey_) {
-            handleSymbol(keyMap_->altSymbol(raw2));
-        }
-        else {
-            handleSymbol(keyMap_->altSymbol(raw1));
-        }
+    else if (fnKeyPressed_ && keyNum == enterKey_) {
+        switchLang();
+        fnKeyHandled_ = true;
+    }
+    else if (fnKeyPressed_) {
+        handleSymbol(keyMap_->altSymbol(keyNum));
+        fnKeyHandled_ = true;
     }
     else {
-        handleSymbol(keyMap_->symbol(raw1));
+        handleSymbol(keyMap_->symbol(keyNum));
+        fnKeyHandled_ = false;
+    }
+}
+
+void KeyHandler::onKeyUp(uint8_t keyNum)
+{
+    LOG("Button up: %u\n", keyNum);
+
+    if (keyNum == fnKey_) {
+        fnKeyPressed_ = false;
+        if (!fnKeyHandled_) {
+            handleCommand(KeyCommand::Escape); 
+        }
     }
 }
 
 void KeyHandler::handleSymbol(uint16_t symbol)
 {
     switch (symbol) {
-    case 0                  : return;
-    case KEY_CODE_BACKSPACE : handleCommand(KeyCommand::Backspace);    return;
-    case KEY_CODE_ENTER     : handleCommand(KeyCommand::Enter);        return;
-    case KEY_CODE_LEFT      : handleCommand(KeyCommand::Left);         return;
-    case KEY_CODE_RIGHT     : handleCommand(KeyCommand::Right);        return;
-    case KEY_CODE_UP        : handleCommand(KeyCommand::Up);           return;
-    case KEY_CODE_DOWN      : handleCommand(KeyCommand::Down);         return;
+    case 0                 : return;
+    case KEY_CODE_BACKSPACE: handleCommand(KeyCommand::Backspace);    return;
+    case KEY_CODE_ENTER    : handleCommand(KeyCommand::Enter);        return;
+    case KEY_CODE_LEFT     : handleCommand(KeyCommand::Left);         return;
+    case KEY_CODE_RIGHT    : handleCommand(KeyCommand::Right);        return;
+    case KEY_CODE_UP       : handleCommand(KeyCommand::Up);           return;
+    case KEY_CODE_DOWN     : handleCommand(KeyCommand::Down);         return;
+    case KEY_CODE_FN       : handleCommand(KeyCommand::Escape);       return;
     }
 
 #if DEBUG_MODE == 1
     std::string str = utils::to_str(symbol);
-    LOG("char: %s (0x%04X)\n", str.c_str(), symbol);
+    LOG("char: '%s' (0x%04X)\n", str.c_str(), symbol);
 #endif
     onChar_(symbol);
 }
@@ -96,12 +110,10 @@ void KeyHandler::switchLang()
 void KeyHandler::setLanguage(Language lang)
 {
     LOG("Set language to %s\n", lang2str(lang));
-    if (keyMap_ != nullptr) {
-        delete keyMap_;
-    }
+
     switch (lang) {
-    case Language::English: keyMap_ = new KeyMapEng(); break;
-    default: keyMap_ = new KeyMapRus(); break;
+    case Language::English: keyMap_ = std::make_unique<KeyMapEng>(); break;
+    default: keyMap_ = std::make_unique<KeyMapRus>(); break;
     }
 }
 

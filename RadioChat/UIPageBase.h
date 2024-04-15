@@ -13,9 +13,9 @@ class UIPageBase
 public:
     UIPageBase(UIPageType type, const UISettings& settings, Display* display);
     virtual ~UIPageBase();
-    virtual void draw() = 0;
-    virtual void onKeyUp(uint16_t symbol) = 0;
-    virtual void onKeyCommand(KeyCommand cmd) = 0;
+    virtual void draw();
+    virtual void onChar(uint16_t symbol);
+    virtual void onKeyCommand(KeyCommand cmd);
 
 protected:
     void drawText(uint8_t x, uint8_t y, const std::string& str);

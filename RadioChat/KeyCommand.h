@@ -8,7 +8,8 @@ enum class KeyCommand
     Left,
     Right,
     Up,
-    Down
+    Down,
+    Escape
 };
 
 const char* key_cmd_2_str(KeyCommand cmd);
