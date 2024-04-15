@@ -49,7 +49,7 @@ void UIPageTypingMessage::onChar(uint16_t symbol)
     }
 
     if (len+1 >= maxLen) {
-        if (typingMessage_.size() <= getMaxCountLines()) {
+        if (typingMessage_.size() < getMaxCountLines()) {
             LOG("New line\n");
             typingMessage_.emplace_back();
         }
