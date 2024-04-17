@@ -2,6 +2,7 @@
 #include "Display.h"
 #include "UIPageChat.h"
 #include "UIPageTypingMessage.h"
+#include "Logger.h"
 
 UI::UI()
 {
@@ -13,6 +14,7 @@ UI::~UI()
 
 void UI::init(const UISettings& settings, Display* display)
 {
+    LOG("Initialize UI\n");
     display_ = display;
     currentPage_ = std::make_unique<UIPageTypingMessage>(settings, display_);
 }

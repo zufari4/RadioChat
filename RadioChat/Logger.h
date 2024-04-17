@@ -6,11 +6,7 @@
 
 #include "Utils.h"
 #include <HardwareSerial.h>
-#define INIT_LOG() {                                        \
-                        Serial.begin(SERIAL_BAUDRATE);      \	
-	                    delay(5000);                        \
-                        Serial.printf("\nInit log\n");      \
-                    }
+#define INIT_LOG() { Serial.begin(SERIAL_BAUDRATE); delay(5000); Serial.printf("\nInit log\n"); }
 #define LOG(...) { Serial.printf("%s: ", utils::currentDateTime()); Serial.printf(__VA_ARGS__); }
 
 #else

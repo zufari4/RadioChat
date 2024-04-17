@@ -19,6 +19,8 @@ Keyboard::~Keyboard()
 
 void Keyboard::init(const KeyboardSettings& settings, KeyCallback onKeyDown, KeyCallback onKeyUp)
 {
+    LOG("Initialize keyboard\n");
+
     settings_  = settings_;
     onKeyDown_ = onKeyDown;
     onKeyUp_   = onKeyUp;

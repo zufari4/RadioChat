@@ -8,6 +8,7 @@ class Settings;
 class KeyHandler;
 class WiFiModule;
 class Display;
+class Radio;
 class UI;
 
 class RadioChat
@@ -26,5 +27,6 @@ private:
     KeyHandler* keyHandler_;
     WiFiModule* wifi_;
     Display*    display_;
+    Radio*      radio_;
     UI*         ui_;
 };

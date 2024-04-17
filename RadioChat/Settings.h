@@ -4,6 +4,7 @@
 #include "WiFiSettings.h"
 #include "DisplaySettings.h"
 #include "UISettings.h"
+#include "RadioSettings.h"
 #include <string>
 
 class Settings
@@ -15,6 +16,7 @@ public:
     WiFiSettings wifi();
     DisplaySettings display();
     UISettings ui();
+    RadioSettings radio();
     
 private:
     const std::string& filename_;

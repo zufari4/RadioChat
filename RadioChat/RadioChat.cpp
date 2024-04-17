@@ -5,6 +5,7 @@
 #include "KeyHandler.h"
 #include "WiFi.h"
 #include "Display.h"
+#include "Radio.h"
 #include "UI.h"
 
 RadioChat::RadioChat()
@@ -12,6 +13,7 @@ RadioChat::RadioChat()
     , keyHandler_(nullptr)
     , wifi_(nullptr)
     , display_(nullptr)
+    , radio_(nullptr)
     , ui_(nullptr)
 {
 
@@ -31,7 +33,8 @@ void RadioChat::init()
     wifi_       = new WiFiModule();
     display_    = new Display();
     ui_         = new UI();
-
+    radio_      = new Radio();
+    
     KeyboardSettings kbSettings = settings_->keyboard();
     keyHandler_->init(kbSettings, 
                       std::bind(&RadioChat::onChar, this, std::placeholders::_1), 
@@ -42,6 +45,9 @@ void RadioChat::init()
 
     DisplaySettings dispSettings = settings_->display();
     display_->init(dispSettings);
+
+    RadioSettings radioSettings = settings_->radio();
+    radio_->init(radioSettings);
 
     UISettings uiSettings = settings_->ui();
     ui_->init(uiSettings, display_);

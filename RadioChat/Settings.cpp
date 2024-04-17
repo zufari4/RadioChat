@@ -37,3 +37,10 @@ UISettings Settings::ui()
     UISettings res;
     return res;
 }
+
+RadioSettings Settings::radio()
+{
+    LOG("Loading radio settings\n");
+    RadioSettings res;
+    return res;
+}
