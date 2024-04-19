@@ -1,24 +1,27 @@
+#include <stdint.h>
 #pragma once
 
 #include "RadioSettings.h"
-#include "RadioDef.h"
+#include "Lora.h"
 
 class Radio
 {
 public:
     Radio();
     ~Radio();
-    bool init(const RadioSettings& settings);
+    void init(const RadioSettings& settings);
+    bool isInit() const;
 
 private:
-    bool setMode(RadioDef::RadioMode mode);
+    bool setMode(Lora::Mode mode);
     bool waitReady();
     bool isReady();
-    bool getConfiguration(RadioDef::Configuration& out);
-    bool writeProgramCommand(RadioDef::PROGRAM_COMMAND cmd, RadioDef::REGISTER_ADDRESS addr, RadioDef::PACKET_LENGHT pl);
-    bool receiveData(void *out, uint8_t dataSize);
-    void traceConfig(const RadioDef::Configuration& cfg) const;
+    bool getConfiguration(Lora::Configuration& out);
+    bool writeProgramCommand(Lora::PROGRAM_COMMAND cmd, Lora::REGISTER_ADDRESS addr, Lora::PACKET_LENGHT pl);
+    bool readData(void* out, uint8_t dataSize);
+    void traceConfig(const Lora::Configuration& cfg) const;
 
     RadioSettings settings_;
-    RadioDef::RadioMode currentMode_;
+    Lora::Mode currentMode_;
+    bool isInit_;
 };

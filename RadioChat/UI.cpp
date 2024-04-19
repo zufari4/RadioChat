@@ -14,7 +14,7 @@ UI::~UI()
 
 void UI::init(const UISettings& settings, Display* display)
 {
-    LOG("Initialize UI\n");
+    LOG("-- Initialize UI --\n");
     display_ = display;
     currentPage_ = std::make_unique<UIPageTypingMessage>(settings, display_);
 }

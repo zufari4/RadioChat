@@ -1,6 +1,6 @@
 #include "WiFi.h"
 #include "Logger.h"
-#include <ESP8266WiFi.h>
+#include <WiFi.h>
 
 WiFiModule::WiFiModule()
 {
@@ -12,9 +12,9 @@ WiFiModule::~WiFiModule()
 
 void WiFiModule::init(const WiFiSettings& settings)
 {
-    LOG("Initialize Wi-Fi\n");
+    LOG("-- Initialize Wi-Fi --\n");
     if (!settings.enable) {
-        WiFiMode(WIFI_STA);
+        //WiFiMode(WIFI_STA);
         WiFi.disconnect(); 
         WiFi.mode(WIFI_OFF);
     }

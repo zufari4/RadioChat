@@ -5,7 +5,6 @@
 #include <functional>
 #include <map>
 #include <string>
-#include "c_types.h"
 #include <stdint.h>
 #include <memory>
 
