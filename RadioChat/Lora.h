@@ -225,5 +225,6 @@ const char* rssi_enable_str(uint8_t rssiEnable);
 const char* repeater_enable_str(uint8_t repeaterEnable);
 const char* fixed_transmiss_str(uint8_t fixedTrans);
 const char* transmission_power_str(uint8_t power);
+uint16_t get_address(const Configuration& cfg);
 
 } // namespace Lora

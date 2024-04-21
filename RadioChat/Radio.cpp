@@ -21,7 +21,7 @@ void Radio::init(const RadioSettings& settings)
 
     settings_ = settings;
     LOG("RX %u TX %u AUX %u M0 %u M1 %u\n", settings_.pins.RX, settings_.pins.TX, settings_.pins.AUX, settings_.pins.M0, settings_.pins.M1);
-    LOG("channel %u address %u speed %u\n", settings_.channel, settings_.address, settings_.speed);
+    LOG("channel %u address %u\n", settings_.channel, settings_.address);
     LOG("baudrate %u timeout %u parity %u\n", settings_.uart.baudrate, settings_.uart.timeoutMs, settings_.uart.parity);
     
     LOG("Setup pins\n");
@@ -45,13 +45,94 @@ void Radio::init(const RadioSettings& settings)
         return;
     }
     traceConfig(cfg);
-
+    if (settings_.channel != cfg.chan) {
+        if (!setChannel(cfg.chan)) {
+            return;
+        }
+    }
+    if (settings_.address != Lora::get_address(cfg)) {
+        if (!setAddress(settings_.address)) {
+            return;
+        }
+    }
     isInit_ = setMode(Lora::Mode::Transfer);
 }
 
 bool Radio::isInit() const
 {
     return isInit_;
+}
+
+bool Radio::setChannel(uint8_t channel)
+{
+    LOG("Set channel %u\n", channel);
+    auto setter = [channel](Lora::Configuration& cfg) 
+    {
+        cfg.chan = channel;
+    };
+    if (!setConfiguration(setter)) {
+        LOG("Can't set channel\n");
+        return false;
+    } 
+    return true;
+}
+
+bool Radio::setAddress(uint16_t addr)
+{
+    LOG("Set address %u\n", addr);
+    auto setter = [addr](Lora::Configuration& cfg) 
+    {
+        cfg.addh = (addr>>8) & 0xff;
+        cfg.addl = addr & 0xff;
+    };
+    if (!setConfiguration(setter)) {
+        LOG("Can't set address\n");
+        return false;
+    } 
+    return true;
+}
+
+bool Radio::setConfiguration(std::function<void(Lora::Configuration& cfg)> setter)
+{
+    Lora::Mode prevMode = currentMode_;
+    bool res = false;
+
+    do {
+        if (!setMode(Lora::Mode::Configuration)) {
+            break;
+        }
+        Lora::Configuration cfg;
+        if (!getConfiguration(cfg)) {
+            break;
+        }
+
+        cfg.command = Lora::PROGRAM_COMMAND::WRITE_CFG_PWR_DWN_SAVE;
+        cfg.address = Lora::REGISTER_ADDRESS::REG_ADDRESS_CFG;
+        cfg.length  = Lora::PACKET_LENGHT::PL_CONFIGURATION;
+
+        setter(cfg);
+
+        if (!writeData(&cfg, sizeof(Lora::Configuration))) {
+            break;
+        }
+        if (!readData(&cfg, sizeof(Lora::Configuration))) {
+            break;
+        }
+        if (Lora::PROGRAM_COMMAND::WRONG_FORMAT == cfg.command) {
+		    LOG("Wrong format\n");
+            break;
+        }
+        if (Lora::PROGRAM_COMMAND::RETURNED_COMMAND != cfg.command || 
+            Lora::REGISTER_ADDRESS::REG_ADDRESS_CFG != cfg.address || 
+            Lora::PACKET_LENGHT::PL_CONFIGURATION   != cfg.length) {
+            LOG("Head is not recognized\n");
+		    break;
+	    }
+        res = true;
+    } while (false);
+
+    res = setMode(prevMode) && res;
+    return res;
 }
 
 bool Radio::getConfiguration(Lora::Configuration& out)
@@ -84,9 +165,10 @@ bool Radio::getConfiguration(Lora::Configuration& out)
 		    break;
 	    }
         out = cfg;
+        res = true;
 	} while(false);
 
-    return setMode(prevMode);
+    return setMode(prevMode) && res;
 }
 
 bool Radio::isReady()
@@ -114,6 +196,9 @@ bool Radio::waitReady()
 bool Radio::setMode(Lora::Mode mode)
 {
     if (mode == Lora::Mode::Undefined) {
+        return true;
+    }
+    if (currentMode_ == mode) {
         return true;
     }
     LOG("Set radio mode: %s\n", radio_mode_str(mode));
@@ -149,20 +234,47 @@ bool Radio::setMode(Lora::Mode mode)
     if (!res) {
         LOG("Can't wait status of set mode\n");
     }
+
+    currentMode_ = mode;
     return res;
 }
 
 bool Radio::writeProgramCommand(Lora::PROGRAM_COMMAND cmd, Lora::REGISTER_ADDRESS addr, Lora::PACKET_LENGHT pl)
 {
+    LOG("Write command\n"); 
 	uint8_t data[3] = {(uint8_t)cmd, (uint8_t)addr, (uint8_t)pl};
-    LOG("Write command --> %02X %02X %02X\n", data[0], data[1], data[2]);
-
-	uint8_t size = Serial2.write(data, 3);
-    delay(50);  //need ti check
-    if (size != 3) {
-        LOG("Wrong size of write command: %u\n", size);
+    if (!writeData(data, 3)) {
+        LOG("Can't write command\n");
+        return false;
     }
-	return size == 3;
+    return true;
+}
+
+bool Radio::writeData(void* data, uint8_t dataSize)
+{
+    uint8_t* ptr = (uint8_t*)data;
+    if (dataSize > 0) {
+        LOGX("--> ");
+        for (uint8_t i = 0; i < dataSize; ++i) {
+            LOGX("%02X ", ptr[i]);
+        }
+        LOGX("\n");
+    }
+	uint8_t size = Serial2.write(ptr, dataSize);
+    //delay(50);  //need ti check
+    if (size != dataSize) {
+        LOG("Wrong size of write data: %u\n", size);
+        return false;
+    }
+	else if (size == dataSize) {
+        if (!waitReady()) {
+            return false;
+        }
+        //while (Serial2.available()) {
+        //    Serial2.read();
+        //}
+        return true;
+    }
 }
 
 bool Radio::readData(void* out, uint8_t dataSize) 

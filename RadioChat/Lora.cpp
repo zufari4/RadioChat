@@ -7,6 +7,11 @@ namespace Lora
 #define ENABLED_STR "Enabled"
 #define DISABLED_STR "Disabled"
 
+uint16_t get_address(const Configuration& cfg)
+{
+    return ((uint16_t)cfg.addh << 8) | cfg.addl;
+}
+
 const char* radio_mode_str(Mode mode)
 {
     switch (mode)
