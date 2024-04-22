@@ -18,7 +18,7 @@ struct RadioSettings // Lora E22-400T33D
     struct UART
     {
         uint32_t baudrate = 9600;
-        uint16_t timeoutMs= 100;
+        uint16_t timeoutMs= 1000;
         uint32_t parity = SERIAL_8N1;
     } uart;
 };

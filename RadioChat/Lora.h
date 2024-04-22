@@ -3,6 +3,8 @@
 #include <stdint.h>
 #include <string>
 
+#define BROADCAST_ADDRESS 0xFFFF
+
 namespace Lora
 {
 enum class PROGRAM_COMMAND: uint8_t
@@ -225,6 +227,8 @@ const char* rssi_enable_str(uint8_t rssiEnable);
 const char* repeater_enable_str(uint8_t repeaterEnable);
 const char* fixed_transmiss_str(uint8_t fixedTrans);
 const char* transmission_power_str(uint8_t power);
+uint16_t get_address(uint8_t addrh, uint8_t addrl);
 uint16_t get_address(const Configuration& cfg);
-
+uint8_t get_addr_h(uint16_t addr);
+uint8_t get_addr_l(uint16_t addr);
 } // namespace Lora

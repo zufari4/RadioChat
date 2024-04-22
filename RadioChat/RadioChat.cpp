@@ -32,13 +32,15 @@ void RadioChat::init()
     keyHandler_ = new KeyHandler();
     wifi_       = new WiFiModule();
     display_    = new Display();
-    ui_         = new UI();
     radio_      = new Radio();
+    ui_         = new UI();
     
+    using namespace std::placeholders;
+
     KeyboardSettings kbSettings = settings_->keyboard();
     keyHandler_->init(kbSettings, 
-                      std::bind(&RadioChat::onChar, this, std::placeholders::_1), 
-                      std::bind(&RadioChat::onKeyCommand, this, std::placeholders::_1));
+                      std::bind(&RadioChat::onChar, this, _1), 
+                      std::bind(&RadioChat::onKeyCommand, this, _1));
 
     WiFiSettings wifiSettings = settings_->wifi();
     wifi_->init(wifiSettings);
@@ -47,7 +49,10 @@ void RadioChat::init()
     display_->init(dispSettings);
 
     RadioSettings radioSettings = settings_->radio();
-    radio_->init(radioSettings);
+    radio_->init(radioSettings,
+                 std::bind(&RadioChat::onNewMessage, this, _1, _2), 
+                 std::bind(&RadioChat::onMessageDelivery, this, _1, _2),
+                 std::bind(&RadioChat::onPingDone, this, _1, _2));
 
     UISettings uiSettings = settings_->ui();
     ui_->init(uiSettings, display_);
@@ -55,6 +60,7 @@ void RadioChat::init()
 
 void RadioChat::loop()
 {
+    radio_->check();
     keyHandler_->check();
     ui_->draw();
 }
@@ -67,4 +73,19 @@ void RadioChat::onChar(uint16_t symbol)
 void RadioChat::onKeyCommand(KeyCommand cmd)
 {
     ui_->onKeyCommand(cmd);
+}
+
+void RadioChat::onNewMessage(const std::string& text, uint8_t msgID)
+{
+
+}
+
+void RadioChat::onMessageDelivery(uint16_t dest, uint8_t msgID)
+{
+
+}
+
+void RadioChat::onPingDone(uint16_t address, uint32_t delay)
+{
+
 }

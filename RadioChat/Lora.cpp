@@ -7,9 +7,24 @@ namespace Lora
 #define ENABLED_STR "Enabled"
 #define DISABLED_STR "Disabled"
 
+uint16_t get_address(uint8_t addrh, uint8_t addrl)
+{
+    return ((uint16_t)addrh << 8) | addrl;
+}
+
 uint16_t get_address(const Configuration& cfg)
 {
-    return ((uint16_t)cfg.addh << 8) | cfg.addl;
+    return get_address(cfg.addh, cfg.addl);
+}
+
+uint8_t get_addr_h(uint16_t addr)
+{
+    return (addr>>8) & 0xff;
+}
+
+uint8_t get_addr_l(uint16_t addr)
+{
+    return addr & 0xff;
 }
 
 const char* radio_mode_str(Mode mode)
@@ -27,7 +42,7 @@ const char* radio_mode_str(Mode mode)
 
 std::string channel_str(uint8_t channel)
 {
-    return std::to_string(channel + 410) + "MHz";
+    return std::to_string(channel + 410) + ".125 MHz";
 }
 
 const char* parity_str(uint8_t parity)
@@ -46,14 +61,14 @@ const char* bps_type_str(uint8_t bpsType)
 {
     switch ((UART_BPS_TYPE)bpsType)
     {
-    case UART_BPS_TYPE::e1200  : return "1200";
-    case UART_BPS_TYPE::e2400  : return "2400";
-    case UART_BPS_TYPE::e4800  : return "4800";
-    case UART_BPS_TYPE::e9600  : return "9600";
-    case UART_BPS_TYPE::e19200 : return "19200";
-    case UART_BPS_TYPE::e38400 : return "38400";
-    case UART_BPS_TYPE::e57600 : return "57600";
-    case UART_BPS_TYPE::e115200: return "115200";
+    case UART_BPS_TYPE::e1200  : return "1200 bps";
+    case UART_BPS_TYPE::e2400  : return "2400 bps";
+    case UART_BPS_TYPE::e4800  : return "4800 bps";
+    case UART_BPS_TYPE::e9600  : return "9600 bps";
+    case UART_BPS_TYPE::e19200 : return "19200 bps";
+    case UART_BPS_TYPE::e38400 : return "38400 bps";
+    case UART_BPS_TYPE::e57600 : return "57600 bps";
+    case UART_BPS_TYPE::e115200: return "115200 bps";
     default: return INVALID;
     }
 }
