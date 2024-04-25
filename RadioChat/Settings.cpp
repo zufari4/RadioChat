@@ -44,3 +44,17 @@ RadioSettings Settings::radio()
     RadioSettings res;
     return res;
 }
+
+LedSettings Settings::led()
+{
+    LOG("Loading led indicator settings\n");
+    LedSettings res;
+    return res;
+}
+
+FlashSettings Settings::flash()
+{
+    LOG("Loading flash settings\n");
+    FlashSettings res;
+    return res;
+}

@@ -6,7 +6,9 @@
 #include "WiFi.h"
 #include "Display.h"
 #include "Radio.h"
+#include "LedIndicator.h"
 #include "UI.h"
+#include "Flash.h"
 
 RadioChat::RadioChat()
     : settings_(nullptr)
@@ -15,6 +17,8 @@ RadioChat::RadioChat()
     , display_(nullptr)
     , radio_(nullptr)
     , ui_(nullptr)
+    , ledIndicator_(nullptr)
+    , flash_(nullptr)
 {
 
 }
@@ -29,12 +33,14 @@ void RadioChat::init()
     INIT_LOG();
 
     settings_   = new Settings(SETTINGS_FILENAME);
+    flash_      = new Flash();
     keyHandler_ = new KeyHandler();
     wifi_       = new WiFiModule();
     display_    = new Display();
     radio_      = new Radio();
     ui_         = new UI();
-    
+    ledIndicator_ = new LedIndicator();
+
     using namespace std::placeholders;
 
     KeyboardSettings kbSettings = settings_->keyboard();
@@ -54,6 +60,12 @@ void RadioChat::init()
                  std::bind(&RadioChat::onMessageDelivery, this, _1, _2),
                  std::bind(&RadioChat::onPingDone, this, _1, _2));
 
+    LedSettings ledSettings = settings_->led();
+    ledIndicator_->init(ledSettings);
+
+    FlashSettings flashSettings = settings_->flash();
+    flash_->init(flashSettings);
+
     UISettings uiSettings = settings_->ui();
     ui_->init(uiSettings, display_);
 }
@@ -62,6 +74,7 @@ void RadioChat::loop()
 {
     radio_->check();
     keyHandler_->check();
+    ledIndicator_->check();
     ui_->draw();
 }
 

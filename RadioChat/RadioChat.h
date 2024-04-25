@@ -9,6 +9,8 @@ class KeyHandler;
 class WiFiModule;
 class Display;
 class Radio;
+class LedIndicator;
+class Flash;
 class UI;
 
 class RadioChat
@@ -26,10 +28,12 @@ private:
     void onMessageDelivery(uint16_t dest, uint8_t msgID);
     void onPingDone(uint16_t address, uint32_t delay);
     
-    Settings*   settings_;
-    KeyHandler* keyHandler_;
-    WiFiModule* wifi_;
-    Display*    display_;
-    Radio*      radio_;
-    UI*         ui_;
+    Settings*     settings_;
+    KeyHandler*   keyHandler_;
+    WiFiModule*   wifi_;
+    Display*      display_;
+    Radio*        radio_;
+    UI*           ui_;
+    LedIndicator* ledIndicator_;
+    Flash*        flash_;
 };
