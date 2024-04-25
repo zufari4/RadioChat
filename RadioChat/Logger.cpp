@@ -5,6 +5,7 @@
 
 Logger::Logger()
     : flash_(nullptr)
+    , isInit_(false)
 {
 }
 
@@ -19,12 +20,14 @@ void Logger::init(const LoggerSettings& settings, Flash* flash)
 
     if (settings_.level != LogTraceLevel::None) {
         if (settings_.logToSerial) {
-            Serial.begin(settings_.serialBuadrate);
+            Serial.begin(9600);
             delay(4000); 
-            Serial.printf("\nSerial initialized");
+            Serial.printf("\nSerial initialized\n");
         }
         buffer_.resize(settings_.maxMessageSize + 25); // + date time
     }
+
+    isInit_ = true;
 }
 
 Logger& Logger::instance()
@@ -35,15 +38,18 @@ Logger& Logger::instance()
 
 void Logger::log(LogTraceLevel level, const char* format, ...)
 {
+    if (!isInit_) 
+        return;
     if ((uint8_t)level > (uint8_t)settings_.level) 
         return;
 
     char* dst = buffer_.data();
-    uint8_t dt_size = utils::datetime_str(dst, buffer_.size());
+    uint8_t offset = utils::datetime_str(dst, buffer_.size());
+    dst[offset++] = ' ';
 
     va_list arglist;
     va_start(arglist, format);
-    vsnprintf(dst + dt_size, buffer_.size() - dt_size, format, arglist);
+    vsnprintf(dst + offset, buffer_.size() - offset, format, arglist);
     va_end(arglist);
 
     if (settings_.logToSerial) 

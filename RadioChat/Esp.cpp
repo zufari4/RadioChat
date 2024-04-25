@@ -22,7 +22,7 @@ void Esp::init(const EspSettings& settings)
     else {
         WiFi.begin(settings_.wifi.ssid.c_str(), settings_.wifi.pass.c_str());
     }
-    LOG_INF("Wi-Fi module is %s\n", settings_.wifi.enable ? "enabled" : "disabled");
+    LOG_INF("Wi-Fi module is %s", settings_.wifi.enable ? "enabled" : "disabled");
 
     if (!settings_.bluethoose.enable) {
         btStop();

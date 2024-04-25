@@ -27,8 +27,8 @@ void Keyboard::init(const KeyboardSettings& settings, KeyCallback onKeyDown, Key
         state_[key] = KeyState::Release;
     }
 
-    LOG_INF("SH %u INH %u CLK %u QH %u\n", settings_.pins.SH_LD, settings_.pins.INH, settings_.pins.CLK, settings_.pins.QH);
-    LOG_INF("maxKeyNum %u countRegisters %u\n", settings_.maxKeyNum, settings_.countRegisters);
+    LOG_DBG("SH %u INH %u CLK %u QH %u", settings_.pins.SH_LD, settings_.pins.INH, settings_.pins.CLK, settings_.pins.QH);
+    LOG_DBG("maxKeyNum %u countRegisters %u", settings_.maxKeyNum, settings_.countRegisters);
 
     pinMode(settings_.pins.SH_LD, OUTPUT);
     pinMode(settings_.pins.INH, OUTPUT);

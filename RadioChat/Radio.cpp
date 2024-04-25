@@ -26,9 +26,9 @@ void Radio::init(const RadioSettings& settings, OnNewMessageCallback onNewMessag
     onMessageDelivered_ = onMessageDelivered;
     onPingDone_ = onPingDone;
 
-    LOG_INF("RX %u TX %u AUX %u M0 %u M1 %u\n", settings_.pins.RX, settings_.pins.TX, settings_.pins.AUX, settings_.pins.M0, settings_.pins.M1);
-    LOG_INF("channel %u address %u\n", settings_.channel, settings_.address);
-    LOG_INF("baudrate %u timeout %u parity %u\n", settings_.uart.baudrate, settings_.uart.timeoutMs, settings_.uart.parity);
+    LOG_DBG("RX %u TX %u AUX %u M0 %u M1 %u", settings_.pins.RX, settings_.pins.TX, settings_.pins.AUX, settings_.pins.M0, settings_.pins.M1);
+    LOG_INF("channel %u address %u", settings_.channel, settings_.address);
+    LOG_DBG("baudrate %u timeout %u parity %u", settings_.uart.baudrate, settings_.uart.timeoutMs, settings_.uart.parity);
     
     LOG_INF("Setup pins");
     pinMode(settings_.pins.AUX, INPUT);
@@ -47,7 +47,7 @@ void Radio::init(const RadioSettings& settings, OnNewMessageCallback onNewMessag
     
     Lora::Configuration cfg;
     if (!getConfiguration(cfg)) {
-        LOG_INF("Can't get radio configuration");
+        LOG_ERR("Can't get radio configuration");
         return;
     }
     traceConfig(cfg);
@@ -77,7 +77,7 @@ bool Radio::setChannel(uint8_t channel)
         cfg.chan = channel;
     };
     if (!setConfiguration(setter)) {
-        LOG_INF("Can't set channel");
+        LOG_ERR("Can't set channel");
         return false;
     } 
     return true;
@@ -92,7 +92,7 @@ bool Radio::setAddress(uint16_t addr)
         cfg.addl = addr & 0xff;
     };
     if (!setConfiguration(setter)) {
-        LOG_INF("Can't set address");
+        LOG_ERR("Can't set address");
         return false;
     } 
     return true;
@@ -143,7 +143,7 @@ bool Radio::setConfiguration(std::function<void(Lora::Configuration& cfg)> sette
 
 bool Radio::getConfiguration(Lora::Configuration& out)
 {
-    LOG_ERR("Get configuration");
+    LOG_INF("Get configuration");
     Lora::Mode prevMode = currentMode_;
     bool res = false;
 
@@ -161,13 +161,13 @@ bool Radio::getConfiguration(Lora::Configuration& out)
             break;
         }
         if (Lora::PROGRAM_COMMAND::WRONG_FORMAT == cfg.command) {
-		    LOG_INF("Wrong format");
+		    LOG_ERR("Wrong format");
             break;
         }
         if (Lora::PROGRAM_COMMAND::RETURNED_COMMAND != cfg.command || 
             Lora::REGISTER_ADDRESS::REG_ADDRESS_CFG != cfg.address || 
             Lora::PACKET_LENGHT::PL_CONFIGURATION   != cfg.length) {
-            LOG_INF("Head is not recognized");
+            LOG_ERR("Head is not recognized");
 		    break;
 	    }
         out = cfg;
@@ -189,7 +189,7 @@ bool Radio::waitReady()
         yield();
     }
     if (millis() >= timeout) {
-        LOG_INF("Timeout of wait AUX ready");
+        LOG_ERR("Timeout of wait AUX ready");
         return false;
     }
     else {
@@ -210,15 +210,15 @@ void Radio::check()
     RadioCommand cmd;
 
     if (!readData(&sender_addh, 1, false)) {
-        LOG_INF("Can't read sender_addh");
+        LOG_ERR("Can't read sender_addh");
         return;
     }
     if (!readData(&sender_addl, 1, false)) {
-        LOG_INF("Can't read sender_addl");
+        LOG_ERR("Can't read sender_addl");
         return;
     }
     if (!readData(&cmd, 1, false)) {
-        LOG_INF("Can't read cmd");
+        LOG_ERR("Can't read cmd");
         return;
     }
     uint16_t sender = Lora::get_address(sender_addh, sender_addl);
@@ -239,24 +239,24 @@ void Radio::check()
         LOG_INF("Radio: receive message delivered");
         uint8_t msgID;
         if (readData(&msgID, 1)) {
-            LOG_INF("Radio: delivered %u\n", msgID);
+            LOG_INF("Radio: delivered %u", msgID);
             onMessageDelivered_(sender, msgID);
         }   
         break;
     }
     case RadioCommand::Ping: {
-        LOG_INF("Radio: receive ping from %u\n", sender);
+        LOG_INF("Radio: receive ping from %u", sender);
         sendPingDelivered(sender);
         break;
     }
     case RadioCommand::PingDelivered: {
         uint32_t delay = millis() - startPing_[sender];
-        LOG_INF("Radio: ping delivered from %u delay %u\n", sender, delay);
+        LOG_INF("Radio: ping delivered from %u delay %u", sender, delay);
         onPingDone_(sender, delay);
         break;
     }
     default: {
-        LOG_INF("Radio: Unknown command %u", (uint8_t)cmd);
+        LOG_ERR("Radio: Unknown command %u", (uint8_t)cmd);
         break;
     }
     }
@@ -270,7 +270,7 @@ bool Radio::setMode(Lora::Mode mode)
     if (currentMode_ == mode) {
         return true;
     }
-    LOG_INF("Set radio mode: %s\n", radio_mode_str(mode));
+    LOG_INF("Set radio mode: %s", radio_mode_str(mode));
 
     // data sheet claims module needs some extra time after mode setting (2ms)
 	// most of my projects uses 10 ms, but 40ms is safer
@@ -301,7 +301,7 @@ bool Radio::setMode(Lora::Mode mode)
 	delay(40);
 	bool res = waitReady();
     if (!res) {
-        LOG_INF("Can't wait status of set mode");
+        LOG_ERR("Can't wait status of set mode");
     }
 
     currentMode_ = mode;
@@ -313,7 +313,7 @@ bool Radio::writeProgramCommand(Lora::PROGRAM_COMMAND cmd, Lora::REGISTER_ADDRES
     LOG_INF("Write command"); 
 	uint8_t data[3] = {(uint8_t)cmd, (uint8_t)addr, (uint8_t)pl};
     if (!writeData(data, 3)) {
-        LOG_INF("Can't write command");
+        LOG_ERR("Can't write command");
         return false;
     }
     return true;
@@ -361,23 +361,23 @@ bool Radio::readData(void* out, uint8_t dataSize, bool needWaitReady /*= true*/)
 
 void Radio::traceConfig(const Lora::Configuration& cfg) const
 {
-	LOG_INF("HEAD: %02X %02X %02X\n", (uint8_t)cfg.command, (uint8_t)cfg.address, (uint8_t)cfg.length);
-	LOG_INF("AddH : %02X\n", cfg.addh);  
-	LOG_INF("AddL : %02X\n", cfg.addl);  
-	LOG_INF("NetID: %02X\n", cfg.netid); 
-	LOG_INF("Channel: %s\n", Lora::channel_str(cfg.chan).c_str());
-	LOG_INF("UART parity: %s\n", Lora::parity_str(cfg.speed.uartParity));
-	LOG_INF("UART baud rate: %s\n", Lora::bps_type_str(cfg.speed.uartBaudRate));
-    LOG_INF("Air data rate: %s\n", Lora::air_rate_str(cfg.speed.airDataRate));
-    LOG_INF("Subpacket size: %s\n", Lora::sub_pack_str(cfg.option.subPacketSetting));
-    LOG_INF("Transmission power: %s\n", Lora::transmission_power_str(cfg.option.transmissionPower));
-    LOG_INF("RSSI ambient noise: %s\n", Lora::rssi_noize_str(cfg.option.RSSIAmbientNoise));
-    LOG_INF("WOR period: %s\n", Lora::wor_period_str(cfg.transMode.WORPeriod));
-    LOG_INF("WOR control: %s\n", Lora::wor_control_str(cfg.transMode.WORTransceiverControl));
-    LOG_INF("LBT: %s\n", Lora::lbt_enable_str(cfg.transMode.enableLBT));
-    LOG_INF("RSSI: %s\n", Lora::rssi_enable_str(cfg.transMode.enableRSSI));
-    LOG_INF("Repeater mode: %s\n", Lora::repeater_enable_str(cfg.transMode.enableRepeater));
-    LOG_INF("Fixed mode: %s\n", Lora::fixed_transmiss_str(cfg.transMode.fixedTransmission));
+	LOG_DBG("HEAD: %02X %02X %02X", (uint8_t)cfg.command, (uint8_t)cfg.address, (uint8_t)cfg.length);
+	LOG_DBG("AddH : %02X", cfg.addh);  
+	LOG_DBG("AddL : %02X", cfg.addl);  
+	LOG_DBG("NetID: %02X", cfg.netid); 
+	LOG_DBG("Channel: %s", Lora::channel_str(cfg.chan).c_str());
+	LOG_DBG("UART parity: %s", Lora::parity_str(cfg.speed.uartParity));
+	LOG_DBG("UART baud rate: %s", Lora::bps_type_str(cfg.speed.uartBaudRate));
+    LOG_DBG("Air data rate: %s", Lora::air_rate_str(cfg.speed.airDataRate));
+    LOG_DBG("Subpacket size: %s", Lora::sub_pack_str(cfg.option.subPacketSetting));
+    LOG_DBG("Transmission power: %s", Lora::transmission_power_str(cfg.option.transmissionPower));
+    LOG_DBG("RSSI ambient noise: %s", Lora::rssi_noize_str(cfg.option.RSSIAmbientNoise));
+    LOG_DBG("WOR period: %s", Lora::wor_period_str(cfg.transMode.WORPeriod));
+    LOG_DBG("WOR control: %s", Lora::wor_control_str(cfg.transMode.WORTransceiverControl));
+    LOG_DBG("LBT: %s", Lora::lbt_enable_str(cfg.transMode.enableLBT));
+    LOG_DBG("RSSI: %s", Lora::rssi_enable_str(cfg.transMode.enableRSSI));
+    LOG_DBG("Repeater mode: %s", Lora::repeater_enable_str(cfg.transMode.enableRepeater));
+    LOG_DBG("Fixed mode: %s", Lora::fixed_transmiss_str(cfg.transMode.fixedTransmission));
 }
 
 void Radio::fillHeader(std::vector<uint8_t>& out, uint16_t destAddr, RadioCommand command)
@@ -434,16 +434,16 @@ uint8_t Radio::receiveText(std::string& text)
         return 0;
     }
     if (!readData(&msg_len, 1, false)) {
-        LOG_INF("Can't read msg_len %u\n", msg_id);
+        LOG_ERR("Can't read msg_len %u", msg_id);
         return 0;
     }
     std::vector<uint8_t> data(msg_len + 1, '\0');        
     if (!readData(data.data(), msg_len, true)) {
-        LOG_INF("Can't read msg %u\n", msg_id);
+        LOG_ERR("Can't read msg %u", msg_id);
         return 0;
     }
     text.assign(data.begin(), data.end());
-    LOG_INF("Receive '%s' %u\n", text.c_str(), msg_id);
+    LOG_INF("Receive '%s' %u", text.c_str(), msg_id);
     return msg_id;
 }
 
@@ -465,13 +465,13 @@ void Radio::sendDelivered(uint16_t sender, uint8_t msgID)
     data.push_back(msgID);
 
     if (!writeData(data.data(), data.size())) {
-        LOG_INF("Can't send delivered status");
+        LOG_ERR("Can't send delivered status");
     }
 }
 
 bool Radio::sendPing(uint16_t dest)
 {
-    LOG_INF("Send ping to %u\n", dest);
+    LOG_INF("Send ping to %u", dest);
     // byte dest ADDH
     // byte dest ADDL
     // byte CHAN
@@ -484,7 +484,7 @@ bool Radio::sendPing(uint16_t dest)
     fillHeader(data, dest, RadioCommand::Ping);
 
     if (!writeData(data.data(), data.size())) {
-        LOG_INF("Can't send ping");
+        LOG_ERR("Can't send ping");
         return false;
     }
 
@@ -493,7 +493,7 @@ bool Radio::sendPing(uint16_t dest)
 
 void Radio::sendPingDelivered(uint16_t sender)
 {
-    LOG_INF("Send ping delivered to %u\n", sender);
+    LOG_INF("Send ping delivered to %u", sender);
     // byte dest ADDH
     // byte dest ADDL
     // byte CHAN
@@ -506,7 +506,7 @@ void Radio::sendPingDelivered(uint16_t sender)
     fillHeader(data, sender, RadioCommand::PingDelivered);
 
     if (!writeData(data.data(), data.size())) {
-        LOG_INF("Can't send ping delivered");
+        LOG_ERR("Can't send ping delivered");
     }
 }
 

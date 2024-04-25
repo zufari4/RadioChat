@@ -23,4 +23,5 @@ private:
     LoggerSettings settings_;
     std::vector<char> buffer_;
     Flash* flash_;
+    bool isInit_;
 };

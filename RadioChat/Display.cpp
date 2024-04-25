@@ -31,9 +31,9 @@ void Display::init(const DisplaySettings& settings)
     u8g2_->setFontPosTop();
     u8g2_->setFontDirection(0);
 
-    LOG_INF("RS pin %u\n", settings.pins.RS);
-    LOG_INF("Display width %u height %u\n", getDisplayWidth(), getDisplayHeight());
-    LOG_INF("Max char width %u height %u\n", getMaxCharWidth(), getMaxCharHeight());
+    LOG_DBG("RS pin %u", settings.pins.RS);
+    LOG_DBG("Display width %u height %u", getDisplayWidth(), getDisplayHeight());
+    LOG_DBG("Max char width %u height %u", getMaxCharWidth(), getMaxCharHeight());
 }
 
 void Display::clear()
