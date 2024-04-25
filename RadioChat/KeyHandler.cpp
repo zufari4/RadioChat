@@ -22,7 +22,7 @@ KeyHandler::~KeyHandler()
 
 void KeyHandler::init(const KeyboardSettings& settings, CharCallback onChar, CmdCallback onCmd)
 {
-    LOG("-- Initialize keyboard --\n");
+    LOG_INF("-- Initialize keyboard --\n");
     onChar_ = onChar;
     onCmd_  = onCmd;
     auto keyDownCb = std::bind(&KeyHandler::onKeyDown, this, std::placeholders::_1);
@@ -32,7 +32,7 @@ void KeyHandler::init(const KeyboardSettings& settings, CharCallback onChar, Cmd
     setLanguage(settings.lang);
     fnKey_ = settings.fnKey;
     enterKey_ = settings.enterKey;
-    LOG("FN key %u Enter key %u\n", fnKey_, enterKey_);
+    LOG_INF("FN key %u Enter key %u\n", fnKey_, enterKey_);
 }
 
 void KeyHandler::check()
@@ -42,7 +42,7 @@ void KeyHandler::check()
 
 void KeyHandler::onKeyDown(uint8_t keyNum)
 {
-    LOG("Button down: %u\n", keyNum);
+    LOG_INF("Button down: %u\n", keyNum);
 
     if (keyNum == fnKey_) {
         fnKeyPressed_ = true;
@@ -64,7 +64,7 @@ void KeyHandler::onKeyDown(uint8_t keyNum)
 
 void KeyHandler::onKeyUp(uint8_t keyNum)
 {
-    LOG("Button up: %u\n", keyNum);
+    LOG_INF("Button up: %u\n", keyNum);
 
     if (keyNum == fnKey_) {
         fnKeyPressed_ = false;
@@ -89,14 +89,14 @@ void KeyHandler::handleSymbol(uint16_t symbol)
 
 #if DEBUG_MODE == 1
     std::string str = utils::to_str(symbol);
-    LOG("char: '%s' (0x%04X)\n", str.c_str(), symbol);
+    LOG_INF("char: '%s' (0x%04X)\n", str.c_str(), symbol);
 #endif
     onChar_(symbol);
 }
 
 void KeyHandler::handleCommand(KeyCommand cmd)
 {
-    LOG("%s: %s\n", __FUNCTION__, key_cmd_2_str(cmd));
+    LOG_INF("%s: %s\n", __FUNCTION__, key_cmd_2_str(cmd));
     onCmd_(cmd);
 }
 
@@ -110,7 +110,7 @@ void KeyHandler::switchLang()
 
 void KeyHandler::setLanguage(Language lang)
 {
-    LOG("Set language to %s\n", lang2str(lang));
+    LOG_INF("Set language to %s\n", lang2str(lang));
 
     switch (lang) {
     case Language::English: keyMap_ = std::make_unique<KeyMapEng>(); break;

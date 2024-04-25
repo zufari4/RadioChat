@@ -1,19 +1,25 @@
 #pragma once
 
-#include "Configuration.h"
+#include "LoggerSettings.h"
+#include <vector>
 
-#if DEBUG_MODE == 1
+#define LOG_ERR(...) Logger::instance().log(LogTraceLevel::Error, __VA_ARGS__)
+#define LOG_INF(...) Logger::instance().log(LogTraceLevel::Info, __VA_ARGS__)
+#define LOG_DBG(...) Logger::instance().log(LogTraceLevel::Debug, __VA_ARGS__)
 
-#include "Utils.h"
-#include <HardwareSerial.h>
-#define INIT_LOG() { Serial.begin(SERIAL_BAUDRATE); delay(5000); Serial.printf("\nInit log\n"); }
-#define LOG(...) { Serial.printf("%s: ", utils::currentDateTime()); Serial.printf(__VA_ARGS__); }
-#define LOGX(...) { Serial.printf(__VA_ARGS__); }
+class Flash;
 
-#else
+class Logger
+{
+public:
+    Logger();
+    ~Logger();
+    void init(const LoggerSettings& settings, Flash* flash);
+    static Logger& instance();
+    void log(LogTraceLevel level, const char* format, ...);
 
-#define INIT_LOG()
-#define LOG(...)
-#define LOGX(...)
-
-#endif
+private:
+    LoggerSettings settings_;
+    std::vector<char> buffer_;
+    Flash* flash_;
+};

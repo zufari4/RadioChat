@@ -31,10 +31,9 @@ RadioChat::~RadioChat()
 void RadioChat::init()
 {   
     using namespace std::placeholders;
-    INIT_LOG();
 
-    settings_   = new Settings(SETTINGS_FILENAME);
     flash_      = new Flash();
+    settings_   = new Settings();
     esp_        = new Esp();
     keyHandler_ = new KeyHandler();
     display_    = new Display();
@@ -42,14 +41,19 @@ void RadioChat::init()
     ui_         = new UI();
     ledIndicator_ = new LedIndicator();
 
-    FlashSettings flashSettings = settings_->flash();
+    FlashSettings flashSettings;
     flash_->init(flashSettings);
+
+    settings_->init(SETTINGS_FILENAME, flash_);
+
+    LoggerSettings loggerSettings = settings_->logger();
+    Logger::instance().init(loggerSettings);
 
     EspSettings espSettings = settings_->esp();
     esp_->init(espSettings);
 
-    KeyboardSettings kbSettings = settings_->keyboard();
-    keyHandler_->init(kbSettings, 
+    KeyboardSettings  keybSettings = settings_->keyboard();
+    keyHandler_->init(keybSettings, 
                       std::bind(&RadioChat::onChar, this, _1), 
                       std::bind(&RadioChat::onKeyCommand, this, _1));
 

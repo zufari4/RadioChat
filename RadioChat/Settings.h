@@ -6,16 +6,19 @@
 #include "UISettings.h"
 #include "RadioSettings.h"
 #include "LedSettings.h"
-#include "FlashSettings.h"
+#include "LoggerSettings.h"
 #include <string>
+
+class Flash;
 
 class Settings
 {
 public:
-    Settings(const std::string& filename);
+    Settings();
     ~Settings();
+    void init(const std::string& filename, Flash* flash);
 
-    FlashSettings flash();
+    LoggerSettings logger();
     EspSettings esp();
     KeyboardSettings keyboard();
     DisplaySettings display();
@@ -24,5 +27,6 @@ public:
     LedSettings led();
 
 private:
-    const std::string& filename_;
+    std::string filename_;
+    Flash* flash_;
 };

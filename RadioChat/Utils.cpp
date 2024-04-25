@@ -59,16 +59,14 @@ int utf8_len(const std::string& utf8)
     return len;
 }
 
-const char* currentDateTime()
+uint8_t datetime_str(char* out, uint8_t outSize)
 {
-    static char buffer[25];
     static time_t now;
     static tm tstruct;
 
     now = time(nullptr);
     tstruct = *localtime(&now);
-    strftime(buffer, sizeof(buffer), "%Y-%m-%d %X", &tstruct);
-    return buffer;
+    return strftime(out, outSize, "%Y-%m-%d %X", &tstruct);
 }
 
 }

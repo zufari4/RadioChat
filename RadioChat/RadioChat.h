@@ -4,8 +4,9 @@
 #include <stdint.h>
 #include <string>
 
-class Settings;
+
 class Flash;
+class Settings;
 class Esp;
 class KeyHandler;
 class Display;

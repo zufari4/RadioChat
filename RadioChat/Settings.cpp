@@ -1,8 +1,8 @@
 #include "Settings.h"
 #include "Logger.h"
 
-Settings::Settings(const std::string& filename)
-    : filename_(filename)
+Settings::Settings()
+    : flash_(nullptr)
 {
 }
 
@@ -10,51 +10,57 @@ Settings::~Settings()
 {
 }
 
-FlashSettings Settings::flash()
+void Settings::init(const std::string& filename, Flash* flash)
 {
-    LOG("Loading flash settings\n");
-    FlashSettings res;
+    filename_ = filename;
+    flash_ = flash;
+}
+
+LoggerSettings Settings::logger()
+{
+    LOG_INF("Loading logger settings\n");
+    LoggerSettings res;
     return res;
 }
 
 EspSettings Settings::esp()
 {
-     LOG("Loading ESP settings\n");
+    LOG_INF("Loading ESP settings\n");
     EspSettings res;
     return res;   
 }
 
 KeyboardSettings Settings::keyboard()
 {
-    LOG("Loading keyboard settings\n");
+    LOG_INF("Loading keyboard settings\n");
     KeyboardSettings res;
     return res;
 }
 
 DisplaySettings Settings::display()
 {
-    LOG("Loading display settings\n");
+    LOG_INF("Loading display settings\n");
     DisplaySettings res;
     return res;
 }
 
 UISettings Settings::ui()
 {
-    LOG("Loading UI settings\n");
+    LOG_INF("Loading UI settings\n");
     UISettings res;
     return res;
 }
 
 RadioSettings Settings::radio()
 {
-    LOG("Loading radio settings\n");
+    LOG_INF("Loading radio settings\n");
     RadioSettings res;
     return res;
 }
 
 LedSettings Settings::led()
 {
-    LOG("Loading led indicator settings\n");
+    LOG_INF("Loading led indicator settings\n");
     LedSettings res;
     return res;
 }

@@ -12,7 +12,7 @@ Esp::~Esp()
 
 void Esp::init(const EspSettings& settings)
 {
-    LOG("Init ESP\n");
+    LOG_INF("Init ESP\n");
     settings_ = settings;
 
     if (!settings_.wifi.enable) {
@@ -22,7 +22,7 @@ void Esp::init(const EspSettings& settings)
     els {
         WiFi.begin(settings_.wifi.ssid, settings_.wifi.pass);
     }
-    LOG("Wi-Fi module is %s\n", settings_.wifi.enable ? "enabled" : "disabled");
+    LOG_INF("Wi-Fi module is %s\n", settings_.wifi.enable ? "enabled" : "disabled");
 
     if (!settings_.bluethoose.enable) {
         btStop();
@@ -30,5 +30,5 @@ void Esp::init(const EspSettings& settings)
     else {
         btStart();
     }
-    LOG("Bluethoose module is %s\n", settings_.wifi.enable ? "enabled" : "disabled");
+    LOG_INF("Bluethoose module is %s\n", settings_.wifi.enable ? "enabled" : "disabled");
 }

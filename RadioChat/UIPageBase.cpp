@@ -11,7 +11,7 @@ UIPageBase::UIPageBase(UIPageType type, const UISettings& settings, Display* dis
     , textHeight_(settings.textHeight)
     , maxCountLines_(display->getDisplayHeight()/textHeight_)
 {
-    LOG("maxStrLen %u textHeight %u maxCountLines %u\n", maxStrLen_, textHeight_, maxCountLines_);
+    LOG_INF("maxStrLen %u textHeight %u maxCountLines %u\n", maxStrLen_, textHeight_, maxCountLines_);
 }
 
 UIPageBase::~UIPageBase()

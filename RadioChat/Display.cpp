@@ -20,7 +20,7 @@ Display::~Display()
 
 void Display::init(const DisplaySettings& settings)
 {
-    LOG("-- Initialize display --\n");
+    LOG_INF("-- Initialize display --\n");
 
     u8g2_ = new DISPLAY_MODEL(U8G2_R0, settings.pins.RS);
     u8g2_->begin();
@@ -31,9 +31,9 @@ void Display::init(const DisplaySettings& settings)
     u8g2_->setFontPosTop();
     u8g2_->setFontDirection(0);
 
-    LOG("RS pin %u\n", settings.pins.RS);
-    LOG("Display width %u height %u\n", getDisplayWidth(), getDisplayHeight());
-    LOG("Max char width %u height %u\n", getMaxCharWidth(), getMaxCharHeight());
+    LOG_INF("RS pin %u\n", settings.pins.RS);
+    LOG_INF("Display width %u height %u\n", getDisplayWidth(), getDisplayHeight());
+    LOG_INF("Max char width %u height %u\n", getMaxCharWidth(), getMaxCharHeight());
 }
 
 void Display::clear()
