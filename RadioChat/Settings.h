@@ -1,7 +1,7 @@
 #pragma once
 
 #include "KeyboardSettings.h"
-#include "WiFiSettings.h"
+#include "EspSettings.h"
 #include "DisplaySettings.h"
 #include "UISettings.h"
 #include "RadioSettings.h"
@@ -14,14 +14,15 @@ class Settings
 public:
     Settings(const std::string& filename);
     ~Settings();
+
+    FlashSettings flash();
+    EspSettings esp();
     KeyboardSettings keyboard();
-    WiFiSettings wifi();
     DisplaySettings display();
     UISettings ui();
     RadioSettings radio();
     LedSettings led();
-    FlashSettings flash();
-    
+
 private:
     const std::string& filename_;
 };

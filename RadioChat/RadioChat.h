@@ -5,12 +5,12 @@
 #include <string>
 
 class Settings;
+class Flash;
+class Esp;
 class KeyHandler;
-class WiFiModule;
 class Display;
 class Radio;
 class LedIndicator;
-class Flash;
 class UI;
 
 class RadioChat
@@ -29,11 +29,11 @@ private:
     void onPingDone(uint16_t address, uint32_t delay);
     
     Settings*     settings_;
+    Flash*        flash_;
+    Esp*          esp_;
     KeyHandler*   keyHandler_;
-    WiFiModule*   wifi_;
     Display*      display_;
     Radio*        radio_;
     UI*           ui_;
     LedIndicator* ledIndicator_;
-    Flash*        flash_;
 };

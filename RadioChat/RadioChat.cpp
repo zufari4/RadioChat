@@ -2,23 +2,23 @@
 #include "RadioChat.h"
 #include "Logger.h"
 #include "Settings.h"
+#include "Flash.h"
+#include "Esp.h"
 #include "KeyHandler.h"
-#include "WiFi.h"
 #include "Display.h"
 #include "Radio.h"
 #include "LedIndicator.h"
 #include "UI.h"
-#include "Flash.h"
 
 RadioChat::RadioChat()
     : settings_(nullptr)
+    , flash_(nullptr)
+    , esp_(nullptr)
     , keyHandler_(nullptr)
-    , wifi_(nullptr)
     , display_(nullptr)
     , radio_(nullptr)
     , ui_(nullptr)
     , ledIndicator_(nullptr)
-    , flash_(nullptr)
 {
 
 }
@@ -29,27 +29,29 @@ RadioChat::~RadioChat()
 }
 
 void RadioChat::init()
-{
+{   
+    using namespace std::placeholders;
     INIT_LOG();
 
     settings_   = new Settings(SETTINGS_FILENAME);
     flash_      = new Flash();
+    esp_        = new Esp();
     keyHandler_ = new KeyHandler();
-    wifi_       = new WiFiModule();
     display_    = new Display();
     radio_      = new Radio();
     ui_         = new UI();
     ledIndicator_ = new LedIndicator();
 
-    using namespace std::placeholders;
+    FlashSettings flashSettings = settings_->flash();
+    flash_->init(flashSettings);
+
+    EspSettings espSettings = settings_->esp();
+    esp_->init(espSettings);
 
     KeyboardSettings kbSettings = settings_->keyboard();
     keyHandler_->init(kbSettings, 
                       std::bind(&RadioChat::onChar, this, _1), 
                       std::bind(&RadioChat::onKeyCommand, this, _1));
-
-    WiFiSettings wifiSettings = settings_->wifi();
-    wifi_->init(wifiSettings);
 
     DisplaySettings dispSettings = settings_->display();
     display_->init(dispSettings);
@@ -62,9 +64,6 @@ void RadioChat::init()
 
     LedSettings ledSettings = settings_->led();
     ledIndicator_->init(ledSettings);
-
-    FlashSettings flashSettings = settings_->flash();
-    flash_->init(flashSettings);
 
     UISettings uiSettings = settings_->ui();
     ui_->init(uiSettings, display_);
