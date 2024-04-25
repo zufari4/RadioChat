@@ -21,7 +21,7 @@ void Logger::init(const LoggerSettings& settings, Flash* flash)
         if (settings_.logToSerial) {
             Serial.begin(settings_.serialBuadrate);
             delay(4000); 
-            Serial.printf("\nSerial initialized\n");
+            Serial.printf("\nSerial initialized");
         }
         buffer_.resize(settings_.maxMessageSize + 25); // + date time
     }

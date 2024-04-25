@@ -11,6 +11,6 @@ Flash::~Flash()
 
 void Flash::init(const FlashSettings& settings)
 {
-    LOG_INF("Init flash\n");
+    LOG_INF("Init flash");
     settings_ = settings;
 }

@@ -20,7 +20,7 @@ Display::~Display()
 
 void Display::init(const DisplaySettings& settings)
 {
-    LOG_INF("-- Initialize display --\n");
+    LOG_INF("-- Initialize display --");
 
     u8g2_ = new DISPLAY_MODEL(U8G2_R0, settings.pins.RS);
     u8g2_->begin();

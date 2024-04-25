@@ -22,7 +22,7 @@ KeyHandler::~KeyHandler()
 
 void KeyHandler::init(const KeyboardSettings& settings, CharCallback onChar, CmdCallback onCmd)
 {
-    LOG_INF("-- Initialize keyboard --\n");
+    LOG_INF("-- Initialize keyboard --");
     onChar_ = onChar;
     onCmd_  = onCmd;
     auto keyDownCb = std::bind(&KeyHandler::onKeyDown, this, std::placeholders::_1);

@@ -19,7 +19,7 @@ Radio::~Radio()
 
 void Radio::init(const RadioSettings& settings, OnNewMessageCallback onNewMessage, OnMessageDeliveryCallback onMessageDelivered, OnPingDone onPingDone)
 {
-    LOG_INF("-- Initialize radio module --\n");
+    LOG_INF("-- Initialize radio module --");
 
     settings_ = settings;
     onNewMessage_ = onNewMessage;
@@ -30,17 +30,17 @@ void Radio::init(const RadioSettings& settings, OnNewMessageCallback onNewMessag
     LOG_INF("channel %u address %u\n", settings_.channel, settings_.address);
     LOG_INF("baudrate %u timeout %u parity %u\n", settings_.uart.baudrate, settings_.uart.timeoutMs, settings_.uart.parity);
     
-    LOG_INF("Setup pins\n");
+    LOG_INF("Setup pins");
     pinMode(settings_.pins.AUX, INPUT);
 	pinMode(settings_.pins.M0, OUTPUT);
     pinMode(settings_.pins.M1, OUTPUT);
 
-    LOG_INF("Wait device is ready\n");
+    LOG_INF("Wait device is ready");
     if (!waitReady()) {
         return;
     }
     
-    LOG_INF("Init UART\n");
+    LOG_INF("Init UART");
     Serial2.setTimeout(settings_.uart.timeoutMs);
     Serial2.begin(settings_.uart.baudrate, settings_.uart.parity, settings_.pins.TX, settings_.pins.RX);
     while (!Serial2) { } //wait for serial port to connect
@@ -77,7 +77,7 @@ bool Radio::setChannel(uint8_t channel)
         cfg.chan = channel;
     };
     if (!setConfiguration(setter)) {
-        LOG_INF("Can't set channel\n");
+        LOG_INF("Can't set channel");
         return false;
     } 
     return true;
@@ -210,15 +210,15 @@ void Radio::check()
     RadioCommand cmd;
 
     if (!readData(&sender_addh, 1, false)) {
-        LOG_INF("Can't read sender_addh\n");
+        LOG_INF("Can't read sender_addh");
         return;
     }
     if (!readData(&sender_addl, 1, false)) {
-        LOG_INF("Can't read sender_addl\n");
+        LOG_INF("Can't read sender_addl");
         return;
     }
     if (!readData(&cmd, 1, false)) {
-        LOG_INF("Can't read cmd\n");
+        LOG_INF("Can't read cmd");
         return;
     }
     uint16_t sender = Lora::get_address(sender_addh, sender_addl);
@@ -226,7 +226,7 @@ void Radio::check()
     switch (cmd)
     {
     case RadioCommand::MessageNew: {
-        LOG_INF("Radio: receive new message\n");
+        LOG_INF("Radio: receive new message");
         std::string text;
         uint8_t msgID = receiveText(text);
         if (msgID > 0) {
@@ -236,7 +236,7 @@ void Radio::check()
         break;
     }
     case RadioCommand::MessageDelivered: {
-        LOG_INF("Radio: receive message delivered\n");
+        LOG_INF("Radio: receive message delivered");
         uint8_t msgID;
         if (readData(&msgID, 1)) {
             LOG_INF("Radio: delivered %u\n", msgID);
@@ -301,7 +301,7 @@ bool Radio::setMode(Lora::Mode mode)
 	delay(40);
 	bool res = waitReady();
     if (!res) {
-        LOG_INF("Can't wait status of set mode\n");
+        LOG_INF("Can't wait status of set mode");
     }
 
     currentMode_ = mode;
@@ -310,10 +310,10 @@ bool Radio::setMode(Lora::Mode mode)
 
 bool Radio::writeProgramCommand(Lora::PROGRAM_COMMAND cmd, Lora::REGISTER_ADDRESS addr, Lora::PACKET_LENGHT pl)
 {
-    LOG_INF("Write command\n"); 
+    LOG_INF("Write command"); 
 	uint8_t data[3] = {(uint8_t)cmd, (uint8_t)addr, (uint8_t)pl};
     if (!writeData(data, 3)) {
-        LOG_INF("Can't write command\n");
+        LOG_INF("Can't write command");
         return false;
     }
     return true;
@@ -430,7 +430,7 @@ uint8_t Radio::receiveText(std::string& text)
     uint8_t msg_id;
     uint8_t msg_len;
     if (!readData(&msg_id, 1, false)) {
-        LOG_ERR("Can't read msg_id\n");
+        LOG_ERR("Can't read msg_id");
         return 0;
     }
     if (!readData(&msg_len, 1, false)) {
@@ -465,7 +465,7 @@ void Radio::sendDelivered(uint16_t sender, uint8_t msgID)
     data.push_back(msgID);
 
     if (!writeData(data.data(), data.size())) {
-        LOG_INF("Can't send delivered status\n");
+        LOG_INF("Can't send delivered status");
     }
 }
 
@@ -484,7 +484,7 @@ bool Radio::sendPing(uint16_t dest)
     fillHeader(data, dest, RadioCommand::Ping);
 
     if (!writeData(data.data(), data.size())) {
-        LOG_INF("Can't send ping\n");
+        LOG_INF("Can't send ping");
         return false;
     }
 
@@ -506,7 +506,7 @@ void Radio::sendPingDelivered(uint16_t sender)
     fillHeader(data, sender, RadioCommand::PingDelivered);
 
     if (!writeData(data.data(), data.size())) {
-        LOG_INF("Can't send ping delivered\n");
+        LOG_INF("Can't send ping delivered");
     }
 }
 

@@ -50,11 +50,11 @@ void UIPageTypingMessage::onChar(uint16_t symbol)
 
     if (len+1 >= maxLen) {
         if (typingMessage_.size() < getMaxCountLines()) {
-            LOG_INF("New line\n");
+            LOG_INF("New line");
             typingMessage_.emplace_back();
         }
         else {
-            LOG_INF("Text is full\n");  
+            LOG_INF("Text is full");  
         }
     }
 
@@ -69,7 +69,7 @@ void UIPageTypingMessage::onKeyCommand(KeyCommand cmd)
         std::string& typingMessage = typingMessage_.back();
         utils::pop_back_utf8(typingMessage);
         if (typingMessage.empty() && typingMessage_.size() > 1) {
-            LOG_INF("Remove line\n");
+            LOG_INF("Remove line");
             typingMessage_.pop_back();
         }
     }
