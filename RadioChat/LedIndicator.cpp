@@ -1,4 +1,6 @@
 #include "LedIndicator.h"
+#include "Logger.h"
+#include <Arduino.h>
 
 LedIndicator::LedIndicator()
 {
@@ -12,7 +14,7 @@ LedIndicator::~LedIndicator()
 
 void LedIndicator::init(const LedSettings& settings)
 {
-    LOG_INF("Init led indicator\n");
+    LOG_INF("Init led indicator");
     settings_ = settings;
     pinMode(settings_.pins.on, OUTPUT);
     digitalWrite(settings_.pins.on, LOW);

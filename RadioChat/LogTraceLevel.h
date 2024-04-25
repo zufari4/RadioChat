@@ -5,7 +5,7 @@
 enum class LogTraceLevel: uint8_t
 {
     None,
-    Errors,
+    Error,
     Info,
     Debug
-}
+};

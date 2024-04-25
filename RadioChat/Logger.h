@@ -17,7 +17,8 @@ public:
     void init(const LoggerSettings& settings, Flash* flash);
     static Logger& instance();
     void log(LogTraceLevel level, const char* format, ...);
-
+    LogTraceLevel getLogLevel() const;
+    
 private:
     LoggerSettings settings_;
     std::vector<char> buffer_;

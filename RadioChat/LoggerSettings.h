@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdint.h>
+#include <string>
 #include "LogTraceLevel.h"
 #include "Configuration.h"
 
@@ -13,7 +14,7 @@ struct LoggerSettings
     LogTraceLevel level = LogTraceLevel::Error;
     bool logToSerial = false;
 #endif
-    char logPath[5] = {'l','o','g','s','\0'};
+    std::string logPath = "logs";
     uint8_t  maxCountLogs  = 10;
     uint8_t  maxCountLines = 2000;
     uint16_t serialBuadrate = 9600;

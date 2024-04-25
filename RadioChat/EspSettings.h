@@ -1,11 +1,13 @@
 #pragma once
 
+#include <string>
+
 struct EspSettings
 {
     struct WiFi {
         bool enable = false;
-        char ssid[9] = { 'e','s','p','_','c','h','a','t', '\0'};
-        char pass[9] = { 'e','s','p','_','c','h','a','t', '\0'};
+        std::string ssid = "radio_chat";
+        std::string pass = "radio_chat";
     } wifi;
     struct Bluethoose {
         bool enable = false;

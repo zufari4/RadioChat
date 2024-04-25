@@ -39,6 +39,7 @@ private:
     bool sendPing(uint16_t dest);
     void sendPingDelivered(uint16_t sender);
     void fillHeader(std::vector<uint8_t>& out, uint16_t destAddr, RadioCommand command);
+    void traceTraffic(const char* direction, uint8_t* data, uint8_t dataSize) const;
 
     RadioSettings settings_;
     Lora::Mode currentMode_;

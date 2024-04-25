@@ -39,7 +39,7 @@ void Logger::log(LogTraceLevel level, const char* format, ...)
         return;
 
     char* dst = buffer_.data();
-    uint8_t dt_size = datetime_str(dst, buffer_.size());
+    uint8_t dt_size = utils::datetime_str(dst, buffer_.size());
 
     va_list arglist;
     va_start(arglist, format);
@@ -53,3 +53,7 @@ void Logger::log(LogTraceLevel level, const char* format, ...)
     }
 }
 
+LogTraceLevel Logger::getLogLevel() const
+{
+    return settings_.level;
+}

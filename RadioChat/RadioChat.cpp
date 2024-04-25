@@ -47,7 +47,7 @@ void RadioChat::init()
     settings_->init(SETTINGS_FILENAME, flash_);
 
     LoggerSettings loggerSettings = settings_->logger();
-    Logger::instance().init(loggerSettings);
+    Logger::instance().init(loggerSettings, flash_);
 
     EspSettings espSettings = settings_->esp();
     esp_->init(espSettings);
