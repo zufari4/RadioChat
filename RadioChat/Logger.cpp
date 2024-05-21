@@ -21,7 +21,7 @@ void Logger::init(const LoggerSettings& settings, Flash* flash)
     if (settings_.level != LogTraceLevel::None) {
         if (settings_.logToSerial) {
             Serial.begin(9600);
-            delay(4000); 
+            delay(settings_.serialInitDelay); 
             Serial.printf("\nSerial initialized\n");
         }
         buffer_.resize(settings_.maxMessageSize + 25); // + date time

@@ -13,6 +13,8 @@ class Display;
 class Radio;
 class LedIndicator;
 class UI;
+class Sound;
+
 
 class RadioChat
 {
@@ -37,4 +39,5 @@ private:
     Radio*        radio_;
     UI*           ui_;
     LedIndicator* ledIndicator_;
+    Sound*        sound_;
 };

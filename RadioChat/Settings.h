@@ -7,6 +7,7 @@
 #include "RadioSettings.h"
 #include "LedSettings.h"
 #include "LoggerSettings.h"
+#include "SoundSettings.h"
 #include <string>
 
 class Flash;
@@ -25,7 +26,8 @@ public:
     UISettings ui();
     RadioSettings radio();
     LedSettings led();
-
+    SoundSettings sound();
+    
 private:
     std::string filename_;
     Flash* flash_;

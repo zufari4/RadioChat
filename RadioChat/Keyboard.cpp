@@ -1,6 +1,6 @@
-#include "HardwareSerial.h"
 #include "Keyboard.h"
 #include "Logger.h"
+#include <HardwareSerial.h>
 #include <Arduino.h>
 
 Keyboard::Keyboard()

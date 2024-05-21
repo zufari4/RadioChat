@@ -8,6 +8,7 @@
 #include "Display.h"
 #include "Radio.h"
 #include "LedIndicator.h"
+#include "Sound.h"
 #include "UI.h"
 
 RadioChat::RadioChat()
@@ -40,6 +41,7 @@ void RadioChat::init()
     radio_      = new Radio();
     ui_         = new UI();
     ledIndicator_ = new LedIndicator();
+    sound_      = new Sound();
 
     FlashSettings flashSettings;
     flash_->init(flashSettings);
@@ -71,6 +73,11 @@ void RadioChat::init()
 
     UISettings uiSettings = settings_->ui();
     ui_->init(uiSettings, display_);
+
+    SoundSettings soundSettings = settings_->sound();
+    sound_->init(soundSettings);
+
+    sound_->play(Melody::Name::Nokia);
 }
 
 void RadioChat::loop()

@@ -64,3 +64,10 @@ LedSettings Settings::led()
     LedSettings res;
     return res;
 }
+
+SoundSettings Settings::sound()
+{
+    LOG_INF("Loading sound settings");
+    SoundSettings res;
+    return res;  
+}
