@@ -1,12 +1,14 @@
 #pragma once
 
-#include "KeyCommand.h"
 #include "UIPageType.h"
 #include "UISettings.h"
+#include "../Keyboard/KeyCommand.h"
 #include <stdint.h>
 #include <string>
 
+
 class Display;
+
 
 class UIPageBase
 {

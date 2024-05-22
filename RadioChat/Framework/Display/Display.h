@@ -1,7 +1,7 @@
 #pragma once
 
 #include "DisplaySettings.h"
-#include "Configuration.h"
+#include "../Configuration.h"
 #include <stdint.h>
 #include <string>
 

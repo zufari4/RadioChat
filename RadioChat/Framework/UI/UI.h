@@ -1,7 +1,7 @@
 #pragma once
 
 #include "UISettings.h"
-#include "KeyCommand.h"
+#include "../Keyboard/KeyCommand.h"
 #include <memory>
 
 class Display;

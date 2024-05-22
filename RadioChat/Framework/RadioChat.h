@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Keyboard/KeyCommand.h"
 #include <stdint.h>
 #include <string>
 
@@ -14,6 +13,7 @@ class Radio;
 class LedIndicator;
 class UI;
 class Sound;
+enum class KeyCommand;
 
 
 class RadioChat
