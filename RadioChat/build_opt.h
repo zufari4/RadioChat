@@ -1,0 +1,1 @@
+-DCFLAGS+=-std=gnu17 -DCXXFLAGS+=-std=gnu++17
