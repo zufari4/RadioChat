@@ -4,8 +4,9 @@
 
 - **ESP32**
 [Discription Page](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/hw-reference/esp32/get-started-devkitc.html)
-
 - **EBYTE E22-400T**
+- **MicroSD Card Adapter**
+- **Buzzer module**
 
 ## Build in arduino IDE
 

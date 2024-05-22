@@ -1,4 +1,5 @@
 #include "RadioChat.h"
+#include "Configuration.h"
 #include "Logger/Logger.h"
 #include "Settings.h"
 #include "Flash/Flash.h"
@@ -33,6 +34,13 @@ void RadioChat::init()
 {   
     using namespace std::placeholders;
 
+#if DEBUG_MODE == 1
+    // in debug always print start info
+    // for it need serial
+    // else init serial by logger settings
+    Logger::instance().initSerialLogging();
+#endif
+
     flash_      = new Flash();
     settings_   = new Settings();
     esp_        = new Esp();
@@ -50,6 +58,7 @@ void RadioChat::init()
 
     LoggerSettings loggerSettings = settings_->logger();
     Logger::instance().init(loggerSettings, flash_);
+    flash_->printInfo(); // need logger for print
 
     EspSettings espSettings = settings_->esp();
     esp_->init(espSettings);

@@ -1,6 +1,9 @@
 #pragma once
 
 #define DEBUG_MODE 1
+#define SERIAL_SPEED 9600
+#define SERIAL_INIT_DELAY 1000
+#define STORAGE_DIR "RadioChat"
 #define SETTINGS_FILENAME "config.json"
 
 #define KEY_CODE_FN     0x0001
@@ -13,3 +16,5 @@
 
 #define DISPLAY_MODEL U8G2_ST7920_128X64_F_HW_SPI
 #define DISPLAY_FONT u8g2_font_6x12_t_cyrillic
+
+#define LOGGER_DEF_MSG_SIZE 1024

@@ -1,33 +1,19 @@
 #include "Logger.h"
 #include "../Utils.h"
+#include "../Configuration.h"
 #include <HardwareSerial.h>
 #include <stdarg.h>
 
 Logger::Logger()
     : flash_(nullptr)
     , isInit_(false)
+    , serialIsInit_(false)
+    , buffer_(LOGGER_DEF_MSG_SIZE, '\0')
 {
 }
 
 Logger::~Logger()
 {
-}
-
-void Logger::init(const LoggerSettings& settings, Flash* flash)
-{
-    settings_ = settings;
-    flash_ = flash;
-
-    if (settings_.level != LogTraceLevel::None) {
-        if (settings_.logToSerial) {
-            Serial.begin(9600);
-            delay(settings_.serialInitDelay); 
-            Serial.printf("\nSerial initialized\n");
-        }
-        buffer_.resize(settings_.maxMessageSize + 25); // + date time
-    }
-
-    isInit_ = true;
 }
 
 Logger& Logger::instance()
@@ -36,9 +22,31 @@ Logger& Logger::instance()
     return singleton;
 }
 
+void Logger::initSerialLogging()
+{
+    if (!serialIsInit_) {
+        Serial.begin(SERIAL_SPEED);
+        delay(SERIAL_INIT_DELAY); 
+        Serial.printf("\nSerial initialized\n");
+        serialIsInit_ = true;
+    }
+}
+
+void Logger::init(const LoggerSettings& settings, Flash* flash)
+{
+    settings_ = settings;
+    flash_ = flash;
+    if (settings_.level == LogTraceLevel::None) 
+        return; // no need log
+
+    buffer_.resize(settings_.maxMessageSize + 25); // + date time
+    if (settings_.logToSerial) initSerialLogging();
+    isInit_ = true;
+}
+
 void Logger::log(LogTraceLevel level, const char* format, ...)
 {
-    if (!isInit_) 
+    if (!isInit_ && !serialIsInit_) 
         return;
     if ((uint8_t)level > (uint8_t)settings_.level) 
         return;

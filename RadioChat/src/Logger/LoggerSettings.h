@@ -18,6 +18,5 @@ struct LoggerSettings
     uint8_t  maxCountLogs  = 10;
     uint8_t  maxCountLines = 2000;
     uint16_t serialBuadrate = 9600;
-    uint16_t serialInitDelay = 1000;
     uint16_t maxMessageSize = 256;
 };

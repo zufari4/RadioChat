@@ -203,7 +203,9 @@
                 "C:/Dev/Arduino/libraries/U8g2/src",
                 "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/2.0.16/libraries/SPI/src",
                 "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/2.0.16/libraries/Wire/src",
-                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/2.0.16/libraries/WiFi/src"
+                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/2.0.16/libraries/WiFi/src",
+                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/2.0.16/libraries/FS/src",
+                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/2.0.16/libraries/SD/src"
             ],
             "defines": [
                 "HAVE_CONFIG_H",

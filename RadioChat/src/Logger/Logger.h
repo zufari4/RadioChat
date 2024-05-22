@@ -14,6 +14,8 @@ class Logger
 public:
     Logger();
     ~Logger();
+
+    void initSerialLogging();
     void init(const LoggerSettings& settings, Flash* flash);
     static Logger& instance();
     void log(LogTraceLevel level, const char* format, ...);
@@ -24,4 +26,5 @@ private:
     std::vector<char> buffer_;
     Flash* flash_;
     bool isInit_;
+    bool serialIsInit_;
 };
