@@ -1,8 +1,8 @@
 #include "UI.h"
-#include "Display.h"
 #include "UIPageChat.h"
 #include "UIPageTypingMessage.h"
-#include "Logger.h"
+#include "../Logger/Logger.h"
+#include "../Display/Display.h"
 
 UI::UI()
 {

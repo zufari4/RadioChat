@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <string>
 #include "LogTraceLevel.h"
-#include "Configuration.h"
+#include "../Configuration.h"
 
 struct LoggerSettings
 {

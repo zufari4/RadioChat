@@ -1,5 +1,5 @@
 #include "Display.h"
-#include "Logger.h"
+#include "../Logger/Logger.h"
 #include <Arduino.h>
 #include <SPI.h>
 #include <U8g2lib.h>

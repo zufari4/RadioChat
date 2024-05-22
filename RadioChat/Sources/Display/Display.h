@@ -21,6 +21,7 @@ public:
     uint8_t getStrWidth(const char* str) const;
     uint8_t getMaxCharWidth() const;
     uint8_t getMaxCharHeight() const;
+    
 private:
     DISPLAY_MODEL* u8g2_;
 };

@@ -1,5 +1,5 @@
 #include "Sound.h"
-#include "Logger.h"
+#include "../Logger/Logger.h"
 #include <Arduino.h>
 
 Sound::Sound()

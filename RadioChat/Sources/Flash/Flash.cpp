@@ -1,5 +1,5 @@
 #include "Flash.h"
-#include "Logger.h"
+#include "../Logger/Logger.h"
 
 Flash::Flash()
 {

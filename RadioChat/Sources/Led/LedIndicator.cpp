@@ -1,5 +1,5 @@
 #include "LedIndicator.h"
-#include "Logger.h"
+#include "../Logger/Logger.h"
 #include <Arduino.h>
 
 LedIndicator::LedIndicator()

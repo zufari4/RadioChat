@@ -1,13 +1,13 @@
+#include "KeyHandler.h"
+#include "Keyboard.h"
+#include "KeyMapRus.h"
+#include "KeyMapEng.h"
+#include "../Configuration.h"
+#include "../Logger/Logger.h"
+#include "../Utils.h"
 #include <string>
 #include <stdint.h>
 #include <functional>
-#include "KeyHandler.h"
-#include "Keyboard.h"
-#include "Configuration.h"
-#include "KeyMapRus.h"
-#include "KeyMapEng.h"
-#include "Logger.h"
-#include "Utils.h"
 
 KeyHandler::KeyHandler()
     : fnKey_(0)

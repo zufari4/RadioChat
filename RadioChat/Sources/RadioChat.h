@@ -1,6 +1,6 @@
 #pragma once
 
-#include "KeyCommand.h"
+#include "Keyboard/KeyCommand.h"
 #include <stdint.h>
 #include <string>
 

@@ -1,13 +1,13 @@
 #pragma once
 
-#include "KeyboardSettings.h"
-#include "EspSettings.h"
-#include "DisplaySettings.h"
-#include "UISettings.h"
-#include "RadioSettings.h"
-#include "LedSettings.h"
-#include "LoggerSettings.h"
-#include "SoundSettings.h"
+#include "Keyboard/KeyboardSettings.h"
+#include "Esp/EspSettings.h"
+#include "Display/DisplaySettings.h"
+#include "UI/UISettings.h"
+#include "Radio/RadioSettings.h"
+#include "Led/LedSettings.h"
+#include "Logger/LoggerSettings.h"
+#include "Sound/SoundSettings.h"
 #include <string>
 
 class Flash;

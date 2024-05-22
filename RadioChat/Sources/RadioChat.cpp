@@ -1,15 +1,15 @@
 #include <string>
 #include "RadioChat.h"
-#include "Logger.h"
+#include "Logger/Logger.h"
 #include "Settings.h"
-#include "Flash.h"
-#include "Esp.h"
-#include "KeyHandler.h"
-#include "Display.h"
-#include "Radio.h"
-#include "LedIndicator.h"
-#include "Sound.h"
-#include "UI.h"
+#include "Flash/Flash.h"
+#include "Esp/Esp.h"
+#include "Keyboard/KeyHandler.h"
+#include "Display/Display.h"
+#include "Radio/Radio.h"
+#include "Led/LedIndicator.h"
+#include "Sound/Sound.h"
+#include "UI/UI.h"
 
 RadioChat::RadioChat()
     : settings_(nullptr)
