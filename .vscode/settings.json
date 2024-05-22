@@ -3,6 +3,11 @@
 
         "**/.vscode": true,
         "**/.vs": true,
-        "**/.git": true
-    }
+        "**/.git": true,
+        "**/Docs": true
+    },
+    "C_Cpp.default.compilerPath": "${env:localappdata}/Arduino15/packages/esp32/tools/xtensa-esp32-elf-gcc/esp-2021r2-patch5-8.4.0/bin/xtensa-esp32-elf-g++.exe",
+    "files.eol": "\n",
+    "editor.detectIndentation": false,
+    "editor.tabSize": 4
 }
