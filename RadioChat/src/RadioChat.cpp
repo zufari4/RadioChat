@@ -1,4 +1,3 @@
-#include <string>
 #include "RadioChat.h"
 #include "Logger/Logger.h"
 #include "Settings.h"
@@ -10,6 +9,7 @@
 #include "Led/LedIndicator.h"
 #include "Sound/Sound.h"
 #include "UI/UI.h"
+#include <string>
 
 RadioChat::RadioChat()
     : settings_(nullptr)

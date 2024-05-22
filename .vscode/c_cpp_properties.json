@@ -3,7 +3,7 @@
         {
             "name": "Arduino ESP32",
             "includePath": [
-                "${workspaceFolder}/RadioChat/src",
+                "${workspaceFolder}/RadioChat",
                 "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/2.0.16/tools/sdk/esp32/include/newlib/platform_include",
                 "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/2.0.16/tools/sdk/esp32/include/freertos/include",
                 "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/2.0.16/tools/sdk/esp32/include/freertos/include/esp_additions/freertos",
