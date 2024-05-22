@@ -1,7 +1,7 @@
 #include "UIPageBase.h"
-#include "Display.h"
-#include "Configuration.h"
-#include "Logger.h"
+#include "../Display/Display.h"
+#include "../Logger/Logger.h"
+#include "../Configuration.h"
 
 UIPageBase::UIPageBase(UIPageType type, const UISettings& settings, Display* display)
     : type_(type)

@@ -1,7 +1,7 @@
 #include "UIPageChat.h"
-#include "Utils.h"
-#include "Configuration.h"
-#include "Display.h"
+#include "../Display/Display.h"
+#include "../Utils.h"
+#include "../Configuration.h"
 
 UIPageChat::UIPageChat(const UISettings& settings, Display* display)
     : UIPageBase(UIPageType::TypingMessage, settings, display)

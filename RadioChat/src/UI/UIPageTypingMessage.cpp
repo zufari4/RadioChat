@@ -1,8 +1,8 @@
 #include "UIPageTypingMessage.h"
-#include "Utils.h"
-#include "Configuration.h"
-#include "Display.h"
-#include "Logger.h"
+#include "../Utils.h"
+#include "../Configuration.h"
+#include "../Display/Display.h"
+#include "../Logger/Logger.h"
 
 UIPageTypingMessage::UIPageTypingMessage(const UISettings& settings, Display* display)
     : UIPageBase(UIPageType::Chat, settings, display)
