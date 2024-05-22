@@ -1,0 +1,32 @@
+{
+    "configurations": [
+        {
+            "name": "Arduino ESP32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${env:localappdata}/Arduino15/packages/esp32/tools/xtensa-esp32-elf-gcc/esp-2021r2-patch5-8.4.0/xtensa-esp32-elf/include/c++/8.4.0/**",
+                "${env:localappdata}/Arduino15/packages/esp32/tools/xtensa-esp32-elf-gcc/esp-2021r2-patch5-8.4.0/lib/gcc/xtensa-esp32-elf/8.4.0/include/**",
+                "${env:localappdata}/Arduino15/packages/esp32/tools/xtensa-esp32-elf-gcc/esp-2021r2-patch5-8.4.0/xtensa-esp32-elf/include/**",
+                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/2.0.15/libraries/**",
+                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/2.0.15/cores/esp32/**",
+                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/2.0.15/tools/sdk/esp32/include/**",
+                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/2.0.15/tools/sdk/esp32/qio_qspi/include/**",
+                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/2.0.15/variants/uPesy_esp32_wroom_devkit/**"
+            ],
+            "defines": [
+                "HAVE_CONFIG_H",
+                "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
+                "UNITY_INCLUDE_CONFIG_H",
+                "WITH_POSIX",
+                "_GNU_SOURCE",
+                "IDF_VER=\"v4.4.7-dirty\"",
+                "ESP_PLATFORM",
+                "_POSIX_READER_WRITER_LOCKS"
+            ],
+            "intelliSenseMode": "gcc-x64",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++17"
+        }
+    ],
+    "version": 4
+}

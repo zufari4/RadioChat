@@ -20,7 +20,7 @@ void Esp::init(const EspSettings& settings)
         WiFi.mode(WIFI_OFF);
     }
     else {
-        WiFi.begin(settings_.wifi.ssid.c_str(), settings_.wifi.pass.c_str());
+        WiFi.begin(settings_.wifi.ssid, settings_.wifi.pass);
     }
     LOG_INF("Wi-Fi module is %s", settings_.wifi.enable ? "enabled" : "disabled");
 
