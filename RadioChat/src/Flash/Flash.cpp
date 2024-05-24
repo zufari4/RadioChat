@@ -18,7 +18,7 @@ void Flash::init(const FlashSettings& settings)
     LOG_INF("--- Init flash ---");
     settings_ = settings;
 
-    if (!SD.begin()) {
+    if (!SD.begin(settings_.pins.cs)) {
         LOG_ERR("Card Mount Failed");
         state_ = State::NotInit;
         return;
@@ -62,9 +62,82 @@ void Flash::printInfo() const
     LOG_INF("SD Card Size: %llu MB\n", cardSize);
 }
 
-std::vector<std::string> Flash::getDirectories(const std::string& root)
+bool Flash::exist(const std::string& path)
 {
+    if (state_ != State::Init) 
+        return false;
+    return SD.exists(path.c_str());
+}
 
+bool Flash::createDir(const std::string& path)
+{
+    LOG_INF("createDir %s", path.c_str());
+
+    if (state_ != State::Init) {
+        LOG_ERR("Flash not init");
+        return "";
+    }
+    
+    bool res = SD.mkdir(path.c_str());
+    LOG_INF("%s", res ? "ok" : "fail");
+    return res;
+}
+
+std::string Flash::read(const std::string& filename)
+{
+    LOG_INF("Read file %s", filename.c_str());
+
+    if (state_ != State::Init) {
+        LOG_ERR("Flash not init");
+        return "";
+    }
+
+    File file = SD.open(filename.c_str());
+    if (!file) {
+        LOG_ERR("Failed to open file for reading (%s)", filename.c_str());
+        return "";
+    }
+
+    std::string res;
+    while (file.available()) {
+        res += (char)file.read();
+    }
+    file.close();
+
+    return res;
+}
+
+bool Flash::create(const std::string& filename, const std::string& content)
+{
+    LOG_INF("Write to file %s", filename.c_str());
+
+    if (state_ != State::Init) {
+        LOG_ERR("Flash not init");
+        return false;
+    }
+
+    File file = SD.open(filename.c_str(), FILE_WRITE);
+    if (!file) {
+        LOG_ERR("Failed to open file for writing (%s)", filename.c_str());
+        return false;
+    }
+    if (file.print(content.c_str()) == 0) {
+        LOG_ERR("Write failed (%s)", content.c_str());
+        return false;
+    }
+    file.close();
+
+    return true;
+}
+
+bool Flash::write(fs::File &file, const std::string &text)
+{
+    return file.print(text.c_str()) == text.size();
+}
+
+fs::File Flash::open(const std::string &filename)
+{
+    return SD.open(filename.c_str(), FILE_WRITE);
 }
 
 void Flash::listDir(const char* dirname)
@@ -72,11 +145,11 @@ void Flash::listDir(const char* dirname)
     LOG_INF("Listing directory: %s\n", dirname);
 
     File root = SD.open(dirname);
-    if(!root){
+    if (!root){
         Serial.println("Failed to open directory");
         return;
     }
-    if(!root.isDirectory()){
+    if (!root.isDirectory()){
         Serial.println("Not a directory");
         return;
     }

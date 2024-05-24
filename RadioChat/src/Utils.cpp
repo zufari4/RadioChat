@@ -61,12 +61,24 @@ int utf8_len(const std::string& utf8)
 
 uint8_t datetime_str(char* out, uint8_t outSize)
 {
-    static time_t now;
-    static tm tstruct;
+    time_t now;
+    tm tstruct;
 
     now = time(nullptr);
     tstruct = *localtime(&now);
     return strftime(out, outSize, "%Y-%m-%d %X", &tstruct);
+}
+
+std::string datetime_str()
+{
+    char buff[32];
+    datetime_str(buff, sizeof(buff));
+    return buff;
+}
+
+const char* to_str(bool val)
+{
+    return val ? "true" : "false";
 }
 
 }

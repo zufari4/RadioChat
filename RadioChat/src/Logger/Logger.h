@@ -2,6 +2,7 @@
 
 #include "LoggerSettings.h"
 #include <vector>
+#include <memory>
 
 #define LOG_ERR(...) Logger::instance().log(LogTraceLevel::Error, __VA_ARGS__)
 #define LOG_INF(...) Logger::instance().log(LogTraceLevel::Info, __VA_ARGS__)
@@ -22,9 +23,13 @@ public:
     LogTraceLevel getLogLevel() const;
     
 private:
+    std::string getPath() const;
+    std::string makeFilename() const;
+    
     LoggerSettings settings_;
     std::vector<char> buffer_;
     Flash* flash_;
+    std::unique_ptr<fs::File> file_;
     bool isInit_;
     bool serialIsInit_;
 };

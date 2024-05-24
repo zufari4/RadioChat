@@ -2,6 +2,7 @@
 
 #include <stdint.h>
 #include <string>
+#include "../Configuration.h"
 
 struct FlashSettings
 {
@@ -9,7 +10,6 @@ struct FlashSettings
         uint8_t miso = 19;
         uint8_t mosi = 23;
         uint8_t sck = 18;
-        uint8_t cs = 5;
+        uint8_t cs = FLASH_CS_PIN;
     } pins;
-    bool useHWspi = true;
 };

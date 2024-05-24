@@ -54,6 +54,10 @@ void RadioChat::init()
     FlashSettings flashSettings;
     flash_->init(flashSettings);
 
+    if (!flash_->exist(STORAGE_DIR)) {
+        flash_->createDir(STORAGE_DIR);
+    }
+
     settings_->init(SETTINGS_FILENAME, flash_);
 
     LoggerSettings loggerSettings = settings_->logger();

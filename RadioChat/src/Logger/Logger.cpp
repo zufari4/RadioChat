@@ -1,4 +1,5 @@
 #include "Logger.h"
+#include "../Flash/Flash.h"
 #include "../Utils.h"
 #include "../Configuration.h"
 #include <HardwareSerial.h>
@@ -36,11 +37,27 @@ void Logger::init(const LoggerSettings& settings, Flash* flash)
 {
     settings_ = settings;
     flash_ = flash;
-    if (settings_.level == LogTraceLevel::None) 
-        return; // no need log
+    if (settings_.level != LogTraceLevel::None) {
+        buffer_.resize(settings_.maxMessageSize + 25); // + date time
+        if (settings_.logToSerial) initSerialLogging();
+    }
 
-    buffer_.resize(settings_.maxMessageSize + 25); // + date time
-    if (settings_.logToSerial) initSerialLogging();
+    std::string path = getPath();
+
+    LOG_INF("settings.level         : %d", (int)settings.level);
+    LOG_INF("settings.logToSerial   : %d", utils::to_str(settings.logToSerial));
+    LOG_INF("settings.logPath       : %s", path.c_str());
+    LOG_INF("settings.maxCountLines : %u", settings.maxCountLines );
+    LOG_INF("settings.maxCountLogs  : %u", settings.maxCountLogs  );
+    LOG_INF("settings.maxMessageSize: %u", settings.maxMessageSize);
+    
+    if (!flash_->exist(path)) {
+        flash_->createDir(path);
+    }
+    
+    std::string filename = path + "/" + utils::datetime_str() + ".log";
+    file_ = std::make_unique<fs::File>();
+    *file_ = flash_->open(filename);
     isInit_ = true;
 }
 
@@ -70,4 +87,14 @@ void Logger::log(LogTraceLevel level, const char* format, ...)
 LogTraceLevel Logger::getLogLevel() const
 {
     return settings_.level;
+}
+
+std::string Logger::getPath() const
+{
+    return STORAGE_DIR"/" + settings_.logPath;
+}
+
+std::string Logger::makeFilename() const
+{
+    return std::string();
 }

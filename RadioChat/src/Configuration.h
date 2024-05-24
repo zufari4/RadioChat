@@ -3,8 +3,9 @@
 #define DEBUG_MODE 1
 #define SERIAL_SPEED 9600
 #define SERIAL_INIT_DELAY 1000
-#define STORAGE_DIR "RadioChat"
+#define STORAGE_DIR "/RadioChat"
 #define SETTINGS_FILENAME "config.json"
+#define FLASH_CS_PIN 5
 
 #define KEY_CODE_FN     0x0001
 #define KEY_CODE_ENTER  0x000A

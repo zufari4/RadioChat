@@ -11,4 +11,6 @@ void pop_back_utf8(std::string& utf8);
 const char* next(const char* utf8);
 int utf8_len(const std::string& utf8);
 uint8_t datetime_str(char* out, uint8_t outSize);
+std::string datetime_str();
+const char* to_str(bool val);
 }
