@@ -3,6 +3,7 @@
 #include "../Utils.h"
 #include "../Configuration.h"
 #include <HardwareSerial.h>
+#include <SD.h>
 #include <stdarg.h>
 
 Logger::Logger()
@@ -56,8 +57,7 @@ void Logger::init(const LoggerSettings& settings, Flash* flash)
     }
     
     std::string filename = path + "/" + utils::datetime_str() + ".log";
-    file_ = std::make_unique<fs::File>();
-    *file_ = flash_->open(filename);
+    file_ = SD.open(filename.c_str(), FILE_WRITE);
     isInit_ = true;
 }
 
@@ -74,13 +74,17 @@ void Logger::log(LogTraceLevel level, const char* format, ...)
 
     va_list arglist;
     va_start(arglist, format);
-    vsnprintf(dst + offset, buffer_.size() - offset, format, arglist);
+    offset += vsnprintf(dst + offset, buffer_.size() - offset, format, arglist);
     va_end(arglist);
 
-    if (settings_.logToSerial) 
-        Serial.printf("%s\n", dst);
-    if (flash_ != nullptr) {
-        // TODO
+    dst[offset++] = '\n';
+    dst[offset] = '\0';
+
+    if (settings_.logToSerial) {
+        Serial.printf("%s", dst);
+    }
+    if (file_) {
+        file_.write((const uint8_t*)dst, offset);
     }
 }
 

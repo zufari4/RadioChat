@@ -1,6 +1,7 @@
 #pragma once
 
 #include "LoggerSettings.h"
+#include <FS.h>
 #include <vector>
 #include <memory>
 
@@ -29,7 +30,7 @@ private:
     LoggerSettings settings_;
     std::vector<char> buffer_;
     Flash* flash_;
-    std::unique_ptr<fs::File> file_;
+    fs::File file_;
     bool isInit_;
     bool serialIsInit_;
 };

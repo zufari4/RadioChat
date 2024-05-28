@@ -130,16 +130,6 @@ bool Flash::create(const std::string& filename, const std::string& content)
     return true;
 }
 
-bool Flash::write(fs::File &file, const std::string &text)
-{
-    return file.print(text.c_str()) == text.size();
-}
-
-fs::File Flash::open(const std::string &filename)
-{
-    return SD.open(filename.c_str(), FILE_WRITE);
-}
-
 void Flash::listDir(const char* dirname)
 {
     LOG_INF("Listing directory: %s\n", dirname);

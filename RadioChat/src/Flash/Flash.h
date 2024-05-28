@@ -4,14 +4,9 @@
 #include <vector>
 #include <string>
 
-namespace fs
-{
-class File;
-}
-
 class Flash
 {
-public:
+public:  
     enum class State
     {
         NotInit,
@@ -27,8 +22,6 @@ public:
     bool createDir(const std::string& path);
     std::string read(const std::string& filename);
     bool create(const std::string& filename, const std::string& content);
-    bool write(fs::File& file, const std::string& text);
-    fs::File open(const std::string& filename);
 
 private:
     State state_;
