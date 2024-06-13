@@ -10,8 +10,11 @@
 #include "Led/LedIndicator.h"
 #include "Sound/Sound.h"
 #include "UI/UI.h"
-#include "QeueMessage/MessageQeueManager.h"
-#include <string>
+#include "QeueMessage/QeueMessageAcceptMessage.h"
+#include "QeueMessage/QeueMessageDeliveryMessage.h"
+#include "QeueMessage/QeueMessageKeyboardCommand.h"
+#include "QeueMessage/QeueMessagePingDone.h"
+#include "QeueMessage/QeueMessageTypingChar.h"
 
 
 RadioChat::RadioChat()
@@ -53,7 +56,6 @@ void RadioChat::init()
     ui_         = new UI();
     ledIndicator_ = new LedIndicator();
     sound_       = new Sound();
-    qeueManager_ = new MessageQeueManager();
 
     FlashSettings flashSettings;
     flash_->init(flashSettings);
@@ -73,17 +75,17 @@ void RadioChat::init()
 
     KeyboardSettings  keybSettings = settings_->keyboard();
     keyHandler_->init(keybSettings, 
-                      std::bind(&MessageQeueManager::pushTypingChar, qeueManager_, _1), 
-                      std::bind(&MessageQeueManager::pushKeyboardCommand, qeueManager_, _1));
+                      std::bind(&RadioChat::pushTypingChar, this, _1), 
+                      std::bind(&RadioChat::pushKeyboardCommand, this, _1));
 
     DisplaySettings dispSettings = settings_->display();
     display_->init(dispSettings);
 
     RadioSettings radioSettings = settings_->radio();
     radio_->init(radioSettings,
-                 std::bind(&MessageQeueManager::pushAcceptMessage, qeueManager_, _1, _2), 
-                 std::bind(&MessageQeueManager::pushDeliveryMessage, qeueManager_, _1, _2),
-                 std::bind(&MessageQeueManager::pushPingDone, qeueManager_, _1, _2));
+                 std::bind(&RadioChat::pushAcceptMessage, this, _1, _2), 
+                 std::bind(&RadioChat::pushDeliveryMessage, this, _1, _2),
+                 std::bind(&RadioChat::pushPingDone, this, _1, _2));
 
     LedSettings ledSettings = settings_->led();
     ledIndicator_->init(ledSettings);
@@ -93,7 +95,6 @@ void RadioChat::init()
 
     SoundSettings soundSettings = settings_->sound();
     sound_->init(soundSettings);
-
     sound_->play(Melody::Name::Nokia);
 
     workFlag_ = true;
@@ -111,26 +112,64 @@ void RadioChat::loop()
 void RadioChat::svc()
 {
     while (workFlag_) {
-        auto msg = qeueManager_->pop();
+        auto msg = messageQeue_.dequeue();
         switch (msg->getType())
         {
-        case QeueMessageType::AcceptMessage:
-            /* code */
+        case QeueMessageType::AcceptMessage: {
+            auto m = static_cast<QeueMessageAcceptMessage*>(msg.get());
+            sound_->play(Melody::Name::Packman);
             break;
-        case QeueMessageType::DeliveryMessage:
-            /* code */
-            break;    
-        case QeueMessageType::KeyboardCommand:
-            /* code */
+        }
+        case QeueMessageType::DeliveryMessage: {
+            auto m = static_cast<QeueMessageDeliveryMessage*>(msg.get());
             break;
-        case QeueMessageType::PingDone:
-            /* code */
+        }   
+        case QeueMessageType::KeyboardCommand: {
+            auto m = static_cast<QeueMessageKeyboardCommand*>(msg.get());
+            ui_->onKeyCommand(m->getCommand());
             break;
-        case QeueMessageType::TypingChar:
-            /* code */
+        }
+        case QeueMessageType::PingDone: {
+            auto m = static_cast<QeueMessagePingDone*>(msg.get());
             break;
+        }
+        case QeueMessageType::TypingChar: {
+            auto m = static_cast<QeueMessageTypingChar*>(msg.get());
+            ui_->onChar(m->getCode());
+            break;
+        }
         default:
             break;
         }
     }
+}
+
+void RadioChat::pushTypingChar(uint16_t code)
+{
+    auto msg = std::make_unique<QeueMessageTypingChar>(code);
+    messageQeue_.enqueue(std::move(msg));
+}
+
+void RadioChat::pushKeyboardCommand(KeyCommand cmd)
+{
+    auto msg = std::make_unique<QeueMessageKeyboardCommand>(cmd);
+    messageQeue_.enqueue(std::move(msg));
+}
+
+void RadioChat::pushAcceptMessage(const std::string& text, uint8_t msgID)
+{
+    auto msg = std::make_unique<QeueMessageAcceptMessage>(text, msgID);
+    messageQeue_.enqueue(std::move(msg));
+}
+
+void RadioChat::pushDeliveryMessage(uint16_t address, uint8_t msgID)
+{
+    auto msg = std::make_unique<QeueMessageDeliveryMessage>(address, msgID);
+    messageQeue_.enqueue(std::move(msg));
+}
+
+void RadioChat::pushPingDone(uint16_t address, uint32_t delay)
+{
+    auto msg = std::make_unique<QeueMessagePingDone>(address, delay);
+    messageQeue_.enqueue(std::move(msg));
 }

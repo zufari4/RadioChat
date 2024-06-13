@@ -22,7 +22,7 @@ public:
     void enqueue(T t)
     {
         std::lock_guard<std::mutex> lock(m);
-        q.push(t);
+        q.push(std::move(t));
         c.notify_one();
     }
 
@@ -36,7 +36,7 @@ public:
             // release lock as long as the wait and reaquire it afterwards.
             c.wait(lock);
         }
-        T val = q.front();
+        T val = std::move(q.front());
         q.pop();
         return val;
     }

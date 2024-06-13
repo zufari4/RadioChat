@@ -38,12 +38,20 @@ void Logger::init(const LoggerSettings& settings, Flash* flash)
 {
     settings_ = settings;
     flash_ = flash;
+    std::string path = getPath();
+
     if (settings_.level != LogTraceLevel::None) {
         buffer_.resize(settings_.maxMessageSize + 25); // + date time
-        if (settings_.logToSerial) initSerialLogging();
-    }
 
-    std::string path = getPath();
+        if (settings_.logToSerial) initSerialLogging();
+
+        if (!flash_->exist(path)) {
+            flash_->createDir(path);
+        }
+        
+        std::string filename = path + "/" + utils::datetime_str() + ".log";
+        file_ = SD.open(filename.c_str(), FILE_WRITE);
+    }
 
     LOG_INF("settings.level         : %d", (int)settings.level);
     LOG_INF("settings.logToSerial   : %d", utils::to_str(settings.logToSerial));
@@ -52,12 +60,6 @@ void Logger::init(const LoggerSettings& settings, Flash* flash)
     LOG_INF("settings.maxCountLogs  : %u", settings.maxCountLogs  );
     LOG_INF("settings.maxMessageSize: %u", settings.maxMessageSize);
     
-    if (!flash_->exist(path)) {
-        flash_->createDir(path);
-    }
-    
-    std::string filename = path + "/" + utils::datetime_str() + ".log";
-    file_ = SD.open(filename.c_str(), FILE_WRITE);
     isInit_ = true;
 }
 
