@@ -1,5 +1,5 @@
 #include "IniFile.h"
-#include "Flash/Flash.h"
+#include "Utils.h"
 #include <algorithm> 
 #include <cctype>
 #include <sys/stat.h>
@@ -8,8 +8,7 @@
 
 Ini_file::Ini_parameter empty_parameter = std::make_pair("", "");
 
-Ini_file::Ini_file(Flash& flash)
-    : flash_(flash)
+Ini_file::Ini_file()
 {
 }
 
@@ -22,7 +21,7 @@ bool Ini_file::Open(const std::string& filename)
     try
     {
 		filename_ = filename;
-        if (flash_.exist(filename)) {
+        if (utils::fileIsExists(filename)) {
             Read_content();
         }
         return true;
@@ -41,7 +40,7 @@ void Ini_file::Save()
 void Ini_file::Read_content()
 {
     std::istringstream input;
-    input.str(flash_.read(filename_));
+    input.str(utils::readFile(filename_));
 	std::string line;
 	std::string section;
 	std::string tmp;
@@ -70,7 +69,7 @@ void Ini_file::Write_content()
 		}
 	}
 
-    flash_.create(filename_, output.str());
+    utils::writeToFile(filename_, output.str());
 }
 
 int Ini_file::Get_value(const std::string& section, const std::string& parameter, int default_value)

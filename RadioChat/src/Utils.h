@@ -13,4 +13,7 @@ int utf8_len(const std::string& utf8);
 uint8_t datetime_str(char* out, uint8_t outSize);
 std::string datetime_str();
 const char* to_str(bool val);
+bool fileIsExists(const std::string& filename);
+std::string readFile(const std::string& filename);
+bool writeToFile(const std::string& filename, const std::string& content);
 }

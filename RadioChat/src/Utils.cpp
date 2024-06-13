@@ -1,4 +1,6 @@
 #include "Utils.h"
+#include "Logger/Logger.h"
+#include <SD.h>
 #include <time.h>
 
 namespace utils
@@ -79,6 +81,48 @@ std::string datetime_str()
 const char* to_str(bool val)
 {
     return val ? "true" : "false";
+}
+
+bool fileIsExists(const std::string &filename)
+{
+    return SD.exists(filename.c_str());
+}
+
+std::string readFile(const std::string &filename)
+{
+    LOG_INF("Read file %s", filename.c_str());
+
+    File file = SD.open(filename.c_str());
+    if (!file) {
+        LOG_ERR("Failed to open file for reading (%s)", filename.c_str());
+        return "";
+    }
+
+    std::string res;
+    while (file.available()) {
+        res += (char)file.read();
+    }
+    file.close();
+
+    return res;
+}
+
+bool writeToFile(const std::string &filename, const std::string &content)
+{
+    LOG_INF("Write to file %s", filename.c_str());
+
+    File file = SD.open(filename.c_str(), FILE_WRITE);
+    if (!file) {
+        LOG_ERR("Failed to open file for writing (%s)", filename.c_str());
+        return false;
+    }
+    if (file.print(content.c_str()) == 0) {
+        LOG_ERR("Write failed (%s)", content.c_str());
+        return false;
+    }
+    file.close();
+
+    return true;
 }
 
 }

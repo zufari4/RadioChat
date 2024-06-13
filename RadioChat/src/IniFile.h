@@ -6,12 +6,10 @@
 #include <vector>
 #include <inttypes.h>
 
-class Flash;
-
 class Ini_file
 {
 public:
-    Ini_file(Flash& flash);
+    Ini_file();
     ~Ini_file();
     bool Open(const std::string& filename);
     void Save();
@@ -33,7 +31,6 @@ public:
     typedef std::pair<std::string/*name*/, std::string/*value*/> Ini_parameter;
 
 private:
-    Flash& flash_;
     std::string filename_;
     std::map<std::string/*section*/, std::vector<Ini_parameter>> m_content;
     void Read_content();
