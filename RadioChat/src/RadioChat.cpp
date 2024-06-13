@@ -10,10 +10,13 @@
 #include "Led/LedIndicator.h"
 #include "Sound/Sound.h"
 #include "UI/UI.h"
+#include "QeueMessage/MessageQeueManager.h"
 #include <string>
 
+
 RadioChat::RadioChat()
-    : settings_(nullptr)
+    : workFlag_(false)
+    , settings_(nullptr)
     , flash_(nullptr)
     , esp_(nullptr)
     , keyHandler_(nullptr)
@@ -49,7 +52,8 @@ void RadioChat::init()
     radio_      = new Radio();
     ui_         = new UI();
     ledIndicator_ = new LedIndicator();
-    sound_      = new Sound();
+    sound_       = new Sound();
+    qeueManager_ = new MessageQeueManager();
 
     FlashSettings flashSettings;
     flash_->init(flashSettings);
@@ -69,17 +73,17 @@ void RadioChat::init()
 
     KeyboardSettings  keybSettings = settings_->keyboard();
     keyHandler_->init(keybSettings, 
-                      std::bind(&RadioChat::onChar, this, _1), 
-                      std::bind(&RadioChat::onKeyCommand, this, _1));
+                      std::bind(&MessageQeueManager::pushTypingChar, qeueManager_, _1), 
+                      std::bind(&MessageQeueManager::pushKeyboardCommand, qeueManager_, _1));
 
     DisplaySettings dispSettings = settings_->display();
     display_->init(dispSettings);
 
     RadioSettings radioSettings = settings_->radio();
     radio_->init(radioSettings,
-                 std::bind(&RadioChat::onNewMessage, this, _1, _2), 
-                 std::bind(&RadioChat::onMessageDelivery, this, _1, _2),
-                 std::bind(&RadioChat::onPingDone, this, _1, _2));
+                 std::bind(&MessageQeueManager::pushAcceptMessage, qeueManager_, _1, _2), 
+                 std::bind(&MessageQeueManager::pushDeliveryMessage, qeueManager_, _1, _2),
+                 std::bind(&MessageQeueManager::pushPingDone, qeueManager_, _1, _2));
 
     LedSettings ledSettings = settings_->led();
     ledIndicator_->init(ledSettings);
@@ -91,6 +95,9 @@ void RadioChat::init()
     sound_->init(soundSettings);
 
     sound_->play(Melody::Name::Nokia);
+
+    workFlag_ = true;
+    svcThread_ = std::thread(&RadioChat::svc, this);
 }
 
 void RadioChat::loop()
@@ -101,27 +108,29 @@ void RadioChat::loop()
     ui_->draw();
 }
 
-void RadioChat::onChar(uint16_t symbol)
+void RadioChat::svc()
 {
-    ui_->onChar(symbol);
-}
-
-void RadioChat::onKeyCommand(KeyCommand cmd)
-{
-    ui_->onKeyCommand(cmd);
-}
-
-void RadioChat::onNewMessage(const std::string& text, uint8_t msgID)
-{
-
-}
-
-void RadioChat::onMessageDelivery(uint16_t dest, uint8_t msgID)
-{
-
-}
-
-void RadioChat::onPingDone(uint16_t address, uint32_t delay)
-{
-
+    while (workFlag_) {
+        auto msg = qeueManager_->pop();
+        switch (msg->getType())
+        {
+        case QeueMessageType::AcceptMessage:
+            /* code */
+            break;
+        case QeueMessageType::DeliveryMessage:
+            /* code */
+            break;    
+        case QeueMessageType::KeyboardCommand:
+            /* code */
+            break;
+        case QeueMessageType::PingDone:
+            /* code */
+            break;
+        case QeueMessageType::TypingChar:
+            /* code */
+            break;
+        default:
+            break;
+        }
+    }
 }

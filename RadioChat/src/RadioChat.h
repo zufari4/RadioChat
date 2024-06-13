@@ -2,7 +2,8 @@
 
 #include <stdint.h>
 #include <string>
-
+#include <thread>
+#include <atomic>
 
 class Flash;
 class Settings;
@@ -13,6 +14,7 @@ class Radio;
 class LedIndicator;
 class UI;
 class Sound;
+class MessageQeueManager;
 enum class KeyCommand;
 
 
@@ -25,12 +27,9 @@ public:
     void loop();
 
 private:
-    void onChar(uint16_t symbol);
-    void onKeyCommand(KeyCommand cmd);
-    void onNewMessage(const std::string& text, uint8_t msgID);
-    void onMessageDelivery(uint16_t dest, uint8_t msgID);
-    void onPingDone(uint16_t address, uint32_t delay);
-    
+    void svc();
+
+    std::atomic_bool workFlag_;
     Settings*     settings_;
     Flash*        flash_;
     Esp*          esp_;
@@ -40,4 +39,6 @@ private:
     UI*           ui_;
     LedIndicator* ledIndicator_;
     Sound*        sound_;
+    MessageQeueManager* qeueManager_;
+    std::thread   svcThread_;
 };
