@@ -23,8 +23,8 @@ void Display::init(const DisplaySettings& settings)
 {
     LOG_INF("-- Initialize display --"); 
     u8g2_ = new U8G2_ST7920_128X64_F_HW_SPI(U8G2_R0, settings.pins.RS);
-    u8g2_->begin();
     u8g2_->setBusClock(600000);
+    u8g2_->begin();
     u8g2_->setFont(DISPLAY_FONT);
     u8g2_->setFontRefHeightExtendedText();
     u8g2_->setDrawColor(1);
