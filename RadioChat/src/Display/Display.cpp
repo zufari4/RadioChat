@@ -1,5 +1,6 @@
 #include "Display.h"
 #include "../Logger/Logger.h"
+#include "../Configuration.h"
 #include <Arduino.h>
 #include <SPI.h>
 #include <U8g2lib.h>
@@ -20,9 +21,8 @@ Display::~Display()
 
 void Display::init(const DisplaySettings& settings)
 {
-    LOG_INF("-- Initialize display --");
-
-    u8g2_ = new DISPLAY_MODEL(U8G2_R0, settings.pins.RS);
+    LOG_INF("-- Initialize display --"); 
+    u8g2_ = new U8G2_ST7920_128X64_F_SW_SPI(U8G2_R0, settings.pins.E, settings.pins.R_W, settings.pins.RS, settings.pins.RST);
     u8g2_->begin();
 
     u8g2_->setFont(DISPLAY_FONT);
@@ -31,9 +31,13 @@ void Display::init(const DisplaySettings& settings)
     u8g2_->setFontPosTop();
     u8g2_->setFontDirection(0);
 
-    LOG_DBG("RS pin %u", settings.pins.RS);
+    pinMode(settings.pins.BLA, OUTPUT);
+    analogWrite(settings.pins.BLA, settings.brightnessLevel);
+
+    LOG_INF("Pins: RS %u R/W %u E %u RST %u BLA %u", settings.pins.RS, settings.pins.R_W, settings.pins.E, settings.pins.RST, settings.pins.BLA);
     LOG_DBG("Display width %u height %u", getDisplayWidth(), getDisplayHeight());
     LOG_DBG("Max char width %u height %u", getMaxCharWidth(), getMaxCharHeight());
+    LOG_INF("Brightness level: %u", settings.brightnessLevel);
 }
 
 void Display::clear()

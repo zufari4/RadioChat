@@ -82,7 +82,10 @@ DisplaySettings Settings::display()
     
     res.brightnessLevel = ini.Get_value(section, "Brightness", res.brightnessLevel);
     res.pins.RS  = ini.Get_value(section, "Pin RS", res.pins.RS);
-    res.pins.led = ini.Get_value(section, "Pin Led", res.pins.led);
+    res.pins.R_W = ini.Get_value(section, "Pin R/W", res.pins.R_W);
+    res.pins.E = ini.Get_value(section, "Pin E", res.pins.E);
+    res.pins.RST = ini.Get_value(section, "Pin RST", res.pins.RST);
+    res.pins.BLA = ini.Get_value(section, "Pin BLA", res.pins.BLA);
 
     return res;
 }
