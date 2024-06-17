@@ -21,6 +21,17 @@ const Info& packman()
     return melody;
 }
 
+const Info& packmanShort()
+{
+    static const Info melody {
+        Name::Packman,
+        {
+        {NOTE_B4, 16}, {NOTE_B5 ,  16}, {NOTE_FS5, 16}, {NOTE_DS5, 16}
+        }
+    };
+    return melody;
+}
+
 const Info& nokia()
 {
     static const Info melody {
@@ -41,6 +52,7 @@ const Info& getMelody(Name melodyName)
     {   
     case Name::Packman: return packman();
     case Name::Nokia: return nokia();
+    case Name::PackmanShort: return packmanShort();
     default: return packman();
     }
 }

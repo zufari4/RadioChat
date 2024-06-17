@@ -5,7 +5,7 @@
 #define SERIAL_INIT_DELAY 1000
 #define STORAGE_DIR "/RadioChat"
 #define SETTINGS_FILENAME "config.json"
-#define FLASH_CS_PIN 5
+#define PIN_SPI_SS 5 // CS
 
 #define KEY_CODE_FN     0x0001
 #define KEY_CODE_ENTER  0x000A
@@ -16,5 +16,4 @@
 #define KEY_CODE_BACKSPACE 0x0008
 
 #define DISPLAY_FONT u8g2_font_6x12_t_cyrillic
-
 #define LOGGER_DEF_MSG_SIZE 1024

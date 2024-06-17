@@ -10,6 +10,6 @@ struct FlashSettings
         uint8_t miso = 19;
         uint8_t mosi = 23;
         uint8_t sck = 18;
-        uint8_t cs = FLASH_CS_PIN;
+        uint8_t cs = PIN_SPI_SS;
     } pins;
 };

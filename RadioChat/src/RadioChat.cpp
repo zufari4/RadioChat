@@ -95,10 +95,11 @@ void RadioChat::init()
 
     SoundSettings soundSettings = settings_->sound();
     sound_->init(soundSettings);
-    sound_->play(Melody::Name::Nokia);
 
     workFlag_ = true;
     svcThread_ = std::thread(&RadioChat::svc, this);
+
+    sound_->play(Melody::Name::Nokia);
 }
 
 void RadioChat::loop()
@@ -117,7 +118,7 @@ void RadioChat::svc()
         {
         case QeueMessageType::AcceptMessage: {
             auto m = static_cast<QeueMessageAcceptMessage*>(msg.get());
-            sound_->play(Melody::Name::Packman);
+            sound_->play(Melody::Name::PackmanShort);
             break;
         }
         case QeueMessageType::DeliveryMessage: {

@@ -9,6 +9,7 @@ namespace Melody
     {
         Packman,
         Nokia,
+        PackmanShort
     };
 
     struct Step
