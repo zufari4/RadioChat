@@ -24,5 +24,5 @@ IO = 22
 
 SH_LD = 16
 INH   = 4
-QH    = 0
-CLK   = 2
+QH    = 13
+CLK   = 14
