@@ -5,6 +5,7 @@
 #include <HardwareSerial.h>
 #include <SD.h>
 #include <stdarg.h>
+#include <algorithm>
 
 Logger::Logger()
     : flash_(nullptr)
@@ -48,13 +49,25 @@ void Logger::init(const LoggerSettings& settings, Flash* flash)
         if (!flash_->exist(path)) {
             flash_->createDir(path);
         }
-        
-        std::string filename = path + "/" + utils::datetime_str() + ".log";
+
+        std::string dt = utils::datetime_str();
+        dt.erase(std::remove(dt.begin(), dt.end(), ':'), dt.end());
+        dt.erase(std::remove(dt.begin(), dt.end(), '-'), dt.end());
+        dt.erase(std::remove(dt.begin(), dt.end(), '.'), dt.end());
+        dt.erase(std::remove(dt.begin(), dt.end(), ' '), dt.end());
+
+        std::string filename = path + "/" + dt + ".log";
         file_ = SD.open(filename.c_str(), FILE_WRITE);
+        if (file_) {
+            LOG_DBG("Created log file '%s'", filename.c_str());
+        }
+        else {
+            LOG_ERR("Can't create log file '%s'", filename.c_str());
+        }
     }
 
     LOG_INF("settings.level         : %d", (int)settings.level);
-    LOG_INF("settings.logToSerial   : %d", utils::to_str(settings.logToSerial));
+    LOG_INF("settings.logToSerial   : %s", utils::to_str(settings.logToSerial));
     LOG_INF("settings.logPath       : %s", path.c_str());
     LOG_INF("settings.maxCountLines : %u", settings.maxCountLines );
     LOG_INF("settings.maxCountLogs  : %u", settings.maxCountLogs  );

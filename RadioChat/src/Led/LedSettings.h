@@ -5,7 +5,7 @@
 struct LedSettings
 {
     struct Pins {
-        uint8_t on = 5;
+        uint8_t on = 21;
     } pins;
-    uint16_t interval;
+    uint16_t interval = 1000;
 };

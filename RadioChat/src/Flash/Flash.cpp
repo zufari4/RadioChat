@@ -32,6 +32,7 @@ void Flash::init(const FlashSettings& settings)
     }
 
     state_ = State::Init;
+    LOG_INF("Success");
 }
 
 void Flash::printInfo() const
@@ -46,20 +47,22 @@ void Flash::printInfo() const
         return;
     }
 
-    LOG_INF("SD Card Type: ");
     uint8_t cardType = SD.cardType();
+    uint64_t cardSize = SD.cardSize() / (1024 * 1024);
+
+    std::string cardTypeStr;
     if(cardType == CARD_MMC){
-        LOG_INF("MMC");
+        cardTypeStr = "MMC";
     } else if(cardType == CARD_SD){
-        LOG_INF("SDSC");
+        cardTypeStr = "SDSC";
     } else if(cardType == CARD_SDHC){
-        LOG_INF("SDHC");
+        cardTypeStr = "SDHC";
     } else {
-        LOG_INF("UNKNOWN");
+        cardTypeStr = "UNKNOWN";
     }
 
-    uint64_t cardSize = SD.cardSize() / (1024 * 1024);
-    LOG_INF("SD Card Size: %llu MB\n", cardSize);
+    LOG_INF("SD Card Type: %s", cardTypeStr.c_str());
+    LOG_INF("SD Card Size: %llu MB", cardSize);
 }
 
 bool Flash::exist(const std::string& path)

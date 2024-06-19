@@ -3,7 +3,6 @@
 #include "IniFile.h"
 
 Settings::Settings()
-    : flash_(nullptr)
 {
 }
 
@@ -11,10 +10,9 @@ Settings::~Settings()
 {
 }
 
-void Settings::init(const std::string& filename, Flash* flash)
+void Settings::init(const std::string& filename)
 {
     filename_ = filename;
-    flash_ = flash;
 }
 
 LoggerSettings Settings::logger()

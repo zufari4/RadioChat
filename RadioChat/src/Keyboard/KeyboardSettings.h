@@ -7,10 +7,10 @@ struct KeyboardSettings // SN74HC165N
 {
     struct Pins 
     {
-        uint8_t SH_LD = 5; // pin 1 
-        uint8_t INH   = 17;  // pin 15
-        uint8_t QH    = 16;  // pin 9 
-        uint8_t CLK   = 4;  // pin 2 
+        uint8_t SH_LD = 16; // OUTPUT
+        uint8_t INH   = 4;  // OUTPUT
+        uint8_t QH    = 0;  // INPUT
+        uint8_t CLK   = 2;  // OUTPUT
     } pins;
     Language lang = Language::Russian;
     uint8_t  maxKeyNum = 40;

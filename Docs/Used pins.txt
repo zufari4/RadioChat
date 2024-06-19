@@ -1,0 +1,28 @@
+[ Flash ]
+
+miso = 19
+mosi = 23
+sck  = 18
+cs   = 5
+
+[ Display ]
+
+RS  = 5
+R_W = 23
+E   = 18
+BLA = 17
+
+[ Led ]
+
+ON = 21
+
+[ Buzzier ]
+
+IO = 22
+
+[ Keyboard ]
+
+SH_LD = 16
+INH   = 4
+QH    = 0
+CLK   = 2

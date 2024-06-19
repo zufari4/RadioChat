@@ -64,7 +64,7 @@ void RadioChat::init()
         flash_->createDir(STORAGE_DIR);
     }
 
-    settings_->init(SETTINGS_FILENAME, flash_);
+    settings_->init(SETTINGS_FILENAME);
 
     LoggerSettings loggerSettings = settings_->logger();
     Logger::instance().init(loggerSettings, flash_);
@@ -82,10 +82,10 @@ void RadioChat::init()
     display_->init(dispSettings);
 
     RadioSettings radioSettings = settings_->radio();
-    radio_->init(radioSettings,
-                 std::bind(&RadioChat::pushAcceptMessage, this, _1, _2), 
-                 std::bind(&RadioChat::pushDeliveryMessage, this, _1, _2),
-                 std::bind(&RadioChat::pushPingDone, this, _1, _2));
+    //radio_->init(radioSettings,
+    //             std::bind(&RadioChat::pushAcceptMessage, this, _1, _2), 
+    //             std::bind(&RadioChat::pushDeliveryMessage, this, _1, _2),
+    //             std::bind(&RadioChat::pushPingDone, this, _1, _2));
 
     LedSettings ledSettings = settings_->led();
     ledIndicator_->init(ledSettings);
@@ -104,7 +104,7 @@ void RadioChat::init()
 
 void RadioChat::loop()
 {
-    radio_->check();
+    //radio_->check();
     keyHandler_->check();
     ledIndicator_->check();
     ui_->draw();

@@ -14,7 +14,8 @@ LedIndicator::~LedIndicator()
 
 void LedIndicator::init(const LedSettings& settings)
 {
-    LOG_INF("Init led indicator");
+    LOG_INF("--- Init led indicator ---");
+    LOG_DBG("Pin led on %u", settings.pins.on);
     settings_ = settings;
     pinMode(settings_.pins.on, OUTPUT);
     digitalWrite(settings_.pins.on, LOW);

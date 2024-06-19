@@ -10,14 +10,13 @@
 #include "Sound/SoundSettings.h"
 #include <string>
 
-class Flash;
 
 class Settings
 {
 public:
     Settings();
     ~Settings();
-    void init(const std::string& filename, Flash* flash);
+    void init(const std::string& filename);
 
     LoggerSettings logger();
     EspSettings esp();
@@ -30,5 +29,4 @@ public:
     
 private:
     std::string filename_;
-    Flash* flash_;
 };
