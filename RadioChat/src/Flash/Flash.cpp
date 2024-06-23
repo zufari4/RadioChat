@@ -65,35 +65,9 @@ void Flash::printInfo() const
     LOG_INF("SD Card Size: %llu MB", cardSize);
 }
 
-bool Flash::exist(const std::string& path)
-{
-    if (state_ != State::Init) 
-        return false;
-    return SD.exists(path.c_str());
-}
-
-bool Flash::createDir(const std::string& path)
-{
-    LOG_INF("createDir %s", path.c_str());
-
-    if (state_ != State::Init) {
-        LOG_ERR("Flash not init");
-        return "";
-    }
-    
-    bool res = SD.mkdir(path.c_str());
-    LOG_INF("%s", res ? "ok" : "fail");
-    return res;
-}
-
 std::string Flash::read(const std::string& filename)
 {
     LOG_INF("Read file %s", filename.c_str());
-
-    if (state_ != State::Init) {
-        LOG_ERR("Flash not init");
-        return "";
-    }
 
     File file = SD.open(filename.c_str());
     if (!file) {
@@ -113,11 +87,6 @@ std::string Flash::read(const std::string& filename)
 bool Flash::create(const std::string& filename, const std::string& content)
 {
     LOG_INF("Write to file %s", filename.c_str());
-
-    if (state_ != State::Init) {
-        LOG_ERR("Flash not init");
-        return false;
-    }
 
     File file = SD.open(filename.c_str(), FILE_WRITE);
     if (!file) {

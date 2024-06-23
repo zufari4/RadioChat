@@ -15,6 +15,7 @@
 #include "QeueMessage/QeueMessageKeyboardCommand.h"
 #include "QeueMessage/QeueMessagePingDone.h"
 #include "QeueMessage/QeueMessageTypingChar.h"
+#include <SD.h>
 
 
 RadioChat::RadioChat()
@@ -60,14 +61,14 @@ void RadioChat::init()
     FlashSettings flashSettings;
     flash_->init(flashSettings);
 
-    if (!flash_->exist(STORAGE_DIR)) {
-        flash_->createDir(STORAGE_DIR);
+    if (!SD.exists(STORAGE_DIR)) {
+        SD.mkdir(STORAGE_DIR);
     }
 
     settings_->init(SETTINGS_FILENAME);
 
     LoggerSettings loggerSettings = settings_->logger();
-    Logger::instance().init(loggerSettings, flash_);
+    Logger::instance().init(loggerSettings);
     flash_->printInfo(); // need logger for print
 
     EspSettings espSettings = settings_->esp();
@@ -82,10 +83,10 @@ void RadioChat::init()
     display_->init(dispSettings);
 
     RadioSettings radioSettings = settings_->radio();
-    //radio_->init(radioSettings,
-    //             std::bind(&RadioChat::pushAcceptMessage, this, _1, _2), 
-    //             std::bind(&RadioChat::pushDeliveryMessage, this, _1, _2),
-    //             std::bind(&RadioChat::pushPingDone, this, _1, _2));
+    radio_->init(radioSettings,
+                 std::bind(&RadioChat::pushAcceptMessage, this, _1, _2), 
+                 std::bind(&RadioChat::pushDeliveryMessage, this, _1, _2),
+                 std::bind(&RadioChat::pushPingDone, this, _1, _2));
 
     LedSettings ledSettings = settings_->led();
     ledIndicator_->init(ledSettings);

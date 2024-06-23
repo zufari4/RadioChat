@@ -1,7 +1,6 @@
 #pragma once
 
 #include "LoggerSettings.h"
-#include <FS.h>
 #include <vector>
 #include <memory>
 
@@ -9,7 +8,6 @@
 #define LOG_INF(...) Logger::instance().log(LogTraceLevel::Info, __VA_ARGS__)
 #define LOG_DBG(...) Logger::instance().log(LogTraceLevel::Debug, __VA_ARGS__)
 
-class Flash;
 
 class Logger
 {
@@ -18,7 +16,7 @@ public:
     ~Logger();
 
     void initSerialLogging();
-    void init(const LoggerSettings& settings, Flash* flash);
+    void init(const LoggerSettings& settings);
     static Logger& instance();
     void log(LogTraceLevel level, const char* format, ...);
     LogTraceLevel getLogLevel() const;
@@ -31,6 +29,5 @@ private:
     bool serialIsInit_;
     LoggerSettings settings_;
     std::vector<char> buffer_;
-    Flash* flash_;
-    fs::File file_;
+    std::string currentFile_;
 };

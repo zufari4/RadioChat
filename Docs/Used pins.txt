@@ -26,3 +26,11 @@ SH_LD = 16
 INH   = 4
 QH    = 13
 CLK   = 14
+
+[ Radio ]
+
+AUX = 32
+M0  = 27
+M1  = 26
+RX  = 25
+TX  = 33

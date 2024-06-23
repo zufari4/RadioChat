@@ -18,10 +18,8 @@ public:
     ~Flash();
     void init(const FlashSettings& settings);
     void printInfo() const;
-    bool exist(const std::string& path);
-    bool createDir(const std::string& path);
-    std::string read(const std::string& filename);
-    bool create(const std::string& filename, const std::string& content);
+    static std::string read(const std::string& filename);
+    static bool create(const std::string& filename, const std::string& content);
 
 private:
     State state_;

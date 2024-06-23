@@ -8,8 +8,7 @@
 #include <algorithm>
 
 Logger::Logger()
-    : flash_(nullptr)
-    , isInit_(false)
+    : isInit_(false)
     , serialIsInit_(false)
     , buffer_(LOGGER_DEF_MSG_SIZE, '\0')
 {
@@ -35,10 +34,9 @@ void Logger::initSerialLogging()
     }
 }
 
-void Logger::init(const LoggerSettings& settings, Flash* flash)
+void Logger::init(const LoggerSettings& settings)
 {
     settings_ = settings;
-    flash_ = flash;
     std::string path = getPath();
 
     if (settings_.level != LogTraceLevel::None) {
@@ -46,8 +44,8 @@ void Logger::init(const LoggerSettings& settings, Flash* flash)
 
         if (settings_.logToSerial) initSerialLogging();
 
-        if (!flash_->exist(path)) {
-            flash_->createDir(path);
+        if (!SD.exists(path.c_str())) {
+            SD.mkdir(path.c_str());
         }
 
         std::string dt = utils::datetime_str();
@@ -56,13 +54,14 @@ void Logger::init(const LoggerSettings& settings, Flash* flash)
         dt.erase(std::remove(dt.begin(), dt.end(), '.'), dt.end());
         dt.erase(std::remove(dt.begin(), dt.end(), ' '), dt.end());
 
-        std::string filename = path + "/" + dt + ".log";
-        file_ = SD.open(filename.c_str(), FILE_WRITE);
-        if (file_) {
-            LOG_DBG("Created log file '%s'", filename.c_str());
+        currentFile_ = path + "/" + dt + ".log";
+        fs::File file = SD.open(currentFile_.c_str(), FILE_WRITE);
+        if (file) {
+            LOG_DBG("Created log file '%s'", currentFile_.c_str());
+            file.close();
         }
         else {
-            LOG_ERR("Can't create log file '%s'", filename.c_str());
+            LOG_ERR("Can't create log file '%s'", currentFile_.c_str());
         }
     }
 
@@ -98,8 +97,11 @@ void Logger::log(LogTraceLevel level, const char* format, ...)
     if (settings_.logToSerial) {
         Serial.printf("%s", dst);
     }
-    if (file_) {
-        file_.write((const uint8_t*)dst, offset);
+
+    fs::File file = SD.open(currentFile_.c_str(), FILE_APPEND);
+    if (file) {
+        file.write((const uint8_t*)dst, offset);
+        file.close();
     }
 }
 
