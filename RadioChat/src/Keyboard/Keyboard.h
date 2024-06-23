@@ -6,7 +6,7 @@
 #include <map>
 #include <vector>
 
-/* Class for 74HC165 */
+/* Class for SN74HC165 */
 class Keyboard
 {
 public:
@@ -19,15 +19,10 @@ public:
     KeyState getState(uint8_t keyNum) const;
     
 private:
-    void updatePressed();
+    void updatePressed(uint8_t& key1, uint8_t& key2, uint8_t& key3);
 
     KeyboardSettings settings_;
     KeyCallback onKeyDown_;
     KeyCallback onKeyUp_;
     std::map<uint8_t, KeyState> state_;
-    uint8_t key1_, key2_, key3_;
-    uint8_t registerValue_;
-    uint8_t bitNum_;
-    uint8_t countPressed_;
-    uint8_t countKeys_;
 };

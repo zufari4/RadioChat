@@ -14,7 +14,7 @@ struct KeyboardSettings // SN74HC165N
     } pins;
     Language lang = Language::Russian;
     uint8_t  maxKeyNum = 40;
-    uint8_t  fnKey = 2;
-    uint8_t  enterKey = 38;
+    uint8_t  fnKey = 1;
+    uint8_t  enterKey = 37;
     uint8_t  countRegisters = 5;
 };

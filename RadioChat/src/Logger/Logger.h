@@ -27,10 +27,10 @@ private:
     std::string getPath() const;
     std::string makeFilename() const;
     
+    bool isInit_;
+    bool serialIsInit_;
     LoggerSettings settings_;
     std::vector<char> buffer_;
     Flash* flash_;
     fs::File file_;
-    bool isInit_;
-    bool serialIsInit_;
 };

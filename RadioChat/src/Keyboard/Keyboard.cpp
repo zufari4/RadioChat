@@ -1,15 +1,10 @@
 #include "Keyboard.h"
 #include "../Logger/Logger.h"
+#include "../Utils.h"
 #include <HardwareSerial.h>
 #include <Arduino.h>
 
 Keyboard::Keyboard()
-    : key1_(0)
-    , key2_(0)
-    , key3_(0)
-    , registerValue_(0)
-    , bitNum_(0)
-    , countPressed_(0)
 {
 }
 
@@ -40,11 +35,14 @@ void Keyboard::init(const KeyboardSettings& settings, KeyCallback onKeyDown, Key
 
 void Keyboard::check()
 {
-    updatePressed();
+    uint8_t key1 = 0;
+    uint8_t key2 = 0;
+    uint8_t key3 = 0;
+    updatePressed(key1, key2, key3);
     KeyState currentState;
     
     for (uint8_t key = 1; key <= settings_.maxKeyNum; ++key) {
-        currentState = key == key1_ || key == key2_ || key == key3_ ? KeyState::Press : KeyState::Release;
+        currentState = key == key1 || key == key2 || key == key3 ? KeyState::Press : KeyState::Release;
         KeyState& prevState = state_[key];
         if (prevState != currentState) {
             if (currentState == KeyState::Press) onKeyDown_(key);
@@ -54,7 +52,7 @@ void Keyboard::check()
     }
 }
 
-void Keyboard::updatePressed()
+void Keyboard::updatePressed(uint8_t& key1, uint8_t& key2, uint8_t& key3)
 {
     digitalWrite(settings_.pins.INH, HIGH);
     digitalWrite(settings_.pins.SH_LD , LOW);
@@ -63,34 +61,38 @@ void Keyboard::updatePressed()
     digitalWrite(settings_.pins.SH_LD , HIGH);
     digitalWrite(settings_.pins.INH, LOW);
  
-    registerValue_ = 0;
-    bitNum_ = 0;
-    countPressed_ = 0;
-    key1_ = 0; key2_ = 0; key3_ = 0;
-    bool isBitSet;
+    uint8_t registerValue = 0;
+    uint8_t totalBitNum = 0;
+    uint8_t countPressed = 0;
+    bool    isBitSet;
+    //std::string bits;
 
     for (uint8_t i = 0; i < settings_.countRegisters; ++i) {
-        registerValue_ = shiftIn(settings_.pins.QH, settings_.pins.CLK, MSBFIRST);
-        for (uint8_t b = 0; b < 8; ++b, ++bitNum_) {
-            isBitSet = registerValue_ & (1 << b);
+        registerValue = shiftIn(settings_.pins.QH, settings_.pins.CLK, MSBFIRST);
+        //bits = utils::bits2str(registerValue);
+        //Serial.printf("%u: %s ", i, bits.c_str());
+        for (uint8_t b = 0; b < 8; ++b, ++totalBitNum) {
+            isBitSet = registerValue & (1 << b);
             if (isBitSet) {
                 continue;
             }
-            ++countPressed_;
-            if (countPressed_ == 1) {
-                key1_ = bitNum_ + 1;
+            ++countPressed;
+            if (countPressed == 1) {
+                key1 = totalBitNum + 1;
             }
-            else if (countPressed_ == 2) {
-                key2_ = bitNum_ + 1;
+            else if (countPressed == 2) {
+                key2 = totalBitNum + 1;
             }
-            else if (countPressed_ == 3) {
-                key3_ = bitNum_ + 1;
+            else if (countPressed == 3) {
+                key3 = totalBitNum + 1;
             }
             else {
+                //Serial.printf("\n");
                 return;
             }
         }
     }
+    //Serial.printf("\n");
 }
 
 KeyState Keyboard::getState(uint8_t keyNum) const

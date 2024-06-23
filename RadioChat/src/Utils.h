@@ -16,4 +16,5 @@ const char* to_str(bool val);
 bool fileIsExists(const std::string& filename);
 std::string readFile(const std::string& filename);
 bool writeToFile(const std::string& filename, const std::string& content);
+std::string bits2str(uint8_t val);
 }

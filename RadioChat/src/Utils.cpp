@@ -1,3 +1,4 @@
+#include <string>
 #include "Utils.h"
 #include "Logger/Logger.h"
 #include <SD.h>
@@ -123,6 +124,19 @@ bool writeToFile(const std::string &filename, const std::string &content)
     file.close();
 
     return true;
+}
+
+std::string bits2str(uint8_t val)
+{
+    uint8_t i, j;
+    std::string res;
+
+    for (uint8_t b = 0; b < 8; ++b) {
+        bool isBitSet = val & (1 << b);
+        res += isBitSet ? '1' : '0';
+    }
+    
+    return res;
 }
 
 }

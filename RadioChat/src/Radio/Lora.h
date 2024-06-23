@@ -20,7 +20,7 @@ enum class PROGRAM_COMMAND: uint8_t
 
 enum class REGISTER_ADDRESS: uint8_t 
 {
-    REG_ADDRESS_CFG            = 0x00,
+    REG_ADDRESS_CFG         = 0x00,
     REG_ADDRESS_SPED        = 0x03,
     REG_ADDRESS_TRANS_MODE  = 0x04,
     REG_ADDRESS_CHANNEL     = 0x05,

@@ -15,7 +15,7 @@ struct LoggerSettings
     bool logToSerial = false;
 #endif
     std::string logPath = "logs";
-    uint8_t  maxCountLogs  = 10;
-    uint8_t  maxCountLines = 2000;
+    uint16_t maxCountLogs  = 10;
+    uint16_t maxCountLines = 2000;
     uint16_t maxMessageSize = 256;
 };
