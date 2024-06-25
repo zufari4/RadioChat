@@ -74,11 +74,6 @@ void RadioChat::init()
     EspSettings espSettings = settings_->esp();
     esp_->init(espSettings);
 
-    KeyboardSettings  keybSettings = settings_->keyboard();
-    keyHandler_->init(keybSettings, 
-                      std::bind(&RadioChat::pushTypingChar, this, _1), 
-                      std::bind(&RadioChat::pushKeyboardCommand, this, _1));
-
     DisplaySettings dispSettings = settings_->display();
     display_->init(dispSettings);
 
@@ -97,6 +92,11 @@ void RadioChat::init()
     SoundSettings soundSettings = settings_->sound();
     sound_->init(soundSettings);
 
+    KeyboardSettings  keybSettings = settings_->keyboard();
+    keyHandler_->init(keybSettings, 
+                      std::bind(&RadioChat::pushTypingChar, this, _1), 
+                      std::bind(&RadioChat::pushKeyboardCommand, this, _1));
+
     workFlag_ = true;
     svcThread_ = std::thread(&RadioChat::svc, this);
 
@@ -106,7 +106,6 @@ void RadioChat::init()
 void RadioChat::loop()
 {
     radio_->check();
-    keyHandler_->check();
     ledIndicator_->check();
     ui_->draw();
 }

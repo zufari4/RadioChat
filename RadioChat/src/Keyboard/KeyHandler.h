@@ -7,6 +7,8 @@
 #include <string>
 #include <stdint.h>
 #include <memory>
+#include <thread>
+#include <atomic>
 
 class Keyboard;
 class KeyMapBase;
@@ -20,7 +22,6 @@ public:
     KeyHandler();
     ~KeyHandler();
     void init(const KeyboardSettings& settings, CharCallback onChar, CmdCallback onCmd);
-    void check();
     Language getLang() const;
 
 private:
@@ -30,7 +31,8 @@ private:
     void switchLang();
     void handleSymbol(uint16_t symbol);
     void handleCommand(KeyCommand cmd);
-
+    void svc();
+    
     std::unique_ptr<Keyboard> keyboard_;
     CharCallback onChar_;
     CmdCallback onCmd_;
@@ -39,4 +41,6 @@ private:
     uint8_t enterKey_;
     bool fnKeyPressed_;
     bool fnKeyHandled_;
+    std::atomic_bool workFlag_;
+    std::thread   svcThread_;
 };

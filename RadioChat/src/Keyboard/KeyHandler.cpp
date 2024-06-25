@@ -8,11 +8,13 @@
 #include <string>
 #include <stdint.h>
 #include <functional>
+#include <Arduino.h>
 
 KeyHandler::KeyHandler()
     : fnKey_(0)
     , enterKey_(0)
     , fnKeyPressed_(false)
+    , workFlag_(false)
 {
 }
 
@@ -33,11 +35,9 @@ void KeyHandler::init(const KeyboardSettings& settings, CharCallback onChar, Cmd
     fnKey_ = settings.fnKey;
     enterKey_ = settings.enterKey;
     LOG_INF("FN key %u Enter key %u", fnKey_, enterKey_);
-}
 
-void KeyHandler::check()
-{
-    keyboard_->check();
+    workFlag_ = true;
+    svcThread_ = std::thread(&KeyHandler::svc, this);
 }
 
 void KeyHandler::onKeyDown(uint8_t keyNum)
@@ -98,6 +98,14 @@ void KeyHandler::handleCommand(KeyCommand cmd)
 {
     LOG_INF("%s: %s", __FUNCTION__, key_cmd_2_str(cmd));
     onCmd_(cmd);
+}
+
+void KeyHandler::svc()
+{
+    while (workFlag_) {
+        keyboard_->check();
+        delay(5);
+    }
 }
 
 void KeyHandler::switchLang()
