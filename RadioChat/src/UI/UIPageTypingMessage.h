@@ -4,6 +4,7 @@
 #include "UIPageBase.h"
 #include <vector>
 #include <chrono>
+#include <mutex>
 
 class UIPageTypingMessage: public UIPageBase
 {
@@ -21,4 +22,5 @@ private:
     bool carriageVisible_;
     Clock::time_point nextCarriageShow_;
     std::chrono::milliseconds carriageShowTime_;
+    std::mutex msgMutex_;
 };

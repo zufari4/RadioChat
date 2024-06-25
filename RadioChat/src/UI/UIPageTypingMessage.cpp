@@ -19,6 +19,8 @@ UIPageTypingMessage::~UIPageTypingMessage()
 
 void UIPageTypingMessage::draw()
 {
+    std::lock_guard guard(msgMutex_);
+    
     uint8_t y = 0;
     uint8_t h = getTextHeight();
 
@@ -40,9 +42,11 @@ void UIPageTypingMessage::draw()
 
 void UIPageTypingMessage::onChar(uint16_t symbol)
 {
+    std::lock_guard guard(msgMutex_);
+
     std::string& typingMessage = typingMessage_.back();
     int len = utils::utf8_len(typingMessage);
-    const uint8_t maxLen = getMaxStrLen();
+    uint8_t maxLen = getMaxStrLen();
 
     if (len < maxLen) {
         utils::add_to_str(symbol, typingMessage);
@@ -50,11 +54,11 @@ void UIPageTypingMessage::onChar(uint16_t symbol)
 
     if (len+1 >= maxLen) {
         if (typingMessage_.size() < getMaxCountLines()) {
-            LOG_INF("New line");
+            //LOG_INF("New line");
             typingMessage_.emplace_back();
         }
         else {
-            LOG_INF("Text is full");  
+            //LOG_INF("Text is full");  
         }
     }
 
@@ -66,10 +70,12 @@ void UIPageTypingMessage::onKeyCommand(KeyCommand cmd)
 {
     switch (cmd) {
     case KeyCommand::Backspace: {
+        std::lock_guard guard(msgMutex_);
+
         std::string& typingMessage = typingMessage_.back();
         utils::pop_back_utf8(typingMessage);
         if (typingMessage.empty() && typingMessage_.size() > 1) {
-            LOG_INF("Remove line");
+            //LOG_INF("Remove line");
             typingMessage_.pop_back();
         }
     }
