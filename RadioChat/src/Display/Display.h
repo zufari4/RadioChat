@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <string>
 
-class U8G2_ST7920_128X64_F_HW_SPI;
+class U8G2_ST7920_128X64_F_SW_SPI;
 
 class Display
 {
@@ -22,5 +22,5 @@ public:
     uint8_t getMaxCharHeight() const;
     
 private:
-    U8G2_ST7920_128X64_F_HW_SPI* u8g2_;
+    U8G2_ST7920_128X64_F_SW_SPI* u8g2_;
 };

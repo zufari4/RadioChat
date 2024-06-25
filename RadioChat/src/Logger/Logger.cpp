@@ -81,7 +81,8 @@ void Logger::log(LogTraceLevel level, const char* format, ...)
         return;
     if ((uint8_t)level > (uint8_t)settings_.level) 
         return;
-
+        
+    std::lock_guard guard(mtx_);
     char* dst = buffer_.data();
     uint8_t offset = utils::datetime_str(dst, buffer_.size());
     dst[offset++] = ' ';

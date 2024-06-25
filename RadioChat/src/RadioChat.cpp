@@ -16,7 +16,7 @@
 #include "QeueMessage/QeueMessagePingDone.h"
 #include "QeueMessage/QeueMessageTypingChar.h"
 #include <SD.h>
-
+#include <stdexcept>
 
 RadioChat::RadioChat()
     : workFlag_(false)
@@ -105,7 +105,7 @@ void RadioChat::init()
 
 void RadioChat::loop()
 {
-    //radio_->check();
+    radio_->check();
     keyHandler_->check();
     ledIndicator_->check();
     ui_->draw();
@@ -114,35 +114,40 @@ void RadioChat::loop()
 void RadioChat::svc()
 {
     while (workFlag_) {
-        auto msg = messageQeue_.dequeue();
-        switch (msg->getType())
-        {
-        case QeueMessageType::AcceptMessage: {
-            auto m = static_cast<QeueMessageAcceptMessage*>(msg.get());
-            sound_->play(Melody::Name::PackmanShort);
-            break;
-        }
-        case QeueMessageType::DeliveryMessage: {
-            auto m = static_cast<QeueMessageDeliveryMessage*>(msg.get());
-            break;
-        }   
-        case QeueMessageType::KeyboardCommand: {
-            auto m = static_cast<QeueMessageKeyboardCommand*>(msg.get());
-            ui_->onKeyCommand(m->getCommand());
-            break;
-        }
-        case QeueMessageType::PingDone: {
-            auto m = static_cast<QeueMessagePingDone*>(msg.get());
-            break;
-        }
-        case QeueMessageType::TypingChar: {
-            auto m = static_cast<QeueMessageTypingChar*>(msg.get());
-            ui_->onChar(m->getCode());
-            break;
-        }
-        default:
-            break;
-        }
+        checkQeue();
+    }
+}
+
+void RadioChat::checkQeue()
+{
+    auto msg = messageQeue_.dequeue();
+    switch (msg->getType())
+    {
+    case QeueMessageType::AcceptMessage: {
+        auto m = static_cast<QeueMessageAcceptMessage*>(msg.get());
+        sound_->play(Melody::Name::PackmanShort);
+        break;
+    }
+    case QeueMessageType::DeliveryMessage: {
+        auto m = static_cast<QeueMessageDeliveryMessage*>(msg.get());
+        break;
+    }   
+    case QeueMessageType::KeyboardCommand: {
+        auto m = static_cast<QeueMessageKeyboardCommand*>(msg.get());
+        ui_->onKeyCommand(m->getCommand());
+        break;
+    }
+    case QeueMessageType::PingDone: {
+        auto m = static_cast<QeueMessagePingDone*>(msg.get());
+        break;
+    }
+    case QeueMessageType::TypingChar: {
+        auto m = static_cast<QeueMessageTypingChar*>(msg.get());
+        ui_->onChar(m->getCode());
+        break;
+    }
+    default:
+        break;
     }
 }
 

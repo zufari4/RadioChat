@@ -7,9 +7,9 @@ cs   = 5
 
 [ Display ]
 
-RS  = 5
-R_W = 23
-E   = 18
+RS  = 2
+R_W = 15
+E   = 12
 BLA = 17
 
 [ Led ]

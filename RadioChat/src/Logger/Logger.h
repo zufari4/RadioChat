@@ -30,4 +30,5 @@ private:
     LoggerSettings settings_;
     std::vector<char> buffer_;
     std::string currentFile_;
+    std::mutex mtx_;
 };

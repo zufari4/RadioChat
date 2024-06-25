@@ -9,4 +9,5 @@ struct SoundSettings
         uint8_t io = 22;
     } pins;
     uint8_t tempo = 108;
+    bool enable = false;
 };

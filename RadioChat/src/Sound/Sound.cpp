@@ -15,13 +15,12 @@ void Sound::init(const SoundSettings& settings)
     LOG_INF("tempo: %u", settings.tempo);
     settings_ = settings;
     pinMode(settings_.pins.io, OUTPUT);
-    myNoTone();
     wholenote_ = (60000 * 4) / settings_.tempo;
 }
 
 void Sound::play(Melody::Name melodyName)
 {
-    if (playThread_.joinable()) {
+    if (!settings_.enable || playThread_.joinable()) {
         return;
     }
     playThread_ = std::thread(&Sound::playThreadFn, this, melodyName);
@@ -55,15 +54,10 @@ void Sound::playThreadFn(Melody::Name melodyName)
 
 void Sound::myTone(unsigned int frequency, unsigned long duration)
 {
-    if (frequency == 0) {
-        myNoTone(); // tone with zero freq not on esp32
-    }
-    else {
-        tone(settings_.pins.io, frequency, duration);
-    }
+    tone(settings_.pins.io, frequency, duration);
 }
 
 void Sound::myNoTone()
 {
-    digitalWrite(settings_.pins.io, 1); // noTone() - not work on esp32
+    noTone(settings_.pins.io);
 }

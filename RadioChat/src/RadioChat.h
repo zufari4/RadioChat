@@ -32,6 +32,7 @@ private:
     using MessagePtr = std::unique_ptr<QeueMessageBase>;
 
     void svc();
+    void checkQeue();
     void pushTypingChar(uint16_t code);
     void pushKeyboardCommand(KeyCommand cmd);
     void pushAcceptMessage(const std::string& text, uint8_t msgID);
