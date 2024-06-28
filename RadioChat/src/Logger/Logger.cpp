@@ -4,6 +4,7 @@
 #include "../Configuration.h"
 #include <HardwareSerial.h>
 #include <SD.h>
+#include <FS.h>
 #include <stdarg.h>
 #include <algorithm>
 
@@ -54,14 +55,14 @@ void Logger::init(const LoggerSettings& settings)
         dt.erase(std::remove(dt.begin(), dt.end(), '.'), dt.end());
         dt.erase(std::remove(dt.begin(), dt.end(), ' '), dt.end());
 
-        currentFile_ = path + "/" + dt + ".log";
-        fs::File file = SD.open(currentFile_.c_str(), FILE_WRITE);
+        std::string currentFileName = path + "/" + dt + ".log";
+        fs::File file = SD.open(currentFileName.c_str(), FILE_APPEND);
         if (file) {
-            LOG_DBG("Created log file '%s'", currentFile_.c_str());
-            file.close();
+            LOG_DBG("Created log file '%s'", currentFileName.c_str());
+            currentFile_ = std::make_unique<fs::File>(file);
         }
         else {
-            LOG_ERR("Can't create log file '%s'", currentFile_.c_str());
+            LOG_ERR("Can't create log file '%s'", currentFileName.c_str());
         }
     }
 
@@ -99,10 +100,8 @@ void Logger::log(LogTraceLevel level, const char* format, ...)
         Serial.printf("%s", dst);
     }
 
-    fs::File file = SD.open(currentFile_.c_str(), FILE_APPEND);
-    if (file) {
-        file.write((const uint8_t*)dst, offset);
-        file.close();
+    if (currentFile_) {
+        currentFile_->write((const uint8_t*)dst, offset);
     }
 }
 

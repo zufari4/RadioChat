@@ -8,6 +8,10 @@
 #define LOG_INF(...) Logger::instance().log(LogTraceLevel::Info, __VA_ARGS__)
 #define LOG_DBG(...) Logger::instance().log(LogTraceLevel::Debug, __VA_ARGS__)
 
+namespace fs
+{
+    class File;
+}
 
 class Logger
 {
@@ -29,6 +33,6 @@ private:
     bool serialIsInit_;
     LoggerSettings settings_;
     std::vector<char> buffer_;
-    std::string currentFile_;
     std::mutex mtx_;
+    std::unique_ptr<fs::File> currentFile_;
 };
