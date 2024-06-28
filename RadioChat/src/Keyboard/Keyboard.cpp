@@ -22,12 +22,11 @@ void Keyboard::init(const KeyboardSettings& settings, KeyCallback onKeyDown, Key
         state_[key] = KeyState::Release;
     }
 
-    LOG_DBG("SH %u INH %u CLK %u QH %u", settings_.pins.SH_LD, settings_.pins.INH, settings_.pins.CLK, settings_.pins.QH);
+    LOG_DBG("SH %u CLK %u QH %u", settings_.pins.SH_LD, settings_.pins.CLK, settings_.pins.QH);
     LOG_DBG("maxKeyNum %u countRegisters %u", settings_.maxKeyNum, settings_.countRegisters);
 
-    pinMode(settings_.pins.SH_LD, OUTPUT);
-    pinMode(settings_.pins.INH, OUTPUT);
     pinMode(settings_.pins.CLK, OUTPUT);
+    pinMode(settings_.pins.SH_LD, OUTPUT);
     pinMode(settings_.pins.QH, INPUT);
     digitalWrite(settings_.pins.CLK, LOW);
     digitalWrite(settings_.pins.SH_LD, HIGH);
@@ -54,13 +53,10 @@ void Keyboard::check()
 
 void Keyboard::updatePressed(uint8_t& key1, uint8_t& key2, uint8_t& key3)
 {
-    digitalWrite(settings_.pins.INH, HIGH);
-    digitalWrite(settings_.pins.SH_LD , LOW);
-    delay(5);
-    digitalWrite(settings_.pins.CLK, HIGH);
-    digitalWrite(settings_.pins.SH_LD , HIGH);
-    digitalWrite(settings_.pins.INH, LOW);
- 
+    digitalWrite(settings_.pins.SH_LD, LOW);
+    delayMicroseconds(1);
+    digitalWrite(settings_.pins.SH_LD, HIGH);
+
     uint8_t registerValue = 0;
     uint8_t totalBitNum = 0;
     uint8_t countPressed = 0;

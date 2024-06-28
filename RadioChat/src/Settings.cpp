@@ -63,7 +63,6 @@ KeyboardSettings Settings::keyboard()
     res.lang     = (Language)ini.Get_value(section, "Language", (int)res.lang);
     res.maxKeyNum= ini.Get_value(section, "Max count keys", res.maxKeyNum);
     res.pins.CLK = ini.Get_value(section, "Pin CLK", res.pins.CLK);
-    res.pins.INH = ini.Get_value(section, "Pin CLK", res.pins.INH);
     res.pins.QH  = ini.Get_value(section, "Pin QH", res.pins.QH);
     res.pins.SH_LD = ini.Get_value(section, "Pin SH_LD", res.pins.SH_LD);
 

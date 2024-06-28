@@ -23,7 +23,6 @@ IO = 22
 [ Keyboard ]
 
 SH_LD = 16
-INH   = 4
 QH    = 13
 CLK   = 14
 
