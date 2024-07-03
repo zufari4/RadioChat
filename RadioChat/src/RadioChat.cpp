@@ -9,6 +9,7 @@
 #include "Radio/Radio.h"
 #include "Led/LedIndicator.h"
 #include "Sound/Sound.h"
+#include "Battery/Battery.h"
 #include "UI/UI.h"
 #include "QeueMessage/QeueMessageAcceptMessage.h"
 #include "QeueMessage/QeueMessageDeliveryMessage.h"
@@ -26,8 +27,10 @@ RadioChat::RadioChat()
     , keyHandler_(nullptr)
     , display_(nullptr)
     , radio_(nullptr)
-    , ui_(nullptr)
     , ledIndicator_(nullptr)
+    , sound_(nullptr)
+    , battery_(nullptr)
+    , ui_(nullptr)
 {
 
 }
@@ -57,6 +60,7 @@ void RadioChat::init()
     ui_         = new UI();
     ledIndicator_ = new LedIndicator();
     sound_       = new Sound();
+    battery_    = new Battery();
 
     FlashSettings flashSettings;
     flash_->init(flashSettings);
@@ -92,6 +96,9 @@ void RadioChat::init()
     SoundSettings soundSettings = settings_->sound();
     sound_->init(soundSettings);
 
+    BatterySettings batterySettings = settings_->battery();
+    battery_->init(batterySettings);
+
     KeyboardSettings  keybSettings = settings_->keyboard();
     keyHandler_->init(keybSettings, 
                       std::bind(&RadioChat::pushTypingChar, this, _1), 
@@ -107,6 +114,7 @@ void RadioChat::loop()
 {
     radio_->check();
     ledIndicator_->check();
+    battery_->check();
     ui_->draw();
 }
 

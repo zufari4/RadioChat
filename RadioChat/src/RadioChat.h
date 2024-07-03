@@ -16,6 +16,7 @@ class Radio;
 class LedIndicator;
 class UI;
 class Sound;
+class Battery;
 class QeueMessageBase;
 enum class KeyCommand;
 
@@ -46,9 +47,10 @@ private:
     KeyHandler*   keyHandler_;
     Display*      display_;
     Radio*        radio_;
-    UI*           ui_;
     LedIndicator* ledIndicator_;
     Sound*        sound_;
+    Battery*      battery_;
+    UI*           ui_;
     SafeQueue<MessagePtr> messageQeue_;
     std::thread   svcThread_;
 };

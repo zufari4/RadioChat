@@ -8,6 +8,7 @@
 #include "Led/LedSettings.h"
 #include "Logger/LoggerSettings.h"
 #include "Sound/SoundSettings.h"
+#include "Battery/BatterySettings.h"
 #include <string>
 
 
@@ -26,7 +27,8 @@ public:
     RadioSettings radio();
     LedSettings led();
     SoundSettings sound();
-    
+    BatterySettings battery();
+
 private:
     std::string filename_;
 };

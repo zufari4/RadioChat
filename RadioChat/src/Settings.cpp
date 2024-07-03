@@ -151,3 +151,20 @@ SoundSettings Settings::sound()
 
     return res;  
 }
+
+BatterySettings Settings::battery()
+{
+    LOG_INF("Loading battery settings");
+    
+    BatterySettings res;
+    Ini_file ini;
+    std::string section("Battery");
+    
+    res.maxADC = ini.Get_value(section, "Max ADC", res.maxADC);
+    res.maxBatteryVoltage = ini.Get_value(section, "Max battery voltage", res.maxBatteryVoltage);
+    res.pinVotage = ini.Get_value(section, "Pin votage", res.pinVotage);
+    res.checkInterval = ini.Get_value(section, "Check interval", res.checkInterval);
+    res.cFactor = ini.Get_value(section, "Correction factor", res.cFactor);
+
+    return res;  
+}

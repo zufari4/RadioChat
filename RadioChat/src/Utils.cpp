@@ -128,7 +128,6 @@ bool writeToFile(const std::string &filename, const std::string &content)
 
 std::string bits2str(uint8_t val)
 {
-    uint8_t i, j;
     std::string res;
 
     for (uint8_t b = 0; b < 8; ++b) {

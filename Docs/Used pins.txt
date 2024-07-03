@@ -33,3 +33,7 @@ M0  = 27
 M1  = 26
 RX  = 25
 TX  = 33
+
+[Battery]
+
+ADC = 4
