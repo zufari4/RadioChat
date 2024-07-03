@@ -45,24 +45,8 @@ void Logger::init(const LoggerSettings& settings)
 
         if (settings_.logToSerial) initSerialLogging();
 
-        if (!SD.exists(path.c_str())) {
-            SD.mkdir(path.c_str());
-        }
-
-        std::string dt = utils::datetime_str();
-        dt.erase(std::remove(dt.begin(), dt.end(), ':'), dt.end());
-        dt.erase(std::remove(dt.begin(), dt.end(), '-'), dt.end());
-        dt.erase(std::remove(dt.begin(), dt.end(), '.'), dt.end());
-        dt.erase(std::remove(dt.begin(), dt.end(), ' '), dt.end());
-
-        std::string currentFileName = path + "/" + dt + ".log";
-        fs::File file = SD.open(currentFileName.c_str(), FILE_APPEND);
-        if (file) {
-            LOG_DBG("Created log file '%s'", currentFileName.c_str());
-            currentFile_ = std::make_unique<fs::File>(file);
-        }
-        else {
-            LOG_ERR("Can't create log file '%s'", currentFileName.c_str());
+        if (settings_.logToFile) {
+            createFile();
         }
     }
 
@@ -118,4 +102,29 @@ std::string Logger::getPath() const
 std::string Logger::makeFilename() const
 {
     return std::string();
+}
+
+void Logger::createFile()
+{
+    std::string path = getPath();
+
+    if (!SD.exists(path.c_str())) {
+        SD.mkdir(path.c_str());
+    }
+
+    std::string dt = utils::datetime_str();
+    dt.erase(std::remove(dt.begin(), dt.end(), ':'), dt.end());
+    dt.erase(std::remove(dt.begin(), dt.end(), '-'), dt.end());
+    dt.erase(std::remove(dt.begin(), dt.end(), '.'), dt.end());
+    dt.erase(std::remove(dt.begin(), dt.end(), ' '), dt.end());
+
+    std::string currentFileName = path + "/" + dt + ".log";
+    fs::File file = SD.open(currentFileName.c_str(), FILE_WRITE);
+    if (file) {
+        LOG_DBG("Created log file '%s'", currentFileName.c_str());
+        currentFile_ = std::make_unique<fs::File>(file);
+    }
+    else {
+        LOG_ERR("Can't create log file '%s'", currentFileName.c_str());
+    }
 }

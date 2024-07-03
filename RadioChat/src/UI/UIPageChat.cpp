@@ -1,10 +1,9 @@
 #include "UIPageChat.h"
-#include "../Display/Display.h"
 #include "../Utils.h"
-#include "../Configuration.h"
+#include "../Display/Display.h"
 
-UIPageChat::UIPageChat(const UISettings& settings, Display* display)
-    : UIPageBase(UIPageType::TypingMessage, settings, display)
+UIPageChat::UIPageChat(const UIContext* context)
+    : UIPageBase(UIPageType::TypingMessage, context)
     , typingMessage_{""}
 {
 }
@@ -17,15 +16,15 @@ void UIPageChat::draw()
 {
     uint8_t y = 0;
     for (int i = 0; i < typingMessage_.size(); ++i) {
-        drawText(0, y, typingMessage_[0]);
-        y += getTextHeight();
+        ctx_->display->drawStr(0, y, typingMessage_[0]);
+        y += ctx_->textHeight;
     }
 }
 
 void UIPageChat::onChar(uint16_t symbol)
 {
     std::string& typingMessage = typingMessage_.back();
-    if (utils::utf8_len(typingMessage) >= getMaxStrLen()) {
+    if (utils::utf8_len(typingMessage) >= ctx_->maxCountLines) {
         typingMessage_.push_back("");
         typingMessage = typingMessage_.back();
     }

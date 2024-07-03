@@ -10,9 +10,11 @@ struct LoggerSettings
 #if DEBUG_MODE == 1
     LogTraceLevel level = LogTraceLevel::Debug;
     bool logToSerial = true;
+    bool logToFile = false;
 #else
     LogTraceLevel level = LogTraceLevel::Error;
     bool logToSerial = false;
+    bool logToFile = true;
 #endif
     std::string logPath = "logs";
     uint16_t maxCountLogs  = 10;

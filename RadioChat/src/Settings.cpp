@@ -25,6 +25,7 @@ LoggerSettings Settings::logger()
 
     res.level           = (LogTraceLevel)ini.Get_value(section, "level", (int)res.level);
     res.logToSerial     = ini.Get_value(section, "Log to serial", res.logToSerial);
+    res.logToFile       = ini.Get_value(section, "Log to file", res.logToFile);
     res.logPath         = ini.Get_value(section, "path", res.logPath);
     res.maxCountLines   = ini.Get_value(section, "Max count lines", (int)res.maxCountLines);
     res.maxCountLogs    = ini.Get_value(section, "Max count logs", (int)res.maxCountLogs);
@@ -64,7 +65,7 @@ KeyboardSettings Settings::keyboard()
     res.maxKeyNum= ini.Get_value(section, "Max count keys", res.maxKeyNum);
     res.pins.CLK = ini.Get_value(section, "Pin CLK", res.pins.CLK);
     res.pins.QH  = ini.Get_value(section, "Pin QH", res.pins.QH);
-    res.pins.SH_LD = ini.Get_value(section, "Pin SH_LD", res.pins.SH_LD);
+    res.pins.SH_LD = ini.Get_value(section, "Pin SH/LD", res.pins.SH_LD);
 
     return res;
 }

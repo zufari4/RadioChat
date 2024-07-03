@@ -51,6 +51,11 @@ void Display::drawStr(uint8_t x, uint8_t y, const std::string& str)
     }
 }
 
+void Display::drawButtonFullWith(uint8_t x, uint8_t y, const std::string& str)
+{
+    u8g2_->drawButtonUTF8(x, y, U8G2_BTN_INV, u8g2_->getDisplayWidth(), 0,  0, str.c_str());
+}
+
 void Display::flush()
 {
     u8g2_->sendBuffer();
@@ -66,9 +71,9 @@ uint8_t Display::getDisplayHeight() const
     return u8g2_->getDisplayHeight();
 }
 
-uint8_t Display::getStrWidth(const char* str) const
+uint8_t Display::getStrWidth(const std::string& str) const
 {
-    return u8g2_->getStrWidth(str);
+    return u8g2_->getStrWidth(str.c_str());
 }
 
 uint8_t Display::getMaxCharWidth() const

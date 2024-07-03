@@ -28,6 +28,7 @@ public:
 private:
     std::string getPath() const;
     std::string makeFilename() const;
+    void createFile();
     
     bool isInit_;
     bool serialIsInit_;

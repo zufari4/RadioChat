@@ -43,6 +43,9 @@ void Sound::playThreadFn(Melody::Name melodyName)
             noteDuration = (wholenote_) / abs(step.duration);
             noteDuration *= 1.5; // increases the duration in half for dotted notes
         }
+        else {
+            noteDuration = 0;
+        }
         // we only play the note for 90% of the duration, leaving 10% as a pause
         myTone(step.frequency, noteDuration*0.9);
         // Wait for the specief duration before playing the next note.

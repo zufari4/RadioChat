@@ -1,15 +1,15 @@
-#include <stdint.h>
 #pragma once
 
 #include "UIPageBase.h"
 #include <vector>
 #include <chrono>
 #include <mutex>
+#include <stdint.h>
 
 class UIPageTypingMessage: public UIPageBase
 {
 public:
-    UIPageTypingMessage(const UISettings& settings, Display* display);
+    UIPageTypingMessage(const UIContext* context);
     ~UIPageTypingMessage();
     void draw() override;
     void onChar(uint16_t symbol) override;

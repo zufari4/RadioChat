@@ -1,10 +1,10 @@
 #pragma once
 
-#include "UISettings.h"
+#include "UIContext.h"
 #include "../Keyboard/KeyCommand.h"
 #include <memory>
 
-class Display;
+
 class UIPageBase;
 
 class UI
@@ -12,12 +12,12 @@ class UI
 public:
     UI();
     ~UI();
-    void init(const UISettings& settings, Display* display);
+    void init(const UIContext& context);
     void draw();
     void onChar(uint16_t symbol);
     void onKeyCommand(KeyCommand cmd);
 
 private:
-    Display* display_;
+    UIContext ctx_;
     std::unique_ptr<UIPageBase> currentPage_;
 };

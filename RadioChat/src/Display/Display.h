@@ -14,10 +14,11 @@ public:
     void init(const DisplaySettings& settings);
     void clear();
     void drawStr(uint8_t x, uint8_t y, const std::string& str);
+    void drawButtonFullWith(uint8_t x, uint8_t y, const std::string& str);
     void flush();
     uint8_t getDisplayWidth() const;
     uint8_t getDisplayHeight() const;
-    uint8_t getStrWidth(const char* str) const;
+    uint8_t getStrWidth(const std::string& str) const;
     uint8_t getMaxCharWidth() const;
     uint8_t getMaxCharHeight() const;
     

@@ -2,6 +2,7 @@
 
 enum class UIPageType
 {
+    Main,
     Chat,
     TypingMessage,
     Settings,

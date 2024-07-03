@@ -6,7 +6,7 @@
 class UIPageChat: public UIPageBase
 {
 public:
-    UIPageChat(const UISettings& settings, Display* display);
+    UIPageChat(const UIContext* context);
     ~UIPageChat();
     void draw() override;
     void onChar(uint16_t symbol) override;

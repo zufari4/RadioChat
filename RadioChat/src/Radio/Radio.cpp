@@ -336,8 +336,8 @@ bool Radio::writeData(void* data, uint8_t dataSize)
         //while (Serial2.available()) {
         //    Serial2.read();
         //}
-        return true;
     }
+    return true;
 }
 
 bool Radio::readData(void* out, uint8_t dataSize, bool needWaitReady /*= true*/) 
@@ -397,6 +397,7 @@ bool Radio::ping(uint16_t addr, uint32_t& delay)
         return false;
     }
     startPing_[addr] = millis();
+    return true;
 }
 
 uint8_t Radio::sendText(const std::string& text, uint16_t destAddr /*= BROADCAST_ADDRESS*/)
