@@ -1,17 +1,23 @@
 #pragma once
 
-#include "UIPageBase.h"
+#include "BaseMenu.h"
 #include <vector>
+#include <memory>
+#include <mutex>
 
-class UIPageChat: public UIPageBase
+class UIPageChat: public BaseMenu
 {
 public:
     UIPageChat(const UIContext* context);
     ~UIPageChat();
-    void draw() override;
-    void onChar(uint16_t symbol) override;
     void onKeyCommand(KeyCommand cmd) override;
+    void draw() override;
 
 private:
-    std::vector<std::string> typingMessage_;
+    void onSharedChatClick(Item& item);
+    void onNewContactClick(Item& item);
+    void onContactClick(Item& item);
+
+    std::unique_ptr<UIPageBase> currentPage_;
+    std::recursive_mutex pageMtx_;
 };

@@ -17,6 +17,7 @@ class LedIndicator;
 class UI;
 class Sound;
 class Battery;
+class ContactsManager;
 class QeueMessageBase;
 enum class KeyCommand;
 
@@ -51,6 +52,7 @@ private:
     Sound*        sound_;
     Battery*      battery_;
     UI*           ui_;
+    ContactsManager* contactsManager_;
     SafeQueue<MessagePtr> messageQeue_;
     std::thread   svcThread_;
 };

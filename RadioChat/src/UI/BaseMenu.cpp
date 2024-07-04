@@ -18,6 +18,11 @@ void BaseMenu::addItem(ItemType type, const std::string& caption, const std::str
     items_.emplace_back(type, caption, value, onClick);
 }
 
+void BaseMenu::addItemSimple(const std::string &caption, ClickCallback onClick)
+{
+    items_.emplace_back(ItemType::String, caption, "", onClick);
+}
+
 void BaseMenu::setItemValue(uint8_t index, const std::string &value)
 {
     if (index < items_.size()) {
@@ -53,8 +58,18 @@ void BaseMenu::draw()
 void BaseMenu::onKeyCommand(KeyCommand cmd)
 {
     if (cmd == KeyCommand::Enter) {
-        auto onClick = items_[selected_].onClick;
-        if (onClick) onClick();
+        if (selected_ < items_.size()) {
+            Item& item = items_[selected_];
+            LOG_DBG("Click on '%s'", item.caption.c_str());
+            auto onClick = item.onClick;
+            if (onClick) {
+                LOG_DBG("Run click callback");
+                onClick(item);
+            }
+            else {
+                LOG_DBG("No click callback");
+            }
+        }
         return;
     }
     if (items_.size() < 2)
@@ -77,4 +92,3 @@ void BaseMenu::onKeyCommand(KeyCommand cmd)
         }
     }
 }
-

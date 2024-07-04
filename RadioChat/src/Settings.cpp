@@ -169,3 +169,16 @@ BatterySettings Settings::battery()
 
     return res;  
 }
+
+ContactsSettings Settings::contacts()
+{
+    LOG_INF("Loading contacts");
+    ContactsSettings res;
+    Ini_file ini;
+    std::string section("Contacts");
+    
+    res.path = ini.Get_value(section, "Path", res.path);
+    res.filename = ini.Get_value(section, "File name", res.filename);
+
+    return res;
+}

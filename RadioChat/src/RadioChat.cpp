@@ -10,6 +10,7 @@
 #include "Led/LedIndicator.h"
 #include "Sound/Sound.h"
 #include "Battery/Battery.h"
+#include "Contacts/ContactsManger.h"
 #include "UI/UI.h"
 #include "QeueMessage/QeueMessageAcceptMessage.h"
 #include "QeueMessage/QeueMessageDeliveryMessage.h"
@@ -31,6 +32,7 @@ RadioChat::RadioChat()
     , sound_(nullptr)
     , battery_(nullptr)
     , ui_(nullptr)
+    , contactsManager_(nullptr)
 {
 
 }
@@ -59,9 +61,9 @@ void RadioChat::init()
     radio_      = new Radio();
     ui_         = new UI();
     ledIndicator_ = new LedIndicator();
-    sound_       = new Sound();
-    battery_    = new Battery();
-
+    sound_        = new Sound();
+    battery_      = new Battery();
+    contactsManager_ = new ContactsManager();
     FlashSettings flashSettings;
     flash_->init(flashSettings);
 
@@ -93,6 +95,9 @@ void RadioChat::init()
     BatterySettings batterySettings = settings_->battery();
     battery_->init(batterySettings);
 
+    ContactsSettings contactsSettings = settings_->contacts();
+    contactsManager_->init(contactsSettings);
+
     KeyboardSettings  keybSettings = settings_->keyboard();
     keyHandler_->init(keybSettings, 
                       std::bind(&RadioChat::pushTypingChar, this, _1), 
@@ -102,7 +107,7 @@ void RadioChat::init()
     display_->init(dispSettings);
 
     UISettings uiSettings = settings_->ui();
-    UIContext  uiContext(uiSettings, display_, settings_, battery_, 0, 0, 0);
+    UIContext  uiContext(uiSettings, display_, settings_, battery_, contactsManager_, 0, 0, 0);
     ui_->init(uiContext);
 
     workFlag_ = true;

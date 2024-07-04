@@ -9,6 +9,7 @@
 #include "Logger/LoggerSettings.h"
 #include "Sound/SoundSettings.h"
 #include "Battery/BatterySettings.h"
+#include "Contacts/ContactsSettings.h"
 #include <string>
 
 
@@ -28,6 +29,7 @@ public:
     LedSettings led();
     SoundSettings sound();
     BatterySettings battery();
+    ContactsSettings contacts();
 
 private:
     std::string filename_;

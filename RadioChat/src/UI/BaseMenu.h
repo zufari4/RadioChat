@@ -8,7 +8,9 @@
 class BaseMenu: public UIPageBase
 {
 public:
-    using ClickCallback = std::function<void()>;
+    struct Item;
+
+    using ClickCallback = std::function<void(Item& item)>;
 
     enum class ItemType
     {
@@ -34,7 +36,8 @@ public:
     void onKeyCommand(KeyCommand cmd) override;
 
 protected:
-    void addItem(ItemType type, const std::string& caption, const std::string& value, ClickCallback onClick);    
+    void addItem(ItemType type, const std::string& caption, const std::string& value = "", ClickCallback onClick = nullptr);    
+    void addItemSimple(const std::string& caption, ClickCallback onClick = nullptr);
     void setItemValue(uint8_t index, const std::string& value);
 
 private:
