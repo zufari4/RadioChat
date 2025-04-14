@@ -1,3 +1,5 @@
+Pin number = GPIO_N - where N is pin number
+
 [ Flash ]
 
 miso = 19
