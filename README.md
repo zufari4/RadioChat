@@ -1,6 +1,9 @@
 ## Description
 This repository stores firmware files for a device that allows you to exchange text messages via radio broadcast
 
+## Schema
+![alt text](https://github.com/zufari4/RadioChat/blob/main/Docs/Schema.png)
+
 ## Hardware used
 - **ESP32**
 [link](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/hw-reference/esp32/get-started-devkitc.html)
