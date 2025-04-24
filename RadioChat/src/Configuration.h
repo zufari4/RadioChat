@@ -1,6 +1,6 @@
 #pragma once
 
-#define DEBUG_MODE 1
+#define DEBUG_MODE 0
 #define SERIAL_SPEED 9600
 #define SERIAL_INIT_DELAY 1000
 #define STORAGE_DIR "/RadioChat"
