@@ -38,4 +38,4 @@ TX  = 33
 
 [Battery]
 
-ADC = 12
+ADC = 35
