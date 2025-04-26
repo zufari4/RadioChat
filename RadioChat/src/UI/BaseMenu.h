@@ -10,7 +10,7 @@ class BaseMenu: public UIPageBase
 public:
     struct Item;
 
-    using ClickCallback = std::function<void(Item& item)>;
+    using ClickCallback = std::function<void(Item* item)>;
 
     enum class ItemType
     {

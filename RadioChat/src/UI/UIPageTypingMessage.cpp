@@ -3,9 +3,11 @@
 #include "../Configuration.h"
 #include "../Display/Display.h"
 #include "../Logger/Logger.h"
+#include "../Radio/Radio.h"
 
-UIPageTypingMessage::UIPageTypingMessage(const UIContext* context)
+UIPageTypingMessage::UIPageTypingMessage(const UIContext* context, uint16_t address)
     : UIPageBase(UIPageType::Chat, context)
+    , address_(address)
     , typingMessage_{""}
     , carriageChar_(context->uiSettings.carriageChar)
     , carriageVisible_(false)
@@ -76,12 +78,43 @@ void UIPageTypingMessage::onKeyCommand(KeyCommand cmd)
             //LOG_INF("Remove line");
             typingMessage_.pop_back();
         }
+        break;
     }
-    case KeyCommand::Enter    :
-    case KeyCommand::Left     :
-    case KeyCommand::Right    :
-    case KeyCommand::Up       :
-    case KeyCommand::Down     :
+    case KeyCommand::Enter: {
+        std::string message = getMessage();
+        if (message.empty()) {
+            return;
+        }
+        ctx_->radio->sendText(message, address_);
+        break;
+    }
+    case KeyCommand::Escape: {
+        setExitStatus(ExitStatus::Cancel);
+        break;
+    }
     default: return;
     }
+}
+
+std::string UIPageTypingMessage::getMessage()
+{
+    std::string message;
+    std::lock_guard guard(msgMutex_);
+
+    if (typingMessage_.empty()) {
+        return message;
+    }
+
+    for (const auto& line : typingMessage_) {
+        message += line;
+        if (!std::isspace(line.back())) {
+            message += ' ';
+        }
+    }
+
+    if (std::isspace(message.back())) {
+        message.pop_back();
+    }
+
+    return message;
 }

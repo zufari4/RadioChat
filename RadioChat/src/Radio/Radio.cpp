@@ -231,7 +231,7 @@ void Radio::check()
         uint8_t msgID = receiveText(text);
         if (msgID > 0) {
             sendDelivered(sender, msgID);
-            onNewMessage_(text, msgID);
+            onNewMessage_(sender, msgID, text);
         }
         break;
     }

@@ -82,7 +82,7 @@ void RadioChat::init()
 
     RadioSettings radioSettings = settings_->radio();
     radio_->init(radioSettings,
-                 std::bind(&RadioChat::pushAcceptMessage, this, _1, _2), 
+                 std::bind(&RadioChat::pushAcceptMessage, this, _1, _2, _3), 
                  std::bind(&RadioChat::pushDeliveryMessage, this, _1, _2),
                  std::bind(&RadioChat::pushPingDone, this, _1, _2));
 
@@ -107,7 +107,7 @@ void RadioChat::init()
     display_->init(dispSettings);
 
     UISettings uiSettings = settings_->ui();
-    UIContext  uiContext(uiSettings, display_, settings_, battery_, contactsManager_, 0, 0, 0);
+    UIContext  uiContext(uiSettings, display_, settings_, battery_, radio_, contactsManager_, 0, 0, 0);
     ui_->init(uiContext);
 
     workFlag_ = true;
@@ -139,6 +139,7 @@ void RadioChat::checkQeue()
     case QeueMessageType::AcceptMessage: {
         auto m = static_cast<QeueMessageAcceptMessage*>(msg.get());
         sound_->play(Melody::Name::PackmanShort);
+        ui_->onIncomingMessage(m->getMessage(), m->getAddress());
         break;
     }
     case QeueMessageType::DeliveryMessage: {
@@ -176,9 +177,9 @@ void RadioChat::pushKeyboardCommand(KeyCommand cmd)
     messageQeue_.enqueue(std::move(msg));
 }
 
-void RadioChat::pushAcceptMessage(const std::string& text, uint8_t msgID)
+void RadioChat::pushAcceptMessage(uint16_t sender, uint8_t msgID, const std::string& text)
 {
-    auto msg = std::make_unique<QeueMessageAcceptMessage>(text, msgID);
+    auto msg = std::make_unique<QeueMessageAcceptMessage>(sender, msgID , text);
     messageQeue_.enqueue(std::move(msg));
 }
 

@@ -64,7 +64,7 @@ void BaseMenu::onKeyCommand(KeyCommand cmd)
             auto onClick = item.onClick;
             if (onClick) {
                 LOG_DBG("Run click callback");
-                onClick(item);
+                onClick(&item);
             }
             else {
                 LOG_DBG("No click callback");

@@ -1,6 +1,8 @@
 #include "UIPageChat.h"
 #include "../Contacts/ContactsManger.h"
+#include "UIPageTypingMessage.h"
 #include "../Logger/Logger.h"
+#include "../Radio/Lora.h"
 
 UIPageChat::UIPageChat(const UIContext* context)
     : BaseMenu(UIPageType::Chat, context)
@@ -23,6 +25,18 @@ UIPageChat::~UIPageChat()
 {
 }
 
+void UIPageChat::onChar(uint16_t symbol) 
+{
+    std::lock_guard guard(pageMtx_);
+
+    if (currentPage_) {
+        currentPage_->onChar(symbol);
+    }
+    else {
+        BaseMenu::onChar(symbol);
+    }
+}
+
 void UIPageChat::onKeyCommand(KeyCommand cmd)
 {
     std::lock_guard guard(pageMtx_);
@@ -32,13 +46,14 @@ void UIPageChat::onKeyCommand(KeyCommand cmd)
         if (currentPage_->getExitStatus() == ExitStatus::Cancel || currentPage_->getExitStatus() == ExitStatus::Accept) {
             currentPage_.reset();
         }
-        return;
     }
-    if (cmd == KeyCommand::Escape) {
+    else if (cmd == KeyCommand::Escape) {
         setExitStatus(ExitStatus::Cancel);
         return;
     }
-    BaseMenu::onKeyCommand(cmd);
+    else {
+        BaseMenu::onKeyCommand(cmd);
+    }
 }
 
 void UIPageChat::draw()
@@ -53,14 +68,16 @@ void UIPageChat::draw()
     }
 }
 
-void UIPageChat::onSharedChatClick(Item& item)
+void UIPageChat::onSharedChatClick(Item* item)
+{
+    std::lock_guard guard(pageMtx_);
+    currentPage_ = std::make_unique<UIPageTypingMessage>(ctx_, BROADCAST_ADDRESS);
+}
+
+void UIPageChat::onNewContactClick(Item* item)
 {
 }
 
-void UIPageChat::onNewContactClick(Item& item)
-{
-}
-
-void UIPageChat::onContactClick(Item& item)
+void UIPageChat::onContactClick(Item* item)
 {
 }

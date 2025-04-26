@@ -2,6 +2,7 @@
 #include "UIPageChat.h"
 #include "UIPageTypingMessage.h"
 #include "UIPageMain.h"
+#include "UIPageIncomingMessage.h"
 #include "../Logger/Logger.h"
 #include "../Display/Display.h"
 
@@ -29,6 +30,7 @@ void UI::init(const UIContext& context)
 
 void UI::draw()
 {
+    std::lock_guard guard(pageMutex_);
     ctx_.display->clear();
     currentPage_->draw();
     ctx_.display->flush();
@@ -36,10 +38,18 @@ void UI::draw()
 
 void UI::onChar(uint16_t symbol)
 {
+    std::lock_guard guard(pageMutex_);
     currentPage_->onChar(symbol);
 }
 
 void UI::onKeyCommand(KeyCommand cmd)
 {
+    std::lock_guard guard(pageMutex_);
     currentPage_->onKeyCommand(cmd);
+}
+
+void UI::onIncomingMessage(const std::string &message, uint16_t address)
+{
+    std::lock_guard guard(pageMutex_);
+    currentPage_ = std::make_unique<UIPageIncomingMessage>(&ctx_, message, address);
 }

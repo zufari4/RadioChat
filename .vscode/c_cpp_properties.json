@@ -4,14 +4,14 @@
             "name": "Arduino ESP32",
             "includePath": [
                 "${workspaceFolder}/RadioChat",
-                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/3.0.2/cores/esp32",
-                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/3.0.2/variants/esp32",
+                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/3.2.0/cores/esp32",
+                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/3.2.0/variants/esp32",
                 "C:/Dev/Arduino/libraries/U8g2/src",
-                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/3.0.2/libraries/SPI/src",
-                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/3.0.2/libraries/Wire/src",
-                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/3.0.2/libraries/WiFi/src",
-                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/3.0.2/libraries/FS/src",
-                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/3.0.2/libraries/SD/src"
+                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/3.2.0/libraries/SPI/src",
+                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/3.2.0/libraries/Wire/src",
+                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/3.2.0/libraries/WiFi/src",
+                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/3.2.0/libraries/FS/src",
+                "${env:localappdata}/Arduino15/packages/esp32/hardware/esp32/3.2.0/libraries/SD/src"
             ],
             "defines": [
                 "HAVE_CONFIG_H",

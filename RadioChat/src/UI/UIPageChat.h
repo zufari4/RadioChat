@@ -10,13 +10,14 @@ class UIPageChat: public BaseMenu
 public:
     UIPageChat(const UIContext* context);
     ~UIPageChat();
+    void onChar(uint16_t symbol) override;
     void onKeyCommand(KeyCommand cmd) override;
     void draw() override;
 
 private:
-    void onSharedChatClick(Item& item);
-    void onNewContactClick(Item& item);
-    void onContactClick(Item& item);
+    void onSharedChatClick(Item* item);
+    void onNewContactClick(Item* item);
+    void onContactClick(Item* item);
 
     std::unique_ptr<UIPageBase> currentPage_;
     std::recursive_mutex pageMtx_;

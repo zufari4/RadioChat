@@ -14,11 +14,12 @@ public:
 
 private:
     void drawMainMenu();
-    void chatClick(Item& item);
-    void settingsClick(Item& item);
-    void rebootClick(Item& item);
-    void logsClick(Item& item);
-    void notesClick(Item& item);
+    void chatClick(Item* item);
+    void contactsClick(Item* item);
+    void settingsClick(Item* item);
+    void rebootClick(Item* item);
+    void logsClick(Item* item);
+    void notesClick(Item* item);
 
     float prevVBatt_ = 0;
     std::string prevVBattStr_;

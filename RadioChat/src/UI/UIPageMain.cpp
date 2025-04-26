@@ -11,7 +11,7 @@ UIPageMain::UIPageMain(const UIContext* context)
     LOG_DBG("Main page");
     addItem(ItemType::Real, "Батарея");
     addItemSimple("Чат", std::bind(&UIPageMain::chatClick, this, _1));
-    addItemSimple("Контакты", std::bind(&UIPageMain::chatClick, this, _1));
+    addItemSimple("Контакты", std::bind(&UIPageMain::contactsClick, this, _1));
     addItemSimple("Настройки", std::bind(&UIPageMain::settingsClick, this, _1));
     addItemSimple("Журнал", std::bind(&UIPageMain::logsClick, this, _1));
     addItemSimple("Заметки", std::bind(&UIPageMain::notesClick, this, _1));
@@ -65,24 +65,32 @@ void UIPageMain::drawMainMenu()
     BaseMenu::draw();
 }
 
-void UIPageMain::chatClick(Item& item)
+void UIPageMain::chatClick(Item* item)
 {
+    LOG_DBG("chatClick");
+    LOG_DBG("item caption %s", item->caption.c_str());
+    LOG_DBG("Try lock");
     std::lock_guard guard(pageMtx_);
+    LOG_DBG("make_unique");
     subPage_ = std::make_unique<UIPageChat>(ctx_);
 }
 
-void UIPageMain::settingsClick(Item& item)
+void UIPageMain::contactsClick(Item* item)
 {
 }
 
-void UIPageMain::rebootClick(Item& item)
+void UIPageMain::settingsClick(Item* item)
 {
 }
 
-void UIPageMain::logsClick(Item& item)
+void UIPageMain::rebootClick(Item* item)
 {
 }
 
-void UIPageMain::notesClick(Item& item)
+void UIPageMain::logsClick(Item* item)
+{
+}
+
+void UIPageMain::notesClick(Item* item)
 {
 }

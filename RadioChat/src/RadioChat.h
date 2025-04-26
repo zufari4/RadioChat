@@ -37,7 +37,7 @@ private:
     void checkQeue();
     void pushTypingChar(uint16_t code);
     void pushKeyboardCommand(KeyCommand cmd);
-    void pushAcceptMessage(const std::string& text, uint8_t msgID);
+    void pushAcceptMessage(uint16_t sender, uint8_t msgID, const std::string& text);
     void pushDeliveryMessage(uint16_t address, uint8_t msgID);
     void pushPingDone(uint16_t address, uint32_t delay);
 

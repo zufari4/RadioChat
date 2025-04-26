@@ -7,5 +7,6 @@ enum class UIPageType
     TypingMessage,
     Settings,
     Statistics,
-    Monitoring
+    Monitoring,
+    IncomingMessage,
 };

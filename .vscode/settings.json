@@ -6,7 +6,7 @@
         "**/.git": true,
         "**/Docs": true
     },
-    "C_Cpp.default.compilerPath": "${env:localappdata}/Arduino15/packages/esp32/tools/esp-x32/2302/bin/xtensa-esp32-elf-g++",
+    "C_Cpp.default.compilerPath": "${env:localappdata}/Arduino15/packages/esp32/tools/esp-x32/2411/bin/xtensa-esp32-elf-g++",
     "files.eol": "\n",
     "editor.detectIndentation": false,
     "editor.tabSize": 4

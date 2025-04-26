@@ -10,7 +10,7 @@
 class Radio
 {
 public:
-    using OnNewMessageCallback = std::function<void(const std::string& text, uint8_t msgID)>;
+    using OnNewMessageCallback = std::function<void(uint16_t sender, uint8_t msgID, const std::string& text)>;
     using OnMessageDeliveryCallback = std::function<void(uint16_t address, uint8_t msgID)>;
     using OnPingDone = std::function<void(uint16_t address, uint32_t delay)>;
 

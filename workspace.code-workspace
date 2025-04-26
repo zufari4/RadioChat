@@ -89,7 +89,9 @@
             "xtree": "cpp",
             "xutility": "cpp",
             "numbers": "cpp",
-            "semaphore": "cpp"
+            "semaphore": "cpp",
+            "text_encoding": "cpp",
+            "variant": "cpp"
         }
 	}
 }
