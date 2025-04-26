@@ -1,0 +1,28 @@
+BasedOnStyle: WebKit
+TabWidth: 4
+ColumnLimit: 150
+Cpp11BracedListStyle: true
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterClass:      true
+  AfterControlStatement: false
+  AfterEnum:       true
+  AfterFunction:   true
+  AfterNamespace:  true
+  AfterObjCDeclaration: true
+  AfterStruct:     true
+  AfterUnion:      true
+  BeforeCatch:     true
+  BeforeElse:      true
+  IndentBraces:    false
+PackConstructorInitializers: Never 
+BreakConstructorInitializers: BeforeComma
+AllowShortFunctionsOnASingleLine: None
+AllowShortLambdasOnASingleLine: Inline
+AllowShortBlocksOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: Never
+AlignAfterOpenBracket: Align
+BreakStringLiterals: true
+PenaltyBreakAssignment: 30
+BreakBeforeBinaryOperators: NonAssignment
+SpaceBeforeInheritanceColon: false
