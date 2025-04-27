@@ -1,6 +1,7 @@
 #include "Esp.h"
 #include "../Logger/Logger.h"
 #include <WiFi.h>
+#include <Arduino.h>
 
 Esp::Esp()
 {

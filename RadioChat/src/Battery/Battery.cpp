@@ -15,7 +15,7 @@ void Battery::init(const BatterySettings &settings)
 {
     LOG_INF("-- Initialize battery --");
     settings_ = settings;
-    LOG_DBG("Pin voltage: %u Max Voltage: %.2f Check interval %u Correctioin factor %.2f", 
+    LOG_DBG("Pin voltage: %u Max Voltage: %.2f Check interval %u Correction factor %.2f", 
             settings_.pinVotage, settings_.maxBatteryVoltage, settings_.checkInterval, settings_.cFactor);
     nextCheckTime_ = Clock::now();
     check();
