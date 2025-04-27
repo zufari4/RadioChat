@@ -8,9 +8,7 @@
 class BaseMenu: public UIPageBase
 {
 public:
-    struct Item;
-
-    using ClickCallback = std::function<void(Item* item)>;
+    using ClickCallback = std::function<void()>;
 
     enum class ItemType
     {
@@ -30,7 +28,7 @@ public:
             : type(_type), caption(_caption), value(_value), onClick(_onClick) {}
     };
 
-    BaseMenu(UIPageType type, const UIContext* contex);
+    BaseMenu(UIPageType type, UIPageType parent, const UIContext* contex);
     ~BaseMenu();
     void draw() override;
     void onKeyCommand(KeyCommand cmd) override;

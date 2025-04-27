@@ -1,14 +1,14 @@
 #pragma once 
 
-#include "QeueMessageBase.h"
+#include "QueueMessageBase.h"
 #include <stdint.h>
 #include <string>
 
-class QeueMessageAcceptMessage: public QeueMessageBase
+class QueueMessageAcceptMessage: public QueueMessageBase
 {
 public:
-    QeueMessageAcceptMessage(uint16_t sender, uint8_t msgID, const std::string& text);
-    ~QeueMessageAcceptMessage();
+    QueueMessageAcceptMessage(uint16_t sender, uint8_t msgID, const std::string& text);
+    ~QueueMessageAcceptMessage();
     uint16_t getAddress() const;
     std::string getMessage() const;
     uint8_t getID() const;

@@ -1,10 +1,12 @@
 #pragma once
 
-enum class QeueMessageType
+enum class QueueMessageType
 {
     TypingChar,
     KeyboardCommand,
     AcceptMessage,
     DeliveryMessage,
     PingDone,
+    ShowPage,
+    TypingMessage,
 };

@@ -2,11 +2,16 @@
 
 enum class UIPageType
 {
+    None,
     Main,
-    Chat,
+    ChatSelect,
     TypingMessage,
     Settings,
     Statistics,
     Monitoring,
     IncomingMessage,
+    Contacts,
+    Logs,
 };
+
+const char* uiPageTypeToStr(UIPageType type);

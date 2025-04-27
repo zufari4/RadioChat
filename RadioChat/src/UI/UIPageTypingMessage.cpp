@@ -5,9 +5,9 @@
 #include "../Logger/Logger.h"
 #include "../Radio/Radio.h"
 
-UIPageTypingMessage::UIPageTypingMessage(const UIContext* context, uint16_t address)
-    : UIPageBase(UIPageType::Chat, context)
-    , address_(address)
+UIPageTypingMessage::UIPageTypingMessage(UIPageType parent, const UIContext* context)
+    : UIPageBase(UIPageType::TypingMessage, parent, context)
+    , address_(0)
     , typingMessage_{""}
     , carriageChar_(context->uiSettings.carriageChar)
     , carriageVisible_(false)
@@ -15,9 +15,7 @@ UIPageTypingMessage::UIPageTypingMessage(const UIContext* context, uint16_t addr
 {
 }
 
-UIPageTypingMessage::~UIPageTypingMessage()
-{
-}
+UIPageTypingMessage::~UIPageTypingMessage() = default;
 
 void UIPageTypingMessage::draw()
 {
@@ -88,11 +86,8 @@ void UIPageTypingMessage::onKeyCommand(KeyCommand cmd)
         ctx_->radio->sendText(message, address_);
         break;
     }
-    case KeyCommand::Escape: {
-        setExitStatus(ExitStatus::Cancel);
-        break;
-    }
-    default: return;
+    default: 
+        UIPageBase::onKeyCommand(cmd);
     }
 }
 
@@ -117,4 +112,9 @@ std::string UIPageTypingMessage::getMessage()
     }
 
     return message;
+}
+
+void UIPageTypingMessage::setAddress(uint16_t address)
+{
+    address_ = address;
 }

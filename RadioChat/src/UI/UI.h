@@ -3,7 +3,7 @@
 #include "UIContext.h"
 #include "../Keyboard/KeyCommand.h"
 #include <memory>
-
+#include <mutex>
 
 class UIPageBase;
 
@@ -16,9 +16,14 @@ public:
     void draw();
     void onChar(uint16_t symbol);
     void onKeyCommand(KeyCommand cmd);
-    void onIncomingMessage(const std::string& message, uint16_t address);
+    void showIncomingMessage(const std::string& message, uint16_t address);
+    void showTypingMessage(uint16_t destinationAddress);
+    void setCurrentPage(UIPageType pageType);
 
 private:
+    std::unique_ptr<UIPageBase> createPage(UIPageType pageType);
+    void setCurrentPage(std::unique_ptr<UIPageBase> pageType);
+
     std::mutex pageMutex_;
     UIContext ctx_;
     std::unique_ptr<UIPageBase> currentPage_;

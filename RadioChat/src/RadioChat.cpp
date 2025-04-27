@@ -12,11 +12,13 @@
 #include "Battery/Battery.h"
 #include "Contacts/ContactsManger.h"
 #include "UI/UI.h"
-#include "QeueMessage/QeueMessageAcceptMessage.h"
-#include "QeueMessage/QeueMessageDeliveryMessage.h"
-#include "QeueMessage/QeueMessageKeyboardCommand.h"
-#include "QeueMessage/QeueMessagePingDone.h"
-#include "QeueMessage/QeueMessageTypingChar.h"
+#include "QueueMessage/QueueMessageAcceptMessage.h"
+#include "QueueMessage/QueueMessageDeliveryMessage.h"
+#include "QueueMessage/QueueMessageKeyboardCommand.h"
+#include "QueueMessage/QueueMessagePingDone.h"
+#include "QueueMessage/QueueMessageTypingChar.h"
+#include "QueueMessage/QueueMessageShowPage.h"
+#include "QueueMessage/QueueMessageTypingMessage.h"
 #include <SD.h>
 #include <stdexcept>
 
@@ -107,7 +109,10 @@ void RadioChat::init()
     display_->init(dispSettings);
 
     UISettings uiSettings = settings_->ui();
-    UIContext  uiContext(uiSettings, display_, settings_, battery_, radio_, contactsManager_, 0, 0, 0);
+    UIContext  uiContext(uiSettings, display_, settings_, battery_, radio_, contactsManager_, 0, 0, 0, 
+                         std::bind(&RadioChat::pushShowPage, this, _1),
+                         std::bind(&RadioChat::pushShowPageTypingMessage, this, _1)  
+                         );
     ui_->init(uiContext);
 
     workFlag_ = true;
@@ -127,37 +132,47 @@ void RadioChat::loop()
 void RadioChat::svc()
 {
     while (workFlag_) {
-        checkQeue();
+        checkQueue();
     }
 }
 
-void RadioChat::checkQeue()
+void RadioChat::checkQueue()
 {
-    auto msg = messageQeue_.dequeue();
+    auto msg = messageQueue_.dequeue();
     switch (msg->getType())
     {
-    case QeueMessageType::AcceptMessage: {
-        auto m = static_cast<QeueMessageAcceptMessage*>(msg.get());
+    case QueueMessageType::AcceptMessage: {
+        auto m = static_cast<QueueMessageAcceptMessage*>(msg.get());
         sound_->play(Melody::Name::PackmanShort);
-        ui_->onIncomingMessage(m->getMessage(), m->getAddress());
+        ui_->showIncomingMessage(m->getMessage(), m->getAddress());
         break;
     }
-    case QeueMessageType::DeliveryMessage: {
-        auto m = static_cast<QeueMessageDeliveryMessage*>(msg.get());
+    case QueueMessageType::DeliveryMessage: {
+        auto m = static_cast<QueueMessageDeliveryMessage*>(msg.get());
         break;
     }   
-    case QeueMessageType::KeyboardCommand: {
-        auto m = static_cast<QeueMessageKeyboardCommand*>(msg.get());
+    case QueueMessageType::KeyboardCommand: {
+        auto m = static_cast<QueueMessageKeyboardCommand*>(msg.get());
         ui_->onKeyCommand(m->getCommand());
         break;
     }
-    case QeueMessageType::PingDone: {
-        auto m = static_cast<QeueMessagePingDone*>(msg.get());
+    case QueueMessageType::PingDone: {
+        auto m = static_cast<QueueMessagePingDone*>(msg.get());
         break;
     }
-    case QeueMessageType::TypingChar: {
-        auto m = static_cast<QeueMessageTypingChar*>(msg.get());
+    case QueueMessageType::TypingChar: {
+        auto m = static_cast<QueueMessageTypingChar*>(msg.get());
         ui_->onChar(m->getCode());
+        break;
+    }
+    case QueueMessageType::ShowPage: {
+        auto m = static_cast<QueueMessageShowPage*>(msg.get());
+        ui_->setCurrentPage(m->getPageType());
+        break;
+    }
+    case QueueMessageType::TypingMessage: {
+        auto m = static_cast<QueueMessageTypingMessage*>(msg.get());
+        ui_->showTypingMessage(m->getAddress());
         break;
     }
     default:
@@ -167,30 +182,42 @@ void RadioChat::checkQeue()
 
 void RadioChat::pushTypingChar(uint16_t code)
 {
-    auto msg = std::make_unique<QeueMessageTypingChar>(code);
-    messageQeue_.enqueue(std::move(msg));
+    auto msg = std::make_unique<QueueMessageTypingChar>(code);
+    messageQueue_.enqueue(std::move(msg));
 }
 
 void RadioChat::pushKeyboardCommand(KeyCommand cmd)
 {
-    auto msg = std::make_unique<QeueMessageKeyboardCommand>(cmd);
-    messageQeue_.enqueue(std::move(msg));
+    auto msg = std::make_unique<QueueMessageKeyboardCommand>(cmd);
+    messageQueue_.enqueue(std::move(msg));
 }
 
 void RadioChat::pushAcceptMessage(uint16_t sender, uint8_t msgID, const std::string& text)
 {
-    auto msg = std::make_unique<QeueMessageAcceptMessage>(sender, msgID , text);
-    messageQeue_.enqueue(std::move(msg));
+    auto msg = std::make_unique<QueueMessageAcceptMessage>(sender, msgID , text);
+    messageQueue_.enqueue(std::move(msg));
 }
 
 void RadioChat::pushDeliveryMessage(uint16_t address, uint8_t msgID)
 {
-    auto msg = std::make_unique<QeueMessageDeliveryMessage>(address, msgID);
-    messageQeue_.enqueue(std::move(msg));
+    auto msg = std::make_unique<QueueMessageDeliveryMessage>(address, msgID);
+    messageQueue_.enqueue(std::move(msg));
 }
 
 void RadioChat::pushPingDone(uint16_t address, uint32_t delay)
 {
-    auto msg = std::make_unique<QeueMessagePingDone>(address, delay);
-    messageQeue_.enqueue(std::move(msg));
+    auto msg = std::make_unique<QueueMessagePingDone>(address, delay);
+    messageQueue_.enqueue(std::move(msg));
+}
+
+void RadioChat::pushShowPage(UIPageType pageType)
+{
+    auto msg = std::make_unique<QueueMessageShowPage>(pageType);
+    messageQueue_.enqueue(std::move(msg));
+}
+
+void RadioChat::pushShowPageTypingMessage(uint16_t address)
+{
+    auto msg = std::make_unique<QueueMessageTypingMessage>(address);
+    messageQueue_.enqueue(std::move(msg));
 }

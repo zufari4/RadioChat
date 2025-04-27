@@ -5,7 +5,8 @@
 #include <thread>
 #include <atomic>
 #include <memory>
-#include "QeueMessage/SafeQeue.h"
+#include "UI/UIPageType.h"
+#include "QueueMessage/SafeQeue.h"
 
 class Flash;
 class Settings;
@@ -18,7 +19,7 @@ class UI;
 class Sound;
 class Battery;
 class ContactsManager;
-class QeueMessageBase;
+class QueueMessageBase;
 enum class KeyCommand;
 
 
@@ -31,15 +32,17 @@ public:
     void loop();
 
 private:
-    using MessagePtr = std::unique_ptr<QeueMessageBase>;
+    using MessagePtr = std::unique_ptr<QueueMessageBase>;
 
     void svc();
-    void checkQeue();
+    void checkQueue();
     void pushTypingChar(uint16_t code);
     void pushKeyboardCommand(KeyCommand cmd);
     void pushAcceptMessage(uint16_t sender, uint8_t msgID, const std::string& text);
     void pushDeliveryMessage(uint16_t address, uint8_t msgID);
     void pushPingDone(uint16_t address, uint32_t delay);
+    void pushShowPage(UIPageType pageType);
+    void pushShowPageTypingMessage(uint16_t address);
 
     std::atomic_bool workFlag_;
     Settings*     settings_;
@@ -53,6 +56,6 @@ private:
     Battery*      battery_;
     UI*           ui_;
     ContactsManager* contactsManager_;
-    SafeQueue<MessagePtr> messageQeue_;
+    SafeQueue<MessagePtr> messageQueue_;
     std::thread   svcThread_;
 };

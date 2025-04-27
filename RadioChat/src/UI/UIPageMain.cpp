@@ -1,56 +1,30 @@
 #include "UIPageMain.h"
-#include "UIPageChat.h"
+#include "UIPageChatSelect.h"
 #include "../Battery/Battery.h"
 #include "../Logger/Logger.h"
 #include <cstring>
 
 UIPageMain::UIPageMain(const UIContext* context)
-    : BaseMenu(UIPageType::Main, context)
+    : BaseMenu(UIPageType::Main, UIPageType::None, context)
 {
-    using namespace std::placeholders;
-    LOG_DBG("Main page");
     addItem(ItemType::Real, "Батарея");
-    addItemSimple("Чат", std::bind(&UIPageMain::chatClick, this, _1));
-    addItemSimple("Контакты", std::bind(&UIPageMain::contactsClick, this, _1));
-    addItemSimple("Настройки", std::bind(&UIPageMain::settingsClick, this, _1));
-    addItemSimple("Журнал", std::bind(&UIPageMain::logsClick, this, _1));
-    addItemSimple("Заметки", std::bind(&UIPageMain::notesClick, this, _1));
-    addItemSimple("Перезагрузить", std::bind(&UIPageMain::rebootClick, this, _1));
+    addItemSimple("Чат", std::bind(&UIPageMain::chatClick, this));
+    addItemSimple("Контакты", std::bind(&UIPageMain::contactsClick, this));
+    addItemSimple("Настройки", std::bind(&UIPageMain::settingsClick, this));
+    addItemSimple("Журнал", std::bind(&UIPageMain::logsClick, this));
+    addItemSimple("Заметки", std::bind(&UIPageMain::notesClick, this));
+    addItemSimple("Перезагрузить", std::bind(&UIPageMain::rebootClick, this));
 }
 
-UIPageMain::~UIPageMain()
-{
-}
+UIPageMain::~UIPageMain() = default;
 
 void UIPageMain::draw()
 {
-    std::lock_guard guard(pageMtx_);
-
-    if (subPage_) {
-        subPage_->draw();
-    }
-    else {
-        drawMainMenu();
-    }
+    updateBatteryVoltage();
+    BaseMenu::draw();
 }
 
-void UIPageMain::onKeyCommand(KeyCommand cmd)
-{
-    std::lock_guard guard(pageMtx_);
-
-    if (subPage_) {
-        subPage_->onKeyCommand(cmd);
-        if (subPage_->getExitStatus() == ExitStatus::Cancel || subPage_->getExitStatus() == ExitStatus::Accept) {
-            LOG_DBG("Show main menu");
-            subPage_.reset();
-        }
-    }
-    else {
-        BaseMenu::onKeyCommand(cmd);
-    }
-}
-
-void UIPageMain::drawMainMenu()
+void UIPageMain::updateBatteryVoltage()
 {
     float vBatt = ctx_->battery->getVoltage();
     if (vBatt != prevVBatt_) {
@@ -61,36 +35,32 @@ void UIPageMain::drawMainMenu()
             setItemValue(0, prevVBattStr_);
         };
     }
-
-    BaseMenu::draw();
 }
 
-void UIPageMain::chatClick(Item* item)
+void UIPageMain::chatClick()
 {
-    LOG_DBG("chatClick");
-    LOG_DBG("item caption %s", item->caption.c_str());
-    LOG_DBG("Try lock");
-    std::lock_guard guard(pageMtx_);
-    LOG_DBG("make_unique");
-    subPage_ = std::make_unique<UIPageChat>(ctx_);
+    ctx_->setCurrentPage(UIPageType::ChatSelect);
 }
 
-void UIPageMain::contactsClick(Item* item)
+void UIPageMain::contactsClick()
 {
+    ctx_->setCurrentPage(UIPageType::Contacts);
 }
 
-void UIPageMain::settingsClick(Item* item)
+void UIPageMain::settingsClick()
 {
+    ctx_->setCurrentPage(UIPageType::Settings);
 }
 
-void UIPageMain::rebootClick(Item* item)
+void UIPageMain::rebootClick()
 {
 }
 
-void UIPageMain::logsClick(Item* item)
+void UIPageMain::logsClick()
 {
+    ctx_->setCurrentPage(UIPageType::Logs);
 }
 
-void UIPageMain::notesClick(Item* item)
+void UIPageMain::notesClick()
 {
 }

@@ -1,10 +1,8 @@
 #include "UIPageIncomingMessage.h"
 #include "../Display/Display.h"
 
-UIPageIncomingMessage::UIPageIncomingMessage(const UIContext *context, const std::string& message, uint16_t address)
-    : UIPageBase(UIPageType::IncomingMessage, context)
-    , message_(splitMessage(message))
-    , address_(address)
+UIPageIncomingMessage::UIPageIncomingMessage(UIPageType parent, const UIContext *context)
+    : UIPageBase(UIPageType::IncomingMessage, parent, context)
 {
 }
 
@@ -47,15 +45,8 @@ std::vector<std::string> UIPageIncomingMessage::splitMessage(const std::string &
     return lines;
 }
 
-void UIPageIncomingMessage::onKeyCommand(KeyCommand cmd)
+void UIPageIncomingMessage::setMessage(const std::string& message, uint16_t address)
 {
-    switch (cmd) {
-    case KeyCommand::Escape:
-        if (cmd == KeyCommand::Escape) {
-            setExitStatus(ExitStatus::Cancel);
-            return;
-        }
-    default:
-        break;
-    }
+    message_ = splitMessage(message);
+    address_ = address;
 }

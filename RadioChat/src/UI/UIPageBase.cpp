@@ -1,25 +1,29 @@
 #include "UIPageBase.h"
+#include "../Logger/Logger.h"
 
-UIPageBase::UIPageBase(UIPageType type, const UIContext* contex)
-    : ctx_(contex)
-    , type_(type)
+UIPageBase::UIPageBase(UIPageType type, UIPageType parent, const UIContext* context)
+    : type_(type)
+    , parent_(parent)
+    , ctx_(context)
 {
+    LOG_DBG("Show page %s parent %s", uiPageTypeToStr(type), uiPageTypeToStr(parent));
 }
 
-UIPageBase::~UIPageBase()
-{
-}
+UIPageBase::~UIPageBase() = default;
 
 void UIPageBase::draw() {}
 void UIPageBase::onChar(uint16_t symbol) {}
-void UIPageBase::onKeyCommand(KeyCommand cmd) {}
 
-UIPageBase::ExitStatus UIPageBase::getExitStatus() const
+void UIPageBase::onKeyCommand(KeyCommand cmd)
 {
-    return exitStatus_;
+    if (cmd == KeyCommand::Escape) {
+        if (parent_ != UIPageType::None) {
+            ctx_->setCurrentPage(parent_);
+        }
+    }
 }
 
-void UIPageBase::setExitStatus(ExitStatus status)
+UIPageType UIPageBase::getType() const
 {
-    exitStatus_ = status;
+    return type_;
 }
