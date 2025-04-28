@@ -18,7 +18,8 @@ public:
 
 private:
     std::string getMessage();
-    
+    void resetMessage();
+
     using Clock = std::chrono::steady_clock;
     uint16_t address_;
     std::vector<std::string> typingMessage_;

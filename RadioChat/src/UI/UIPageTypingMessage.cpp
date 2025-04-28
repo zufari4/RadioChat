@@ -8,11 +8,11 @@
 UIPageTypingMessage::UIPageTypingMessage(UIPageType parent, const UIContext* context)
     : UIPageBase(UIPageType::TypingMessage, parent, context)
     , address_(0)
-    , typingMessage_{""}
     , carriageChar_(context->uiSettings.carriageChar)
     , carriageVisible_(false)
     , carriageShowTime_(context->uiSettings.carriageShowTime)
 {
+    resetMessage();
 }
 
 UIPageTypingMessage::~UIPageTypingMessage() = default;
@@ -84,6 +84,7 @@ void UIPageTypingMessage::onKeyCommand(KeyCommand cmd)
             return;
         }
         ctx_->radio->sendText(message, address_);
+        resetMessage();
         break;
     }
     default: 
@@ -117,4 +118,10 @@ std::string UIPageTypingMessage::getMessage()
 void UIPageTypingMessage::setAddress(uint16_t address)
 {
     address_ = address;
+}
+
+void UIPageTypingMessage::resetMessage()
+{
+    std::lock_guard guard(msgMutex_);
+    typingMessage_ = { "" };
 }
