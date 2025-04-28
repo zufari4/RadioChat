@@ -21,10 +21,10 @@
 #include "QueueMessage/QueueMessageTypingMessage.h"
 #include <SD.h>
 #include <stdexcept>
+#include <Arduino.h>
 
 RadioChat::RadioChat()
-    : workFlag_(false)
-    , settings_(nullptr)
+    : settings_(nullptr)
     , flash_(nullptr)
     , esp_(nullptr)
     , keyHandler_(nullptr)
@@ -115,9 +115,7 @@ void RadioChat::init()
                          );
     ui_->init(uiContext);
 
-    workFlag_ = true;
-    svcThread_ = std::thread(&RadioChat::svc, this);
-
+    runThreadCheckQueue();
     sound_->play(Melody::Name::Nokia);
 }
 
@@ -129,10 +127,19 @@ void RadioChat::loop()
     ui_->draw();
 }
 
-void RadioChat::svc()
+
+void RadioChat::runThreadCheckQueue()
 {
-    while (workFlag_) {
-        checkQueue();
+    // use raw function for create thread 
+    // because in std::thread stack size is small
+    xTaskCreatePinnedToCore(this->svc, "QueueCheck", 8 * 1024, this, 5, NULL, 1);
+}
+
+void RadioChat::svc(void* thisPtr)
+{
+    RadioChat* self = static_cast<RadioChat*>(thisPtr);
+    while (true) {
+        self->checkQueue();
     }
 }
 

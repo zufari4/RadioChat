@@ -8,12 +8,12 @@ UIPageMain::UIPageMain(const UIContext* context)
     : BaseMenu(UIPageType::Main, UIPageType::None, context)
 {
     addItem(ItemType::Real, "Батарея");
-    addItemSimple("Чат", std::bind(&UIPageMain::chatClick, this));
-    addItemSimple("Контакты", std::bind(&UIPageMain::contactsClick, this));
-    addItemSimple("Настройки", std::bind(&UIPageMain::settingsClick, this));
-    addItemSimple("Журнал", std::bind(&UIPageMain::logsClick, this));
-    addItemSimple("Заметки", std::bind(&UIPageMain::notesClick, this));
-    addItemSimple("Перезагрузить", std::bind(&UIPageMain::rebootClick, this));
+    addItemSimple("Чат");
+    addItemSimple("Контакты");
+    addItemSimple("Настройки");
+    addItemSimple("Журнал");
+    addItemSimple("Заметки");
+    addItemSimple("Перезагрузить");
 }
 
 UIPageMain::~UIPageMain() = default;
@@ -37,30 +37,29 @@ void UIPageMain::updateBatteryVoltage()
     }
 }
 
-void UIPageMain::chatClick()
+void UIPageMain::onItemClick(uint8_t itemIndex)
 {
-    ctx_->setCurrentPage(UIPageType::ChatSelect);
-}
-
-void UIPageMain::contactsClick()
-{
-    ctx_->setCurrentPage(UIPageType::Contacts);
-}
-
-void UIPageMain::settingsClick()
-{
-    ctx_->setCurrentPage(UIPageType::Settings);
-}
-
-void UIPageMain::rebootClick()
-{
-}
-
-void UIPageMain::logsClick()
-{
-    ctx_->setCurrentPage(UIPageType::Logs);
-}
-
-void UIPageMain::notesClick()
-{
+    LOG_DBG("UIPageMain::onItemClick %u", itemIndex);
+    switch (itemIndex) {
+    case 0: // Battery
+        break;
+    case 1: // Chat
+        ctx_->setCurrentPage(UIPageType::ChatSelect);
+        break;
+    case 2: // Contacts
+        ctx_->setCurrentPage(UIPageType::Contacts);
+        break;
+    case 3: // Settings
+        ctx_->setCurrentPage(UIPageType::Settings);
+        break;
+    case 4: // Logs
+        ctx_->setCurrentPage(UIPageType::Logs);
+        break;
+    case 5: // Notes
+        break;
+    case 6: // Reboot
+        break;
+    default:
+        break;
+    }
 }

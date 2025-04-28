@@ -7,29 +7,25 @@
 UIPageChatSelect::UIPageChatSelect(UIPageType parent, const UIContext* context)
     : BaseMenu(UIPageType::ChatSelect, parent, context)
 {
-    using namespace std::placeholders;
-
-    addItemSimple("Общий", std::bind(&UIPageChatSelect::onSharedChatClick, this));
-    addItemSimple("Новый контакт", std::bind(&UIPageChatSelect::onNewContactClick, this));
+    addItemSimple("Общий");
+    addItemSimple("Новый контакт");
     addItemSimple("-----------------------");
 
     const auto& contacts = ctx_->contactsManager->getContacts();
     for (const Contact& contact : contacts) {
-        addItem(ItemType::Number, contact.name, std::to_string(contact.address), std::bind(&UIPageChatSelect::onContactClick, this));
+        addItem(ItemType::Number, contact.name, std::to_string(contact.address));
     }
 }
 
 UIPageChatSelect::~UIPageChatSelect() = default;
 
-void UIPageChatSelect::onSharedChatClick()
+void UIPageChatSelect::onItemClick(uint8_t itemIndex)
 {
-    ctx_->showPageTypingMessage(BROADCAST_ADDRESS);
-}
-
-void UIPageChatSelect::onNewContactClick()
-{
-}
-
-void UIPageChatSelect::onContactClick()
-{
+    if (itemIndex == 0) { // Shared chat
+        ctx_->showPageTypingMessage(BROADCAST_ADDRESS);
+    }
+    else if (itemIndex == 1) { // New contact
+    }
+    else if (itemIndex > 2) { // Contact
+    }
 }

@@ -1,15 +1,12 @@
 #pragma once
 
 #include "UIPageBase.h"
-#include <functional>
 #include <vector>
 #include <atomic>
 
 class BaseMenu: public UIPageBase
 {
 public:
-    using ClickCallback = std::function<void()>;
-
     enum class ItemType
     {
         String,
@@ -23,9 +20,9 @@ public:
         ItemType type = ItemType::String;
         std::string caption;
         std::string value;
-        ClickCallback onClick;
-        Item(ItemType _type, const std::string& _caption, const std::string& _value, ClickCallback _onClick)
-            : type(_type), caption(_caption), value(_value), onClick(_onClick) {}
+
+        Item(ItemType _type, const std::string& _caption, const std::string& _value)
+            : type(_type), caption(_caption), value(_value) {}
     };
 
     BaseMenu(UIPageType type, UIPageType parent, const UIContext* contex);
@@ -34,9 +31,10 @@ public:
     void onKeyCommand(KeyCommand cmd) override;
 
 protected:
-    void addItem(ItemType type, const std::string& caption, const std::string& value = "", ClickCallback onClick = nullptr);    
-    void addItemSimple(const std::string& caption, ClickCallback onClick = nullptr);
+    void addItem(ItemType type, const std::string& caption, const std::string& value = "");
+    void addItemSimple(const std::string& caption);
     void setItemValue(uint8_t index, const std::string& value);
+    virtual void onItemClick(uint8_t itemIndex);
 
 private:
     void drawItem(uint8_t y, const Item& item, bool invert);

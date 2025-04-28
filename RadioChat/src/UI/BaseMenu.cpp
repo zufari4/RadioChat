@@ -11,14 +11,14 @@ BaseMenu::BaseMenu(UIPageType type, UIPageType parent, const UIContext* context)
 
 BaseMenu::~BaseMenu() = default;
 
-void BaseMenu::addItem(ItemType type, const std::string& caption, const std::string& value, ClickCallback onClick)
+void BaseMenu::addItem(ItemType type, const std::string& caption, const std::string& value)
 {
-    items_.emplace_back(type, caption, value, onClick);
+    items_.emplace_back(type, caption, value);
 }
 
-void BaseMenu::addItemSimple(const std::string &caption, ClickCallback onClick)
+void BaseMenu::addItemSimple(const std::string &caption)
 {
-    items_.emplace_back(ItemType::String, caption, "", onClick);
+    items_.emplace_back(ItemType::String, caption, "");
 }
 
 void BaseMenu::setItemValue(uint8_t index, const std::string &value)
@@ -57,35 +57,31 @@ void BaseMenu::onKeyCommand(KeyCommand cmd)
 {
     if (cmd == KeyCommand::Enter) {
         if (selected_ < items_.size()) {
-            Item& item = items_[selected_];
-            if (item.onClick) {
-                LOG_DBG("Run click callback on '%s'", item.caption.c_str());
-                item.onClick();
-            }
-            else {
-                LOG_DBG("No click callback on '%s'", item.caption.c_str());
+            uint8_t selected = selected_.load();
+            LOG_DBG("selected item %u", selected);
+            onItemClick(selected);
+        }
+    }
+    else if (cmd == KeyCommand::Up) {
+        if (items_.size() >= 2 && selected_ > 0) {
+            selected_ -= 1;
+            if (offset_ > selected_ && offset_ > 0) {
+                offset_--;
             }
         }
     }
-    else if (items_.size() >= 2) {
-        if (cmd == KeyCommand::Up) {
-            if (selected_ > 0) {
-                selected_ -= 1;
-                if (offset_ > selected_ && offset_ > 0) {
-                    offset_--;
-                }
-            }
-        }
-        else if (cmd == KeyCommand::Down) {
-            if (selected_ < (items_.size() - 1)) {
-                selected_ += 1;
-                if ((offset_ + ctx_->maxCountLines) <= selected_) {
-                    offset_++;
-                }
-            }
+    else if (cmd == KeyCommand::Down) {
+        if (items_.size() >= 2 && ((selected_ < (items_.size() - 1))))
+            selected_ += 1;
+        if ((offset_ + ctx_->maxCountLines) <= selected_) {
+            offset_++;
         }
     }
     else {
         UIPageBase::onKeyCommand(cmd);
     }
+}
+
+void BaseMenu::onItemClick(uint8_t itemIndex)
+{
 }

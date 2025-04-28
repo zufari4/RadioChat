@@ -63,21 +63,20 @@ void UI::showTypingMessage(uint16_t destinationAddress)
 
 void UI::setCurrentPage(UIPageType pageType)
 {
-    auto page = createPage(pageType);
+    std::unique_ptr<UIPageBase> page = createPage(pageType);
     if (page) {
         setCurrentPage(std::move(page));
     }
 }
 
-void UI::setCurrentPage(std::unique_ptr<UIPageBase> pageType)
+void UI::setCurrentPage(std::unique_ptr<UIPageBase> page)
 {
     std::lock_guard guard(pageMutex_);
-    currentPage_ = std::move(pageType);
+    currentPage_ = std::move(page);
 }
 
 std::unique_ptr<UIPageBase> UI::createPage(UIPageType pageType)
 {
-    UIPageType parent = currentPage_ != nullptr ? currentPage_->getType() : UIPageType::None;
     std::unique_ptr<UIPageBase> newPage;
 
     switch (pageType)
@@ -85,14 +84,16 @@ std::unique_ptr<UIPageBase> UI::createPage(UIPageType pageType)
     case UIPageType::Main:
         newPage = std::make_unique<UIPageMain>(&ctx_);
         break;
-    case UIPageType::IncomingMessage:
+    case UIPageType::IncomingMessage: {
+        UIPageType parent = currentPage_ != nullptr ? currentPage_->getType() : UIPageType::Main;
         newPage = std::make_unique<UIPageIncomingMessage>(parent, &ctx_);
         break;
+    }
     case UIPageType::ChatSelect:
-        newPage = std::make_unique<UIPageChatSelect>(parent, &ctx_);
+        newPage = std::make_unique<UIPageChatSelect>(UIPageType::Main, &ctx_);
         break;
     case UIPageType::TypingMessage:
-        newPage = std::make_unique<UIPageTypingMessage>(parent, &ctx_);
+        newPage = std::make_unique<UIPageTypingMessage>(UIPageType::ChatSelect, &ctx_);
         break;
     default:
         LOG_ERR("Unknown page type %u", static_cast<uint8_t>(pageType));

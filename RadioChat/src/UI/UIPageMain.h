@@ -11,14 +11,11 @@ public:
     ~UIPageMain();
     void draw() override;
 
+protected:
+    void onItemClick(uint8_t itemIndex) override;
+
 private:
     void updateBatteryVoltage();
-    void chatClick();
-    void contactsClick();
-    void settingsClick();
-    void rebootClick();
-    void logsClick();
-    void notesClick();
 
     float prevVBatt_ = 0;
     std::string prevVBattStr_;

@@ -34,7 +34,8 @@ public:
 private:
     using MessagePtr = std::unique_ptr<QueueMessageBase>;
 
-    void svc();
+    static void svc(void* thisPtr);
+    void runThreadCheckQueue();
     void checkQueue();
     void pushTypingChar(uint16_t code);
     void pushKeyboardCommand(KeyCommand cmd);
@@ -44,7 +45,6 @@ private:
     void pushShowPage(UIPageType pageType);
     void pushShowPageTypingMessage(uint16_t address);
 
-    std::atomic_bool workFlag_;
     Settings*     settings_;
     Flash*        flash_;
     Esp*          esp_;
