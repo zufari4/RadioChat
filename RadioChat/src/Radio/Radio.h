@@ -21,6 +21,7 @@ public:
     bool isInit() const;
     bool setChannel(uint8_t channel);
     bool setAddress(uint16_t addr);
+    bool setSubPacketSize(uint8_t size);
     uint8_t sendText(const std::string& text, uint16_t address = BROADCAST_ADDRESS);
     bool ping(uint16_t addr, uint32_t& delay);
 
@@ -30,16 +31,16 @@ private:
     bool isReady();
     bool getConfiguration(Lora::Configuration& out);
     bool writeProgramCommand(Lora::PROGRAM_COMMAND cmd, Lora::REGISTER_ADDRESS addr, Lora::PACKET_LENGHT pl);
-    bool readData(void* out, uint8_t dataSize, bool needWaitReady = true);
-    bool writeData(void* data, uint8_t dataSize);
+    bool readData(void* out, size_t needSize, bool needWaitReady = true);
+    bool writeData(void* data, size_t dataSize);
     void traceConfig(const Lora::Configuration& cfg) const;
     bool setConfiguration(std::function<void(Lora::Configuration& cfg)> fn);
     uint8_t receiveText(std::string& text);
     void sendDelivered(uint16_t sender, uint8_t msgID);
     bool sendPing(uint16_t dest);
     void sendPingDelivered(uint16_t sender);
-    void fillHeader(std::vector<uint8_t>& out, uint16_t destAddr, RadioCommand command);
-    void traceTraffic(const char* direction, uint8_t* data, uint8_t dataSize) const;
+    void addHeader(std::vector<uint8_t>& out, uint16_t destAddr, RadioCommand command);
+    void traceTraffic(const char* direction, uint8_t* data, size_t dataSize) const;
 
     RadioSettings settings_;
     Lora::Mode currentMode_;

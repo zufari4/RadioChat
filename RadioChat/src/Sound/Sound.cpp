@@ -20,19 +20,30 @@ void Sound::init(const SoundSettings& settings)
 
 void Sound::play(Melody::Name melodyName)
 {
-    if (!settings_.enable || playThread_.joinable()) {
+    if (!settings_.enable || isPlaying_) {
         return;
     }
-    playThread_ = std::thread(&Sound::playThreadFn, this, melodyName);
+    isPlaying_ = true;
+    currentMelody_ = melodyName;
+    xTaskCreatePinnedToCore(this->playThread, "PlaySound", 2*1024, this, (configMAX_PRIORITIES - 1) / 2, NULL, ARDUINO_RUNNING_CORE);
 }
 
-void Sound::playThreadFn(Melody::Name melodyName)
+void Sound::playThread(void* thisPtr)
 {
-    const Melody::Info& melody = Melody::getMelody(melodyName);
-    
+    Sound* self = static_cast<Sound*>(thisPtr);
+    self->playImpl();
+    vTaskDelete(NULL);
+}
+
+void Sound::playImpl()
+{
+    const Melody::Info& melody = Melody::getMelody(currentMelody_);
+    LOG_DBG("Play melody: %s", melody.nameStr.data());
     int noteDuration;
 
-    for (const Melody::Step& step: melody.steps) {
+    for (uint8_t i = 0; i < melody.steps.size(); ++i) {
+        const Melody::Step& step = melody.steps[i];
+        LOG_DBG("Play note %u: %u %d", i, step.frequency, step.duration);
         // calculates the duration of each note
         if (step.duration > 0) {
             // regular note, just proceed
@@ -48,11 +59,13 @@ void Sound::playThreadFn(Melody::Name melodyName)
         }
         // we only play the note for 90% of the duration, leaving 10% as a pause
         myTone(step.frequency, noteDuration*0.9);
-        // Wait for the specief duration before playing the next note.
+        // Wait for the specified duration before playing the next note.
         delay(noteDuration);
         // stop the waveform generation before the next note.
         myNoTone();
     }
+
+    isPlaying_ = false;
 }
 
 void Sound::myTone(unsigned int frequency, unsigned long duration)

@@ -2,6 +2,7 @@
 
 #include <stdint.h>
 #include <HardwareSerial.h>
+#include "../Configuration.h"
 
 struct RadioSettings // Lora E22-400T33D
 {
@@ -14,11 +15,12 @@ struct RadioSettings // Lora E22-400T33D
         uint8_t TX  = 33;
     } pins;
     uint8_t  channel = 23;
-    uint16_t address = 0;
+    uint16_t selfAddress = DEVICE_ADDRESS;
     struct UART
     {
         uint32_t baudrate = 9600;
         uint16_t timeoutMs= 1000;
         uint32_t parity = SERIAL_8N1;
     } uart;
+    uint8_t subPacketSize = 0; // Lora::SUB_PACKET_SETTING::e240;
 };

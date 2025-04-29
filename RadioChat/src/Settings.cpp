@@ -111,7 +111,7 @@ RadioSettings Settings::radio()
     Ini_file ini;
     std::string section("Radio");
     
-    res.address  = ini.Get_value(section, "Address", res.address);
+    res.selfAddress  = ini.Get_value(section, "Address", res.selfAddress);
     res.channel  = ini.Get_value(section, "Channel", res.channel);
     res.pins.AUX = ini.Get_value(section, "Pin AUX", res.pins.AUX);
     res.pins.M0  = ini.Get_value(section, "Pin M0", res.pins.M0);

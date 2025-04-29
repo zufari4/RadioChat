@@ -2,14 +2,17 @@
 
 #include <stdint.h>
 #include <vector>
+#include <string_view>
 
 namespace Melody
 {
     enum class Name: uint8_t
     {
+        Undefined = 0,
         Packman,
         Nokia,
-        PackmanShort
+        Accept,
+        PackmanShort,
     };
 
     struct Step
@@ -21,8 +24,9 @@ namespace Melody
     struct Info
     {
         Name name;
+        std::string_view nameStr;
         std::vector<Step> steps;
     };
 
-    const Info& getMelody(Name melodyName);
+    Info getMelody(Name melodyName);
 }

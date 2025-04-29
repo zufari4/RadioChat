@@ -85,8 +85,7 @@ std::unique_ptr<UIPageBase> UI::createPage(UIPageType pageType)
         newPage = std::make_unique<UIPageMain>(&ctx_);
         break;
     case UIPageType::IncomingMessage: {
-        UIPageType parent = currentPage_ != nullptr ? currentPage_->getType() : UIPageType::Main;
-        newPage = std::make_unique<UIPageIncomingMessage>(parent, &ctx_);
+        newPage = std::make_unique<UIPageIncomingMessage>(UIPageType::Main, &ctx_);
         break;
     }
     case UIPageType::ChatSelect:

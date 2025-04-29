@@ -103,13 +103,6 @@ std::string UIPageTypingMessage::getMessage()
 
     for (const auto& line : typingMessage_) {
         message += line;
-        if (!std::isspace(line.back())) {
-            message += ' ';
-        }
-    }
-
-    if (std::isspace(message.back())) {
-        message.pop_back();
     }
 
     return message;

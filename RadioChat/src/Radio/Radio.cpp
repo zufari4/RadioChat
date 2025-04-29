@@ -4,6 +4,7 @@
 #include <HardwareSerial.h>
 #include <Arduino.h>
 #include <stdint.h>
+#include <limits>
 
 Radio::Radio()
     : currentMode_(Lora::Mode::Undefined)
@@ -27,8 +28,8 @@ void Radio::init(const RadioSettings& settings, OnNewMessageCallback onNewMessag
     onPingDone_ = onPingDone;
 
     LOG_DBG("RX %u TX %u AUX %u M0 %u M1 %u", settings_.pins.RX, settings_.pins.TX, settings_.pins.AUX, settings_.pins.M0, settings_.pins.M1);
-    LOG_INF("channel %u address %u", settings_.channel, settings_.address);
-    LOG_DBG("baudrate %u timeout %u parity %u", settings_.uart.baudrate, settings_.uart.timeoutMs, settings_.uart.parity);
+    LOG_INF("channel %u self address %u", settings_.channel, settings_.selfAddress);
+    LOG_DBG("baud rate %u timeout %u parity %u", settings_.uart.baudrate, settings_.uart.timeoutMs, settings_.uart.parity);
     
     LOG_INF("Setup pins");
     pinMode(settings_.pins.AUX, INPUT);
@@ -56,8 +57,13 @@ void Radio::init(const RadioSettings& settings, OnNewMessageCallback onNewMessag
             return;
         }
     }
-    if (settings_.address != Lora::get_address(cfg)) {
-        if (!setAddress(settings_.address)) {
+    if (settings_.selfAddress != Lora::get_address(cfg)) {
+        if (!setAddress(settings_.selfAddress)) {
+            return;
+        }
+    }
+    if (settings_.subPacketSize != cfg.option.subPacketSetting) {
+        if (!setSubPacketSize(settings_.subPacketSize)) {
             return;
         }
     }
@@ -95,6 +101,20 @@ bool Radio::setAddress(uint16_t addr)
         LOG_ERR("Can't set address");
         return false;
     } 
+    return true;
+}
+
+bool Radio::setSubPacketSize(uint8_t size)
+{
+    LOG_INF("Set sub packet size %s", Lora::sub_pack_str(size));
+    auto setter = [size](Lora::Configuration& cfg)
+        {
+            cfg.option.subPacketSetting = size;
+        };
+    if (!setConfiguration(setter)) {
+        LOG_ERR("Can't sub packet size");
+        return false;
+    }
     return true;
 }
 
@@ -210,23 +230,26 @@ void Radio::check()
     RadioCommand cmd;
 
     if (!readData(&sender_addh, 1, false)) {
-        LOG_ERR("Can't read sender_addh");
+        LOG_ERR("Radio: Can't read sender_addh");
         return;
     }
     if (!readData(&sender_addl, 1, false)) {
-        LOG_ERR("Can't read sender_addl");
+        LOG_ERR("Radio: Can't read sender_addl");
         return;
     }
-    if (!readData(&cmd, 1, false)) {
-        LOG_ERR("Can't read cmd");
-        return;
-    }
+
     uint16_t sender = Lora::get_address(sender_addh, sender_addl);
+    LOG_DBG("Radio: Sender address %u", sender);
+
+    if (!readData(&cmd, 1, false)) {
+        LOG_ERR("Radio: Can't read cmd");
+        return;
+    }
+    LOG_DBG("Radio: command %s", commandStr(cmd));
 
     switch (cmd)
     {
     case RadioCommand::MessageNew: {
-        LOG_INF("Radio: receive new message");
         std::string text;
         uint8_t msgID = receiveText(text);
         if (msgID > 0) {
@@ -236,7 +259,6 @@ void Radio::check()
         break;
     }
     case RadioCommand::MessageDelivered: {
-        LOG_INF("Radio: receive message delivered");
         uint8_t msgID;
         if (readData(&msgID, 1)) {
             LOG_INF("Radio: delivered %u", msgID);
@@ -245,7 +267,6 @@ void Radio::check()
         break;
     }
     case RadioCommand::Ping: {
-        LOG_INF("Radio: receive ping from %u", sender);
         sendPingDelivered(sender);
         break;
     }
@@ -294,6 +315,9 @@ bool Radio::setMode(Lora::Mode mode)
         digitalWrite(settings_.pins.M1, HIGH);
         digitalWrite(settings_.pins.M0, HIGH);
         break;
+    default:
+        LOG_ERR("Unknown mode %u", (uint8_t)mode);
+        return false;
     }
 
 	// data sheet says 2ms later control is returned, let's give just a bit more time
@@ -319,14 +343,14 @@ bool Radio::writeProgramCommand(Lora::PROGRAM_COMMAND cmd, Lora::REGISTER_ADDRES
     return true;
 }
 
-bool Radio::writeData(void* data, uint8_t dataSize)
+bool Radio::writeData(void* data, size_t dataSize)
 {
     uint8_t* ptr = (uint8_t*)data;
     traceTraffic("-->", ptr, dataSize);
-	uint8_t size = Serial2.write(ptr, dataSize);
+	size_t size = Serial2.write(ptr, dataSize);
     //delay(50);  //need ti check
     if (size != dataSize) {
-        LOG_ERR("Wrong size of write data: %u", size);
+        LOG_ERR("Wrong size of write data: %zd", size);
         return false;
     }
 	else if (size == dataSize) {
@@ -340,15 +364,12 @@ bool Radio::writeData(void* data, uint8_t dataSize)
     return true;
 }
 
-bool Radio::readData(void* out, uint8_t dataSize, bool needWaitReady /*= true*/) 
+bool Radio::readData(void* out, size_t needSize, bool needWaitReady /*= true*/)
 {
-    uint8_t* dst = (uint8_t*)out;
-	uint8_t len = Serial2.readBytes(dst, dataSize);
-    if (len > 0) {
-        traceTraffic("<--", dst, len);
-    }
-	if (len != dataSize) {
-		LOG_ERR("Wrong length of receive. Need %u actual %u", dataSize, len);
+    size_t received = Serial2.readBytes((uint8_t*)out, needSize);
+
+	if (received != needSize) {
+		LOG_ERR("Wrong length of receive. Need %zd actual %zd", needSize, received);
         return false;
 	}
 
@@ -380,15 +401,15 @@ void Radio::traceConfig(const Lora::Configuration& cfg) const
     LOG_DBG("Fixed mode: %s", Lora::fixed_transmiss_str(cfg.transMode.fixedTransmission));
 }
 
-void Radio::fillHeader(std::vector<uint8_t>& out, uint16_t destAddr, RadioCommand command)
+void Radio::addHeader(std::vector<uint8_t>& out, uint16_t destAddr, RadioCommand command)
 {
     out.push_back(Lora::get_addr_h(destAddr));
     out.push_back(Lora::get_addr_l(destAddr));
     out.push_back(settings_.channel);
 
-    out.push_back(Lora::get_addr_h(settings_.address));
-    out.push_back(Lora::get_addr_l(settings_.address));
-    out.push_back((uint8_t)command);
+    out.push_back(Lora::get_addr_h(settings_.selfAddress));
+    out.push_back(Lora::get_addr_l(settings_.selfAddress));
+    out.push_back(static_cast<uint8_t>(command));
 }
 
 bool Radio::ping(uint16_t addr, uint32_t& delay)
@@ -402,7 +423,8 @@ bool Radio::ping(uint16_t addr, uint32_t& delay)
 
 uint8_t Radio::sendText(const std::string& text, uint16_t destAddr /*= BROADCAST_ADDRESS*/)
 {
-    LOG_INF("Send text '%s'", text.c_str());
+    uint32_t textSize = static_cast<uint32_t>(text.size());
+    LOG_INF("Send text '%s' to %u. Size %u", text.c_str(), destAddr, textSize);
     // byte dest ADDH
     // byte dest ADDL
     // byte CHAN
@@ -412,15 +434,26 @@ uint8_t Radio::sendText(const std::string& text, uint16_t destAddr /*= BROADCAST
     // byte cmd
 
     // byte msg_id
-    // byte msg_len
+    // byte msg_len_h
+    // byte msg_len_l
     // byte message[msg_len];
     std::vector<uint8_t> data;
-    uint8_t msgID = ++newMessageID_;
+    uint8_t  msgID = ++newMessageID_;
 
-    fillHeader(data, destAddr, RadioCommand::MessageNew);
-    data.push_back(msgID);
-    data.push_back((uint8_t)text.size());
-    data.insert(data.end(), text.begin(), text.end());
+    {
+        addHeader(data, destAddr, RadioCommand::MessageNew);
+
+        const uint32_t maxMsgSize = std::numeric_limits<uint16_t>::max();
+        uint16_t msgSize = static_cast<uint16_t>(std::min(maxMsgSize, textSize));
+
+        data.push_back(msgID);
+        data.push_back(Lora::get_addr_h(msgSize));
+        data.push_back(Lora::get_addr_l(msgSize));
+
+        for (uint32_t i = 0; i < msgSize; ++i) {
+            data.push_back(text[i]);
+        }
+    }
 
     bool res = writeData(data.data(), data.size());
     return res ? msgID : 0;
@@ -429,28 +462,39 @@ uint8_t Radio::sendText(const std::string& text, uint16_t destAddr /*= BROADCAST
 uint8_t Radio::receiveText(std::string& text)
 {
     uint8_t msg_id;
-    uint8_t msg_len;
+    uint8_t msg_len_h;
+    uint8_t msg_len_l;
+
     if (!readData(&msg_id, 1, false)) {
         LOG_ERR("Can't read msg_id");
         return 0;
     }
-    if (!readData(&msg_len, 1, false)) {
-        LOG_ERR("Can't read msg_len %u", msg_id);
+    LOG_DBG("Receive msg_id %u", msg_id);
+
+    if (!readData(&msg_len_h, 1, false)) {
+        LOG_ERR("Can't read msg_len_h %u", msg_id);
         return 0;
     }
+    if (!readData(&msg_len_l, 1, false)) {
+        LOG_ERR("Can't read msg_len_l %u", msg_id);
+        return 0;
+    }
+    uint16_t msg_len = Lora::get_address(msg_len_h, msg_len_l);
+    LOG_DBG("Receive msg_len %u", msg_len);
+
     std::vector<uint8_t> data(msg_len + 1, '\0');        
     if (!readData(data.data(), msg_len, true)) {
-        LOG_ERR("Can't read msg %u", msg_id);
+        LOG_ERR("Can't read text message. msg_id %u", msg_id);
         return 0;
     }
     text.assign(data.begin(), data.end());
-    LOG_INF("Receive '%s' %u", text.c_str(), msg_id);
+    LOG_INF("Receive '%s' msg_id %u size %u", text.c_str(), msg_id, msg_len);
     return msg_id;
 }
 
 void Radio::sendDelivered(uint16_t sender, uint8_t msgID)
 {
-    LOG_INF("Send delivered to %u msgID %u", sender, msgID);
+    LOG_INF("Send status delivered msgID %u to %u ", msgID, sender);
     // byte dest ADDH
     // byte dest ADDL
     // byte CHAN
@@ -462,7 +506,7 @@ void Radio::sendDelivered(uint16_t sender, uint8_t msgID)
     // byte msg_id
 
     std::vector<uint8_t> data;
-    fillHeader(data, sender, RadioCommand::MessageDelivered);
+    addHeader(data, sender, RadioCommand::MessageDelivered);
     data.push_back(msgID);
 
     if (!writeData(data.data(), data.size())) {
@@ -482,7 +526,7 @@ bool Radio::sendPing(uint16_t dest)
     // byte cmd
 
     std::vector<uint8_t> data;
-    fillHeader(data, dest, RadioCommand::Ping);
+    addHeader(data, dest, RadioCommand::Ping);
 
     if (!writeData(data.data(), data.size())) {
         LOG_ERR("Can't send ping");
@@ -504,22 +548,33 @@ void Radio::sendPingDelivered(uint16_t sender)
     // byte cmd
 
     std::vector<uint8_t> data;
-    fillHeader(data, sender, RadioCommand::PingDelivered);
+    addHeader(data, sender, RadioCommand::PingDelivered);
 
     if (!writeData(data.data(), data.size())) {
         LOG_ERR("Can't send ping delivered");
     }
 }
 
-void Radio::traceTraffic(const char* direction, uint8_t* data, uint8_t dataSize) const
+void Radio::traceTraffic(const char* direction, uint8_t* data, size_t dataSize) const
 {
-    if (dataSize > 0 && Logger::instance().getLogLevel() == LogTraceLevel::Debug) {
-        std::string str;
-        char hex[4];
-        for (uint8_t i = 0; i < dataSize; ++i) {
-            sprintf(hex, "%02X ", data[i]);
-            str += hex;
+    if (dataSize > 0) {
+        if (Logger::instance().getLogLevel() == LogTraceLevel::Debug) {
+            std::string str;
+            char hex[4];
+            for (size_t i = 0; i < dataSize; ++i) {
+                if (i != 0 && i % 16 == 0) {
+                    LOG_DBG("%s %s", direction, str.c_str());
+                    str.clear();
+                }
+                sprintf(hex, "%02X ", data[i]);
+                str += hex;
+            }
+            if (!str.empty()) {
+                LOG_DBG("%s %s", direction, str.c_str());
+            }
         }
-        LOG_DBG("%s %s", direction, str.c_str());
+    }
+    else {
+        LOG_DBG("%s NO_DATA!", direction);
     }
 }

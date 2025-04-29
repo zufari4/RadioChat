@@ -3,6 +3,7 @@
 #include "SoundSettings.h"
 #include "Melody.h"
 #include <thread>
+#include <atomic>
 
 class Sound
 {
@@ -13,11 +14,13 @@ public:
     void play(Melody::Name melodyName);
 
 private:
-    void playThreadFn(Melody::Name melodyName);
+    static void playThread(void* thisPtr);
+    void playImpl();
     void myTone(unsigned int frequency, unsigned long duration);
     void myNoTone();
 
     SoundSettings settings_;
-    std::thread playThread_;
-    int wholenote_;
+    int wholenote_ = 0;
+    std::atomic_bool isPlaying_ {false};
+    Melody::Name currentMelody_ = Melody::Name::Undefined;
 };

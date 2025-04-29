@@ -4,10 +4,11 @@
 namespace Melody
 {
 
-const Info& packman()
+Info packman()
 {
-    static const Info melody {
+    const Info melody {
         Name::Packman,
+        "Packman",
         {
         {NOTE_B4, 16}, {NOTE_B5 ,  16}, {NOTE_FS5, 16}, {NOTE_DS5, 16}, //1
         {NOTE_B5, 32}, {NOTE_FS5, -16}, {NOTE_DS5,  8}, {NOTE_C5,  16},
@@ -21,10 +22,11 @@ const Info& packman()
     return melody;
 }
 
-const Info& packmanShort()
+Info packmanShort()
 {
-    static const Info melody {
-        Name::Packman,
+    const Info melody {
+        Name::PackmanShort,
+        "PackmanShort",
         {
         {NOTE_B4, 16}, {NOTE_B5 ,  16}, {NOTE_FS5, 16}, {NOTE_DS5, 16}
         }
@@ -32,10 +34,11 @@ const Info& packmanShort()
     return melody;
 }
 
-const Info& nokia()
+Info nokia()
 {
-    static const Info melody {
+    const Info melody {
         Name::Nokia,
+        "Nokia",
         {
         {NOTE_E5 , 8}, {NOTE_D5, 8}, {NOTE_FS4, 4}, {NOTE_GS4, 4}, 
         {NOTE_CS5, 8}, {NOTE_B4, 8}, {NOTE_D4 , 4}, {NOTE_E4 , 4}, 
@@ -46,13 +49,26 @@ const Info& nokia()
     return melody;
 }
 
-const Info& getMelody(Name melodyName)
+Info acceptMld()
+{
+    const Info melody{
+        Name::Accept,
+        "accept",
+        {
+        {NOTE_GS5, 32}, {NOTE_A5, 16}, {NOTE_B5, 8}
+        }
+    };
+    return melody;
+}
+
+Info getMelody(Name melodyName)
 {
     switch (melodyName)
     {   
     case Name::Packman: return packman();
-    case Name::Nokia: return nokia();
     case Name::PackmanShort: return packmanShort();
+    case Name::Nokia: return nokia();
+    case Name::Accept: return acceptMld();
     default: return packman();
     }
 }

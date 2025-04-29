@@ -1,5 +1,6 @@
 #include "UIPageIncomingMessage.h"
 #include "../Display/Display.h"
+#include "../Utils.h"
 
 UIPageIncomingMessage::UIPageIncomingMessage(UIPageType parent, const UIContext *context)
     : UIPageBase(UIPageType::IncomingMessage, parent, context)
@@ -21,32 +22,8 @@ void UIPageIncomingMessage::draw()
     }
 }
 
-std::vector<std::string> UIPageIncomingMessage::splitMessage(const std::string &message) const
-{
-    std::vector<std::string> lines;
-    std::string currentLine;
-    size_t lineLength = 0;
-
-    for (const char &c : message) {
-        currentLine += c;
-        lineLength++;
-        if (lineLength >= ctx_->maxStrLen)
-        {
-            lines.push_back(currentLine);
-            currentLine.clear();
-            lineLength = 0;
-        }
-    }
-
-    if (!currentLine.empty()) {
-        lines.push_back(currentLine);
-    }
-
-    return lines;
-}
-
 void UIPageIncomingMessage::setMessage(const std::string& message, uint16_t address)
 {
-    message_ = splitMessage(message);
+    message_ = utils::splitUtf8String(message, ctx_->maxStrLen);
     address_ = address;
 }

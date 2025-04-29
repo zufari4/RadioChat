@@ -9,3 +9,5 @@ enum class RadioCommand: uint8_t
     Ping,
     PingDelivered
 };
+
+const char* commandStr(RadioCommand cmd);

@@ -83,14 +83,14 @@ struct Configuration
     uint8_t addl  = 0;
     uint8_t netid = 0;
 
-    Speed  speed  = {0};
-    Option option = {0};
+    Speed  speed  = {0,0,0};
+    Option option = {0,0,0,0};
 
     uint8_t chan  = 0;
 
-    TransmissionMode transMode = {0};
+    TransmissionMode transMode = {0,0,0,0,0,0};
 
-    Crypt crypt = {0};
+    Crypt crypt;
 };
 
 struct ModuleInformation 

@@ -1,11 +1,13 @@
 #pragma once
 
 #define DEBUG_MODE 1
+#define FIRMWARE_VERSION 0x0001
+#define DEVICE_ADDRESS 2
 #define SERIAL_SPEED 9600
 #define SERIAL_INIT_DELAY 1000
 #define STORAGE_DIR "/RadioChat"
 #define SETTINGS_FILENAME "config.json"
-#define PIN_SPI_SS 5 // CS
+#define PIN_SPI_SS 5 // default CS pin for external flash
 
 #define KEY_CODE_FN     0x0001
 #define KEY_CODE_ENTER  0x000A

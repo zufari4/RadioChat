@@ -20,8 +20,8 @@
 #include "QueueMessage/QueueMessageShowPage.h"
 #include "QueueMessage/QueueMessageTypingMessage.h"
 #include <SD.h>
-#include <stdexcept>
 #include <Arduino.h>
+#include <stdexcept>
 
 RadioChat::RadioChat()
     : settings_(nullptr)
@@ -79,6 +79,8 @@ void RadioChat::init()
     Logger::instance().init(loggerSettings);
     flash_->printInfo(); // need logger for print
 
+    LOG_INF("Firmware version: %04X", FIRMWARE_VERSION);
+
     EspSettings espSettings = settings_->esp();
     esp_->init(espSettings);
 
@@ -132,7 +134,7 @@ void RadioChat::runThreadCheckQueue()
 {
     // use raw function for create thread 
     // because in std::thread stack size is small
-    xTaskCreatePinnedToCore(this->svc, "QueueCheck", 8 * 1024, this, 5, NULL, 1);
+    xTaskCreatePinnedToCore(this->svc, "QueueCheck", 10 * 1024, this, (configMAX_PRIORITIES - 1) / 2, NULL, ARDUINO_RUNNING_CORE);
 }
 
 void RadioChat::svc(void* thisPtr)
@@ -146,16 +148,23 @@ void RadioChat::svc(void* thisPtr)
 void RadioChat::checkQueue()
 {
     auto msg = messageQueue_.dequeue();
+    
+    //UBaseType_t freeStack = uxTaskGetStackHighWaterMark(NULL);
+    //LOG_DBG("RadioChat::checkQueue Free stack: %u", freeStack);
+
     switch (msg->getType())
     {
     case QueueMessageType::AcceptMessage: {
         auto m = static_cast<QueueMessageAcceptMessage*>(msg.get());
+        LOG_INF("Accept message %u from %u: %s", m->getID(), m->getAddress(), m->getMessage().c_str());
         sound_->play(Melody::Name::PackmanShort);
         ui_->showIncomingMessage(m->getMessage(), m->getAddress());
         break;
     }
     case QueueMessageType::DeliveryMessage: {
         auto m = static_cast<QueueMessageDeliveryMessage*>(msg.get());
+        LOG_INF("Delivered message %u to %u", m->getID(), m->getAddress());
+        sound_->play(Melody::Name::Accept);
         break;
     }   
     case QueueMessageType::KeyboardCommand: {
@@ -164,7 +173,7 @@ void RadioChat::checkQueue()
         break;
     }
     case QueueMessageType::PingDone: {
-        auto m = static_cast<QueueMessagePingDone*>(msg.get());
+        //auto m = static_cast<QueueMessagePingDone*>(msg.get());
         break;
     }
     case QueueMessageType::TypingChar: {

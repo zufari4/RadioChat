@@ -1,4 +1,3 @@
-#include <string>
 #include "Utils.h"
 #include "Logger/Logger.h"
 #include <SD.h>
@@ -40,11 +39,16 @@ void pop_back_utf8(std::string& utf8)
     if (cp >= start) utf8.resize(cp - start);
 }
 
+bool is_ascii(const char* symbol)
+{
+    return (*symbol & 0xc0) != 0x80;
+}
+
 const char* next(const char* utf8)
 {
     const char* s = utf8 + 1;
     while (*s) {
-        if ((*s & 0xc0) != 0x80) {
+        if (is_ascii(s)) {
             break;
         }
         else s++;
@@ -137,5 +141,56 @@ std::string bits2str(uint8_t val)
     
     return res;
 }
+
+// Function to split a UTF-8 string into a vector of strings with a maximum length
+std::vector<std::string> splitUtf8String(const std::string& input, size_t maxLength)
+{
+    std::vector<std::string> result;
+    std::string currentChunk;
+    size_t currentChunkSize = 0;
+
+    for (size_t i = 0; i < input.size(); ) {
+        unsigned char c = static_cast<unsigned char>(input[i]);
+        size_t charSize = 0;
+
+        // Determine the size of the UTF-8 character
+        if ((c & 0x80) == 0) {
+            charSize = 1; // 1-byte character (ASCII)
+        }
+        else if ((c & 0xE0) == 0xC0) {
+            charSize = 2; // 2-byte character
+        }
+        else if ((c & 0xF0) == 0xE0) {
+            charSize = 3; // 3-byte character
+        }
+        else if ((c & 0xF8) == 0xF0) {
+            charSize = 4; // 4-byte character
+        }
+        else { // Invalid UTF-8 encoding detected
+            break;
+        }
+
+        // If adding this character exceeds the current chunk size, start a new chunk
+        if (currentChunkSize >= maxLength) {
+            result.push_back(currentChunk);
+            currentChunk.clear();
+            currentChunkSize = 0;
+        }
+
+        // Append the character to the current chunk
+        currentChunk.append(input.substr(i, charSize));
+        currentChunkSize += 1;
+        i += charSize;
+    }
+
+    // Add the last chunk if not empty
+    if (!currentChunk.empty()) {
+        result.push_back(currentChunk);
+    }
+
+    return result;
+}
+
+
 
 }
