@@ -1,6 +1,6 @@
 #pragma once
 
-#define DEBUG_MODE 1
+#define DEBUG_MODE 0
 #define FIRMWARE_VERSION 0x0001
 #define DEVICE_ADDRESS 2
 #define SERIAL_SPEED 9600

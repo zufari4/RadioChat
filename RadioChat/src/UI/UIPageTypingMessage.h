@@ -17,7 +17,7 @@ public:
     void setAddress(uint16_t address);
 
 private:
-    std::string getMessage();
+    std::string getFullMessage();
     void resetMessage();
 
     using Clock = std::chrono::steady_clock;
@@ -28,4 +28,5 @@ private:
     Clock::time_point nextCarriageShow_;
     std::chrono::milliseconds carriageShowTime_;
     std::mutex msgMutex_;
+    size_t currentMessageSize_;
 };

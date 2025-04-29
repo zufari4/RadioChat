@@ -27,16 +27,24 @@ void add_to_str(uint16_t utf8symbol, std::string& out)
     out += to_str(utf8symbol);
 }
 
-void pop_back_utf8(std::string& utf8)
+uint8_t pop_back_utf8(std::string& utf8)
 {
-    if(utf8.empty())
-        return;
+    if (utf8.empty())
+        return 0;
 
     const char* start = utf8.c_str();
     const char* cp = start + utf8.size();
 
     while (--cp >= start && ((*cp & 0b10000000) && !(*cp & 0b01000000))) {}
-    if (cp >= start) utf8.resize(cp - start);
+
+    if (cp >= start) {
+        size_t prevSize = utf8.size();
+        utf8.resize(cp - start);
+        size_t curSize = utf8.size();
+        return prevSize - curSize;
+    }
+
+    return 0;
 }
 
 bool is_ascii(const char* symbol)
@@ -151,7 +159,7 @@ std::vector<std::string> splitUtf8String(const std::string& input, size_t maxLen
 
     for (size_t i = 0; i < input.size(); ) {
         unsigned char c = static_cast<unsigned char>(input[i]);
-        size_t charSize = 0;
+        uint8_t charSize = 0;
 
         // Determine the size of the UTF-8 character
         if ((c & 0x80) == 0) {
@@ -190,7 +198,5 @@ std::vector<std::string> splitUtf8String(const std::string& input, size_t maxLen
 
     return result;
 }
-
-
 
 }

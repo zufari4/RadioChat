@@ -24,6 +24,6 @@ void UIPageIncomingMessage::draw()
 
 void UIPageIncomingMessage::setMessage(const std::string& message, uint16_t address)
 {
-    message_ = utils::splitUtf8String(message, ctx_->maxStrLen);
+    message_ = utils::splitUtf8String(message, ctx_->maxLineChars);
     address_ = address;
 }

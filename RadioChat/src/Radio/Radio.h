@@ -24,6 +24,7 @@ public:
     bool setSubPacketSize(uint8_t size);
     uint8_t sendText(const std::string& text, uint16_t address = BROADCAST_ADDRESS);
     bool ping(uint16_t addr, uint32_t& delay);
+    uint8_t getMaxMessageSize() const; // max size of text message in bytes
 
 private:
     bool setMode(Lora::Mode mode);

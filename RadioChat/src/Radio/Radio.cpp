@@ -67,6 +67,7 @@ void Radio::init(const RadioSettings& settings, OnNewMessageCallback onNewMessag
             return;
         }
     }
+    LOG_INF("Max message size %u", getMaxMessageSize());
     isInit_ = setMode(Lora::Mode::Transfer);
 }
 
@@ -423,19 +424,18 @@ bool Radio::ping(uint16_t addr, uint32_t& delay)
 
 uint8_t Radio::sendText(const std::string& text, uint16_t destAddr /*= BROADCAST_ADDRESS*/)
 {
-    uint32_t textSize = static_cast<uint32_t>(text.size());
+    uint16_t textSize = static_cast<uint16_t>(text.size());
     LOG_INF("Send text '%s' to %u. Size %u", text.c_str(), destAddr, textSize);
-    // byte dest ADDH
-    // byte dest ADDL
-    // byte CHAN
+    // 1: byte dest ADDH
+    // 2: byte dest ADDL
+    // 3: byte CHAN
 
-    // byte sender ADDH
-    // byte sender ADDL
-    // byte cmd
+    // 4: byte sender ADDH
+    // 5: byte sender ADDL
+    // 6: byte cmd
 
-    // byte msg_id
-    // byte msg_len_h
-    // byte msg_len_l
+    // 7: byte msg_id
+    // 9: byte msg_len
     // byte message[msg_len];
     std::vector<uint8_t> data;
     uint8_t  msgID = ++newMessageID_;
@@ -443,16 +443,12 @@ uint8_t Radio::sendText(const std::string& text, uint16_t destAddr /*= BROADCAST
     {
         addHeader(data, destAddr, RadioCommand::MessageNew);
 
-        const uint32_t maxMsgSize = std::numeric_limits<uint16_t>::max();
-        uint16_t msgSize = static_cast<uint16_t>(std::min(maxMsgSize, textSize));
+        uint16_t maxMsgSize = getMaxMessageSize();
+        uint8_t msgSize = static_cast<uint8_t>(std::min(maxMsgSize, textSize));
 
         data.push_back(msgID);
-        data.push_back(Lora::get_addr_h(msgSize));
-        data.push_back(Lora::get_addr_l(msgSize));
-
-        for (uint32_t i = 0; i < msgSize; ++i) {
-            data.push_back(text[i]);
-        }
+        data.push_back(msgSize);
+        data.insert(data.end(), text.begin(), text.begin() + msgSize);
     }
 
     bool res = writeData(data.data(), data.size());
@@ -462,8 +458,7 @@ uint8_t Radio::sendText(const std::string& text, uint16_t destAddr /*= BROADCAST
 uint8_t Radio::receiveText(std::string& text)
 {
     uint8_t msg_id;
-    uint8_t msg_len_h;
-    uint8_t msg_len_l;
+    uint8_t msg_len;
 
     if (!readData(&msg_id, 1, false)) {
         LOG_ERR("Can't read msg_id");
@@ -471,15 +466,11 @@ uint8_t Radio::receiveText(std::string& text)
     }
     LOG_DBG("Receive msg_id %u", msg_id);
 
-    if (!readData(&msg_len_h, 1, false)) {
-        LOG_ERR("Can't read msg_len_h %u", msg_id);
+    if (!readData(&msg_len, 1, false)) {
+        LOG_ERR("Can't read msg_len. msg_id %u", msg_id);
         return 0;
     }
-    if (!readData(&msg_len_l, 1, false)) {
-        LOG_ERR("Can't read msg_len_l %u", msg_id);
-        return 0;
-    }
-    uint16_t msg_len = Lora::get_address(msg_len_h, msg_len_l);
+
     LOG_DBG("Receive msg_len %u", msg_len);
 
     std::vector<uint8_t> data(msg_len + 1, '\0');        
@@ -577,4 +568,27 @@ void Radio::traceTraffic(const char* direction, uint8_t* data, size_t dataSize) 
     else {
         LOG_DBG("%s NO_DATA!", direction);
     }
+}
+
+uint8_t Radio::getMaxMessageSize() const
+{
+    uint8_t subPacketSize;
+    if (settings_.subPacketSize == static_cast<uint8_t>(Lora::SUB_PACKET_SETTING::e032)) {
+        subPacketSize = 32;
+    }
+    else if (settings_.subPacketSize == static_cast<uint8_t>(Lora::SUB_PACKET_SETTING::e064)) {
+        subPacketSize = 64;
+    }
+    else if (settings_.subPacketSize == static_cast<uint8_t>(Lora::SUB_PACKET_SETTING::e128)) {
+        subPacketSize = 128;
+    }
+    else if (settings_.subPacketSize == static_cast<uint8_t>(Lora::SUB_PACKET_SETTING::e240)) {
+        subPacketSize = 240;
+    }
+    else {
+        LOG_ERR("Unknown sub packet size %u. Use 32", settings_.subPacketSize);
+        subPacketSize = 32;
+    }
+
+    return subPacketSize - 9 /*header for text*/;
 }

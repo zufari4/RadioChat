@@ -14,10 +14,10 @@ void UI::init(const UIContext& context)
     LOG_INF("-- Initialize UI --");
 
     ctx_ = context;
-    ctx_.maxStrLen = ctx_.display->getDisplayWidth()/ctx_.display->getMaxCharWidth();
+    ctx_.maxLineChars = ctx_.display->getDisplayWidth()/ctx_.display->getMaxCharWidth();
     ctx_.textHeight = ctx_.uiSettings.textHeight;
     ctx_.maxCountLines = ctx_.display->getDisplayHeight()/ctx_.textHeight;
-    LOG_DBG("maxStrLen %u textHeight %u maxCountLines %u", ctx_.maxStrLen, ctx_.textHeight, ctx_.maxCountLines);
+    LOG_DBG("maxStrLen %u textHeight %u maxCountLines %u", ctx_.maxLineChars, ctx_.textHeight, ctx_.maxCountLines);
     setCurrentPage(UIPageType::Main);
 }
 
