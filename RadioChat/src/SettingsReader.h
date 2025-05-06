@@ -4,17 +4,16 @@
 #include <string>
 #include <cstdint>
 #include <memory>
+#include <map>
+#include <vector>
+#include <json.hpp>
 
-namespace nlohmann
-{
-    class json;
-}
-
-class JsonReader
+class SettingsReader
 {
 public:
-    JsonReader(const std::string& filename);
-    virtual ~JsonReader();
+    SettingsReader(const std::string& filename, std::string_view section);
+    ~SettingsReader();
+
     int32_t get_i(std::string_view param);
     int32_t get_i(std::string_view param, int32_t defValue);
     uint32_t get_u(std::string_view param);
@@ -25,13 +24,12 @@ public:
     uint64_t get_u64(std::string_view param, uint64_t defValue);
     float get_f(std::string_view param);
     float get_f(std::string_view param, float defValue);
-    double get_d(std::string_view param);
-    double get_d(std::string_view param, double defValue);
     std::string get_s(std::string_view param);
     std::string get_s(std::string_view param, const std::string& defValue);
     bool get_b(std::string_view param);
     bool get_b(std::string_view param, bool defValue);
 
+    static bool isValid(const std::string& filename);
 protected:
-    std::unique_ptr<nlohmann::json> json_;
+   nlohmann::json json_;
 };

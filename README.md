@@ -23,4 +23,5 @@ This repository stores firmware files for a device that allows you to exchange t
 
 ## Prepare for build in Arduino IDE
 - Install library u8g2 [link](https://github.com/olikraus/u8g2)
+- Install library nlohman-json [link](https://github.com/Johboh/nlohmann-json)
 - Add ESP32 board to IDE [link](https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html) 

@@ -22,5 +22,6 @@ struct RadioSettings // Lora E22-400T33D
         uint16_t timeoutMs= 1000;
         uint32_t parity = SERIAL_8N1;
     } uart;
-    uint8_t subPacketSize = 0; // Lora::SUB_PACKET_SETTING::e240;
+    uint8_t subPacketSize = 0; // Lora::SUB_PACKET_SETTING
+    uint8_t airRate = 0; // Lora::AIR_DATA_RATE
 };

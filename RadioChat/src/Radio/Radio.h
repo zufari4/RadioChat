@@ -19,9 +19,12 @@ public:
     void init(const RadioSettings& settings, OnNewMessageCallback onNewMessage, OnMessageDeliveryCallback onMessageDelivered, OnPingDone onPingDone);
     void check();
     bool isInit() const;
+
     bool setChannel(uint8_t channel);
     bool setAddress(uint16_t addr);
     bool setSubPacketSize(uint8_t size);
+    bool setAirDataRate(uint8_t rate);
+
     uint8_t sendText(const std::string& text, uint16_t address = BROADCAST_ADDRESS);
     bool ping(uint16_t addr, uint32_t& delay);
     uint8_t getMaxMessageSize() const; // max size of text message in bytes

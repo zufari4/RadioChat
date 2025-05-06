@@ -45,7 +45,7 @@ RadioChat::~RadioChat()
 }
 
 void RadioChat::init()
-{   
+{
     using namespace std::placeholders;
 
 #if DEBUG_MODE == 1
@@ -54,71 +54,78 @@ void RadioChat::init()
     // else init serial by logger settings
     Logger::instance().initSerialLogging();
 #endif
-
-    flash_      = new Flash();
-    settings_   = new Settings();
-    esp_        = new Esp();
-    keyHandler_ = new KeyHandler();
-    display_    = new Display();
-    radio_      = new Radio();
-    ui_         = new UI();
-    ledIndicator_ = new LedIndicator();
-    sound_        = new Sound();
-    battery_      = new Battery();
-    contactsManager_ = new ContactsManager();
-    FlashSettings flashSettings;
-    flash_->init(flashSettings);
-
+    {
+        flash_ = new Flash();
+        FlashSettings flashSettings;
+        flash_->init(flashSettings);
+    }
     if (!SD.exists(STORAGE_DIR)) {
         SD.mkdir(STORAGE_DIR);
     }
-
-    settings_->init(SETTINGS_FILENAME);
-
-    LoggerSettings loggerSettings = settings_->logger();
-    Logger::instance().init(loggerSettings);
-    flash_->printInfo(); // need logger for print
-
-    LOG_INF("Firmware version: %04X", FIRMWARE_VERSION);
-
-    EspSettings espSettings = settings_->esp();
-    esp_->init(espSettings);
-
-    RadioSettings radioSettings = settings_->radio();
-    radio_->init(radioSettings,
-                 std::bind(&RadioChat::pushAcceptMessage, this, _1, _2, _3), 
-                 std::bind(&RadioChat::pushDeliveryMessage, this, _1, _2),
-                 std::bind(&RadioChat::pushPingDone, this, _1, _2));
-
-    LedSettings ledSettings = settings_->led();
-    ledIndicator_->init(ledSettings);
-
-    SoundSettings soundSettings = settings_->sound();
-    sound_->init(soundSettings);
-
-    BatterySettings batterySettings = settings_->battery();
-    battery_->init(batterySettings);
-
-    ContactsSettings contactsSettings = settings_->contacts();
-    contactsManager_->init(contactsSettings);
-
-    KeyboardSettings  keybSettings = settings_->keyboard();
-    keyHandler_->init(keybSettings, 
-                      std::bind(&RadioChat::pushTypingChar, this, _1), 
-                      std::bind(&RadioChat::pushKeyboardCommand, this, _1));
-
-    DisplaySettings dispSettings = settings_->display();
-    display_->init(dispSettings);
-
-    UISettings uiSettings = settings_->ui();
-    UIContext  uiContext(uiSettings, display_, settings_, battery_, radio_, contactsManager_, 0, 0, 0, 
-                         std::bind(&RadioChat::pushShowPage, this, _1),
-                         std::bind(&RadioChat::pushShowPageTypingMessage, this, _1)  
-                         );
-    ui_->init(uiContext);
-
+    settings_ = new Settings();
+    settings_->init(STORAGE_DIR "/" SETTINGS_FILENAME);
+    {
+        LoggerSettings loggerSettings = settings_->logger();
+        Logger::instance().init(loggerSettings);
+        flash_->printInfo(); // need logger for print
+    }
+    {
+        esp_ = new Esp();
+        EspSettings espSettings = settings_->esp();
+        esp_->init(espSettings);
+    }
+    {
+        radio_ = new Radio();
+        RadioSettings radioSettings = settings_->radio();
+        radio_->init(radioSettings,
+            std::bind(&RadioChat::pushAcceptMessage, this, _1, _2, _3),
+            std::bind(&RadioChat::pushDeliveryMessage, this, _1, _2),
+            std::bind(&RadioChat::pushPingDone, this, _1, _2));
+    }
+    {
+        ledIndicator_ = new LedIndicator();
+        LedSettings ledSettings = settings_->led();
+        ledIndicator_->init(ledSettings);
+    }
+    {
+        sound_ = new Sound();
+        SoundSettings soundSettings = settings_->sound();
+        sound_->init(soundSettings);
+    }
+    {
+        battery_ = new Battery();
+        BatterySettings batterySettings = settings_->battery();
+        battery_->init(batterySettings);
+    }
+    {
+        contactsManager_ = new ContactsManager();
+        ContactsSettings contactsSettings = settings_->contacts();
+        contactsManager_->init(contactsSettings);
+    }
+    {
+        keyHandler_ = new KeyHandler();
+        KeyboardSettings  keybSettings = settings_->keyboard();
+        keyHandler_->init(keybSettings,
+            std::bind(&RadioChat::pushTypingChar, this, _1),
+            std::bind(&RadioChat::pushKeyboardCommand, this, _1));
+    }
+    {
+        display_ = new Display();
+        DisplaySettings dispSettings = settings_->display();
+        display_->init(dispSettings);
+    }
+    {
+        ui_ = new UI();
+        UISettings uiSettings = settings_->ui();
+        UIContext  uiContext(uiSettings, display_, settings_, battery_, radio_, contactsManager_, 0, 0, 0,
+            std::bind(&RadioChat::pushShowPage, this, _1),
+            std::bind(&RadioChat::pushShowPageTypingMessage, this, _1)
+        );
+        ui_->init(uiContext);
+    }
     runThreadCheckQueue();
-    sound_->play(Melody::Name::Nokia);
+    //sound_->play(Melody::Name::Nokia);
+    LOG_INF("Firmware version: %04X", FIRMWARE_VERSION);
 }
 
 void RadioChat::loop()

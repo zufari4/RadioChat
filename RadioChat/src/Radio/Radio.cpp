@@ -67,6 +67,11 @@ void Radio::init(const RadioSettings& settings, OnNewMessageCallback onNewMessag
             return;
         }
     }
+    if (settings_.airRate != cfg.speed.airDataRate) {
+        if (!setAirDataRate(settings_.airRate)) {
+            return;
+        }
+    }
     LOG_INF("Max message size %u", getMaxMessageSize());
     isInit_ = setMode(Lora::Mode::Transfer);
 }
@@ -114,6 +119,20 @@ bool Radio::setSubPacketSize(uint8_t size)
         };
     if (!setConfiguration(setter)) {
         LOG_ERR("Can't sub packet size");
+        return false;
+    }
+    return true;
+}
+
+bool Radio::setAirDataRate(uint8_t rate)
+{
+    LOG_INF("Set air data rate %s", Lora::air_rate_str(rate));
+    auto setter = [rate](Lora::Configuration& cfg)
+        {
+            cfg.speed.airDataRate = rate;
+        };
+    if (!setConfiguration(setter)) {
+        LOG_ERR("Can't set air data rate");
         return false;
     }
     return true;
