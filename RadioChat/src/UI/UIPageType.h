@@ -6,12 +6,22 @@ enum class UIPageType
     Main,
     ChatSelect,
     TypingMessage,
-    Settings,
     Statistics,
     Monitoring,
     IncomingMessage,
     Contacts,
     Logs,
+    SettingsSelect,
+    SettingsLogger,
+    SettingsEsp,
+    SettingsKeyboard,
+    SettingsDisplay,
+    SettingsUI,
+    SettingsRadio,
+    SettingsLed,
+    SettingsSound,
+    SettingsBattery,
+    SettingsContacts,
 };
 
 const char* uiPageTypeToStr(UIPageType type);

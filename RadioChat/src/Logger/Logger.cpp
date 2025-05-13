@@ -3,8 +3,6 @@
 #include "../Utils.h"
 #include "../Configuration.h"
 #include <HardwareSerial.h>
-#include <SD.h>
-#include <FS.h>
 #include <stdarg.h>
 #include <algorithm>
 
@@ -43,21 +41,27 @@ void Logger::init(const LoggerSettings& settings)
     if (settings_.level != LogTraceLevel::None) {
         buffer_.resize(settings_.maxMessageSize + 25); // + date time
 
-        if (settings_.logToSerial) initSerialLogging();
-
+        if (settings_.logToSerial) {
+            initSerialLogging();
+        }
         if (settings_.logToFile) {
+            if (FLASH.exists(path)) {
+                LOG_DBG("Log path %s already exists", path.c_str());
+            }
+            else {
+                LOG_DBG("Log path %s not exists. Create", path.c_str());
+                FLASH.mkdir(path);
+            }
             createFile();
         }
     }
-
+    isInit_ = true;
     LOG_INF("settings.level         : %d", (int)settings.level);
     LOG_INF("settings.logToSerial   : %s", utils::to_str(settings.logToSerial));
     LOG_INF("settings.logPath       : %s", path.c_str());
     LOG_INF("settings.maxCountLines : %u", settings.maxCountLines );
     LOG_INF("settings.maxCountLogs  : %u", settings.maxCountLogs  );
     LOG_INF("settings.maxMessageSize: %u", settings.maxMessageSize);
-    
-    isInit_ = true;
 }
 
 void Logger::log(LogTraceLevel level, const char* format, ...)
@@ -84,8 +88,8 @@ void Logger::log(LogTraceLevel level, const char* format, ...)
         Serial.printf("%s", dst);
     }
 
-    if (currentFile_) {
-        currentFile_->write((const uint8_t*)dst, offset);
+    if (isFileOpen_) {
+        FLASH.append(filename_, dst);
     }
 }
 
@@ -106,25 +110,19 @@ std::string Logger::makeFilename() const
 
 void Logger::createFile()
 {
-    std::string path = getPath();
-
-    if (!SD.exists(path.c_str())) {
-        SD.mkdir(path.c_str());
-    }
-
     std::string dt = utils::datetime_str();
     dt.erase(std::remove(dt.begin(), dt.end(), ':'), dt.end());
     dt.erase(std::remove(dt.begin(), dt.end(), '-'), dt.end());
     dt.erase(std::remove(dt.begin(), dt.end(), '.'), dt.end());
     dt.erase(std::remove(dt.begin(), dt.end(), ' '), dt.end());
 
-    std::string currentFileName = path + "/" + dt + ".log";
-    fs::File file = SD.open(currentFileName.c_str(), FILE_WRITE);
-    if (file) {
-        LOG_DBG("Created log file '%s'", currentFileName.c_str());
-        currentFile_ = std::make_unique<fs::File>(file);
+    filename_ = getPath() + "/" + dt + ".log";
+    if (FLASH.write(filename_, "")) {
+        isFileOpen_ = true;
+        LOG_DBG("Log file %s created", filename_.c_str());
     }
     else {
-        LOG_ERR("Can't create log file '%s'", currentFileName.c_str());
+        LOG_ERR("Failed to create log file %s", filename_.c_str());
+        isFileOpen_ = false;
     }
 }

@@ -1,13 +1,14 @@
 #include "SettingsWriter.h"
-#include "Utils.h"
+#include "Flash/Flash.h"
 #include "Logger/Logger.h"
 #include <stdexcept>
 
 SettingsWriter::SettingsWriter(const std::string& filename, std::string_view section)
+    : filename_(filename)
 {
     try
     {
-        std::string jsonStr = utils::readFile(filename);
+        std::string jsonStr = FLASH.read(filename);
         if (jsonStr.empty()) {
             json_ = nlohmann::json::object();
             json_[section] = nlohmann::json::object();
@@ -68,8 +69,11 @@ bool SettingsWriter::save()
 {
     std::string jsonStr = json_.dump(4);
     LOG_DBG("save settings json '%s'", jsonStr.c_str());
-    if (utils::writeToFile(filename_, jsonStr)) {
+    if (FLASH.write(filename_, jsonStr)) {
         return true;
+    }
+    else {
+        LOG_ERR("Failed to save settings to file '%s'", filename_.c_str());
     }
     return false;
 }

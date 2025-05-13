@@ -15,9 +15,6 @@ int utf8_len(const std::string& utf8);
 uint8_t datetime_str(char* out, uint8_t outSize);
 std::string datetime_str();
 const char* to_str(bool val);
-bool fileIsExists(const std::string& filename);
-std::string readFile(const std::string& filename);
-bool writeToFile(const std::string& filename, const std::string& content);
 std::string bits2str(uint8_t val);
 // Function to split a UTF-8 string into a vector of strings with a maximum length
 std::vector<std::string> splitUtf8String(const std::string& input, size_t maxLength);

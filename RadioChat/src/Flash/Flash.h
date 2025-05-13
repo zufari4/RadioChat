@@ -3,6 +3,9 @@
 #include "FlashSettings.h"
 #include <vector>
 #include <string>
+#include <mutex>
+
+#define FLASH Flash::instance()
 
 class Flash
 {
@@ -16,14 +19,19 @@ public:
 
     Flash();
     ~Flash();
+    static Flash& instance();
     void init(const FlashSettings& settings);
     void printInfo() const;
-    static std::string read(const std::string& filename);
-    static bool create(const std::string& filename, const std::string& content);
+    std::string read(const std::string& filename);
+    bool write(const std::string& filename, const std::string& content);
+    bool append(const std::string& filename, const std::string& content);
+    bool exists(const std::string& filename);
+    void mkdir(const std::string& dirname);
 
 private:
     State state_;
     FlashSettings settings_;
-    
+    std::recursive_mutex fsMutex_;
+
     void listDir(const char* dirname);
 };

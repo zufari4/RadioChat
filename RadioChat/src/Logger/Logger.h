@@ -8,11 +8,6 @@
 #define LOG_INF(...) Logger::instance().log(LogTraceLevel::Info, __VA_ARGS__)
 #define LOG_DBG(...) Logger::instance().log(LogTraceLevel::Debug, __VA_ARGS__)
 
-namespace fs
-{
-    class File;
-}
-
 class Logger
 {
 public:
@@ -35,5 +30,6 @@ private:
     LoggerSettings settings_;
     std::vector<char> buffer_;
     std::mutex mtx_;
-    std::unique_ptr<fs::File> currentFile_;
+    bool isFileOpen_;
+    std::string filename_;
 };

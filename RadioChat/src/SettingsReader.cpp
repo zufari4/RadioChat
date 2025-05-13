@@ -1,12 +1,12 @@
 #include "SettingsReader.h"
-#include "Utils.h"
+#include "Flash/Flash.h"
 #include <stdexcept>
 
 SettingsReader::SettingsReader(const std::string& filename, std::string_view section)
 {
     try
     {
-        std::string jsonStr = utils::readFile(filename);
+        std::string jsonStr = FLASH.read(filename);
         if (jsonStr.empty()) {
             json_ = nlohmann::json::object();
         }
@@ -122,11 +122,12 @@ bool SettingsReader::isValid(const std::string& filename)
 {
     try
     {
-        std::string jsonStr = utils::readFile(filename);
+        std::string jsonStr = FLASH.read(filename);
         if (jsonStr.empty()) {
             return false;
         }
-        nlohmann::json::parse(jsonStr);
+        auto json = nlohmann::json::parse(jsonStr);
+        (json);
         return true;
     }
     catch (const std::exception&)

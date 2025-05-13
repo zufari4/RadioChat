@@ -28,15 +28,18 @@ class RadioChat
 public:
     RadioChat();
     ~RadioChat();
-    void init();
-    void loop();
+    static void run();
 
 private:
     using MessagePtr = std::unique_ptr<QueueMessageBase>;
-
+    static RadioChat& instance();
     static void svc(void* thisPtr);
+    static void checkQueueThread(void* thisPtr);
     void runThreadCheckQueue();
+    void runThreadSvc();
     void checkQueue();
+    void init();
+    void loop();
     void pushTypingChar(uint16_t code);
     void pushKeyboardCommand(KeyCommand cmd);
     void pushAcceptMessage(uint16_t sender, uint8_t msgID, const std::string& text);
@@ -46,7 +49,6 @@ private:
     void pushShowPageTypingMessage(uint16_t address);
 
     Settings*     settings_;
-    Flash*        flash_;
     Esp*          esp_;
     KeyHandler*   keyHandler_;
     Display*      display_;

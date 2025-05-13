@@ -19,13 +19,11 @@
 #include "QueueMessage/QueueMessageTypingChar.h"
 #include "QueueMessage/QueueMessageShowPage.h"
 #include "QueueMessage/QueueMessageTypingMessage.h"
-#include <SD.h>
 #include <Arduino.h>
 #include <stdexcept>
 
 RadioChat::RadioChat()
     : settings_(nullptr)
-    , flash_(nullptr)
     , esp_(nullptr)
     , keyHandler_(nullptr)
     , display_(nullptr)
@@ -36,13 +34,9 @@ RadioChat::RadioChat()
     , ui_(nullptr)
     , contactsManager_(nullptr)
 {
-
 }
 
-RadioChat::~RadioChat()
-{
-
-}
+RadioChat::~RadioChat() = default;
 
 void RadioChat::init()
 {
@@ -55,19 +49,17 @@ void RadioChat::init()
     Logger::instance().initSerialLogging();
 #endif
     {
-        flash_ = new Flash();
         FlashSettings flashSettings;
-        flash_->init(flashSettings);
+        FLASH.init(flashSettings);
+        FLASH.mkdir(STORAGE_DIR);
     }
-    if (!SD.exists(STORAGE_DIR)) {
-        SD.mkdir(STORAGE_DIR);
-    }
+
     settings_ = new Settings();
     settings_->init(STORAGE_DIR "/" SETTINGS_FILENAME);
     {
         LoggerSettings loggerSettings = settings_->logger();
         Logger::instance().init(loggerSettings);
-        flash_->printInfo(); // need logger for print
+        FLASH.printInfo(); // need logger for print
     }
     {
         esp_ = new Esp();
@@ -123,7 +115,6 @@ void RadioChat::init()
         );
         ui_->init(uiContext);
     }
-    runThreadCheckQueue();
     //sound_->play(Melody::Name::Nokia);
     LOG_INF("Firmware version: %04X", FIRMWARE_VERSION);
 }
@@ -141,10 +132,26 @@ void RadioChat::runThreadCheckQueue()
 {
     // use raw function for create thread 
     // because in std::thread stack size is small
-    xTaskCreatePinnedToCore(this->svc, "QueueCheck", 10 * 1024, this, (configMAX_PRIORITIES - 1) / 2, NULL, ARDUINO_RUNNING_CORE);
+    xTaskCreatePinnedToCore(this->checkQueueThread, "QueueCheck", 10 * 1024, this, (configMAX_PRIORITIES - 1) / 2, NULL, ARDUINO_RUNNING_CORE);
+}
+
+
+void RadioChat::runThreadSvc()
+{
+    xTaskCreatePinnedToCore(this->svc, "SvcThread", 10 * 1024, this, (configMAX_PRIORITIES - 1) / 2, NULL, ARDUINO_RUNNING_CORE);
 }
 
 void RadioChat::svc(void* thisPtr)
+{
+    RadioChat* self = static_cast<RadioChat*>(thisPtr);
+    self->init();
+
+    while (true) {
+        self->loop();
+    }
+}
+
+void RadioChat::checkQueueThread(void* thisPtr)
 {
     RadioChat* self = static_cast<RadioChat*>(thisPtr);
     while (true) {
@@ -244,3 +251,16 @@ void RadioChat::pushShowPageTypingMessage(uint16_t address)
     auto msg = std::make_unique<QueueMessageTypingMessage>(address);
     messageQueue_.enqueue(std::move(msg));
 }
+
+void RadioChat::run()
+{
+    instance().runThreadSvc();
+    instance().runThreadCheckQueue();
+}
+
+RadioChat& RadioChat::instance()
+{
+    static RadioChat radioChat;
+    return radioChat;
+}
+
