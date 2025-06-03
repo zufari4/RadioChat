@@ -277,8 +277,8 @@ std::vector<Property> Settings::getRadioDefaultProperties()
     props.emplace_back(Property{ eRadioSelfAddress, PropertySection::Radio, "Адрес", "SelfAddress", std::to_string(DEVICE_ADDRESS), ValueType::Int, {} });
     props.emplace_back(Property{ eRadioSubPacketSize, PropertySection::Radio, "Размер под-пакета", "SubPacketSize", std::to_string((int)Lora::SUB_PACKET_SETTING::e240), ValueType::Enum, getRadioSubPacketSizeOptions() });
     props.emplace_back(Property{ eRadioAirRate, PropertySection::Radio, "Скорость передачи", "AirRate", std::to_string((int)Lora::AIR_DATA_RATE::e03), ValueType::Enum, getRadioAirRateOptions() });
-    props.emplace_back(Property{ eRadioUARTBaudrate, PropertySection::Radio, "Скорость UART", "UARTBaudrate", std::to_string((int)Lora::UART_BPS_TYPE::e9600), ValueType::Enum, getRadioUARTBaudrateOptions() });
-    props.emplace_back(Property{ eRadioUARTParity, PropertySection::Radio, "Паритет UART", "UARTParity", std::to_string((int)Lora::UART_PARITY::MODE_00_8N1), ValueType::Enum, getRadioUARTParityOptions()});
+    props.emplace_back(Property{ eRadioUARTBaudrate, PropertySection::Radio, "Скорость UART", "UARTBaudrate", "9600", ValueType::Enum, getRadioUARTBaudrateOptions() });
+    props.emplace_back(Property{ eRadioUARTParity, PropertySection::Radio, "Паритет UART", "UARTParity", std::to_string((int)SERIAL_8N1), ValueType::Enum, getRadioUARTParityOptions()});
     props.emplace_back(Property{ eRadioUARTTimeoutMs, PropertySection::Radio, "Таймаут UART", "UARTTimeoutMs", "1000", ValueType::Int, {} });
     return props;
 }
@@ -365,10 +365,9 @@ EnumOption Settings::getRadioAirRateOptions()
 EnumOption Settings::getRadioUARTParityOptions()
 {
     EnumOption res;
-    res.push_back(EnumOptionItem{ "00 8N1", std::to_string((int)Lora::UART_PARITY::MODE_00_8N1) });
-    res.push_back(EnumOptionItem{ "01 8O1", std::to_string((int)Lora::UART_PARITY::MODE_01_8O1) });
-    res.push_back(EnumOptionItem{ "10 8E1", std::to_string((int)Lora::UART_PARITY::MODE_10_8E1) });
-    res.push_back(EnumOptionItem{ "11 8N1", std::to_string((int)Lora::UART_PARITY::MODE_11_8N1) });
+    res.push_back(EnumOptionItem{ "00 8N1", std::to_string((int)SERIAL_8N1) });
+    res.push_back(EnumOptionItem{ "01 8O1", std::to_string((int)SERIAL_8O1) });
+    res.push_back(EnumOptionItem{ "10 8E1", std::to_string((int)SERIAL_8E1) });
     return res;
 }
 
@@ -385,14 +384,14 @@ EnumOption Settings::getRadioSubPacketSizeOptions()
 EnumOption Settings::getRadioUARTBaudrateOptions()
 {
     EnumOption res;
-    res.push_back(EnumOptionItem{ "1200bps", std::to_string((int)Lora::UART_BPS_TYPE::e1200) });
-    res.push_back(EnumOptionItem{ "2400bps", std::to_string((int)Lora::UART_BPS_TYPE::e2400) });
-    res.push_back(EnumOptionItem{ "4800bps", std::to_string((int)Lora::UART_BPS_TYPE::e4800) });
-    res.push_back(EnumOptionItem{ "9600bps", std::to_string((int)Lora::UART_BPS_TYPE::e9600) });
-    res.push_back(EnumOptionItem{ "19200bps", std::to_string((int)Lora::UART_BPS_TYPE::e19200) });
-    res.push_back(EnumOptionItem{ "38400bps", std::to_string((int)Lora::UART_BPS_TYPE::e38400) });
-    res.push_back(EnumOptionItem{ "57600bps", std::to_string((int)Lora::UART_BPS_TYPE::e57600) });
-    res.push_back(EnumOptionItem{ "115200bps", std::to_string((int)Lora::UART_BPS_TYPE::e115200) });
+    res.push_back(EnumOptionItem{ "1200bps", "1200" });
+    res.push_back(EnumOptionItem{ "2400bps", "2400" });
+    res.push_back(EnumOptionItem{ "4800bps", "4800" });
+    res.push_back(EnumOptionItem{ "9600bps", "9600" });
+    res.push_back(EnumOptionItem{ "19200bps", "19200" });
+    res.push_back(EnumOptionItem{ "38400bps", "38400" });
+    res.push_back(EnumOptionItem{ "57600bps", "57600" });
+    res.push_back(EnumOptionItem{ "115200bps", "115200" });
     return res;
 }
 
