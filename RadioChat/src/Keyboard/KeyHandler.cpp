@@ -5,6 +5,7 @@
 #include "../Configuration.h"
 #include "../Logger/Logger.h"
 #include "../Utils.h"
+#include "../Settings/Settings.h"
 #include <string>
 #include <stdint.h>
 #include <functional>
@@ -22,27 +23,28 @@ KeyHandler::~KeyHandler()
 {
 }
 
-void KeyHandler::init(const KeyboardSettings& settings, CharCallback onChar, CmdCallback onCmd)
+void KeyHandler::init(Settings& settings, CharCallback onChar, CmdCallback onCmd)
 {
     LOG_INF("-- Initialize keyboard --");
+
     onChar_ = onChar;
     onCmd_  = onCmd;
     auto keyDownCb = std::bind(&KeyHandler::onKeyDown, this, std::placeholders::_1);
     auto keyUpCb = std::bind(&KeyHandler::onKeyUp, this, std::placeholders::_1);
     keyboard_ = std::make_unique<Keyboard>();
     keyboard_->init(settings, keyDownCb, keyUpCb);
-    setLanguage(settings.lang);
-    fnKey_ = settings.fnKey;
-    enterKey_ = settings.enterKey;
-    LOG_INF("FN key %u Enter key %u", fnKey_, enterKey_);
+    auto& keySettings = keyboard_->getSettings();
 
+    setLanguage(keySettings.lang);
+    fnKey_ = keySettings.fnKey;
+    enterKey_ = keySettings.enterKey;
     workFlag_ = true;
     svcThread_ = std::thread(&KeyHandler::svc, this);
 }
 
 void KeyHandler::onKeyDown(uint8_t keyNum)
 {
-    LOG_INF("Button down: %u", keyNum);
+    LOG_DBG("Button down: %u", keyNum);
 
     if (keyNum == fnKey_) {
         fnKeyPressed_ = true;
@@ -64,7 +66,7 @@ void KeyHandler::onKeyDown(uint8_t keyNum)
 
 void KeyHandler::onKeyUp(uint8_t keyNum)
 {
-    LOG_INF("Button up: %u", keyNum);
+    LOG_DBG("Button up: %u", keyNum);
 
     if (keyNum == fnKey_) {
         fnKeyPressed_ = false;
@@ -89,14 +91,14 @@ void KeyHandler::handleSymbol(uint16_t symbol)
 
 #if DEBUG_MODE == 1
     std::string str = utils::to_str(symbol);
-    LOG_INF("char: '%s' (0x%04X)", str.c_str(), symbol);
+    LOG_DBG("char: '%s' (0x%04X)", str.c_str(), symbol);
 #endif
     onChar_(symbol);
 }
 
 void KeyHandler::handleCommand(KeyCommand cmd)
 {
-    LOG_INF("%s: %s", __FUNCTION__, key_cmd_2_str(cmd));
+    LOG_DBG("%s: %s", __FUNCTION__, key_cmd_2_str(cmd));
     onCmd_(cmd);
 }
 

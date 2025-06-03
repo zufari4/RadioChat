@@ -11,17 +11,12 @@
 class SettingsReader
 {
 public:
-    SettingsReader(const std::string& filename, std::string_view section);
+    SettingsReader(const std::string& filename);
     ~SettingsReader();
 
-    int32_t get_i(std::string_view param);
-    int32_t get_i(std::string_view param, int32_t defValue);
-    uint32_t get_u(std::string_view param);
-    uint32_t get_u(std::string_view param, uint32_t defValue);
-    int64_t get_i64(std::string_view param);
-    int64_t get_i64(std::string_view param, int64_t defValue);
-    uint64_t get_u64(std::string_view param);
-    uint64_t get_u64(std::string_view param, uint64_t defValue);
+    void setSection(std::string_view section);
+    int64_t get_i(std::string_view param);
+    int64_t get_i(std::string_view param, int64_t defValue);
     float get_f(std::string_view param);
     float get_f(std::string_view param, float defValue);
     std::string get_s(std::string_view param);
@@ -32,4 +27,6 @@ public:
     static bool isValid(const std::string& filename);
 protected:
    nlohmann::json json_;
+   nlohmann::json* section_ = nullptr;
+   std::string currentSectionName_;
 };

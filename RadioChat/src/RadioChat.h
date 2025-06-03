@@ -7,6 +7,7 @@
 #include <memory>
 #include "UI/UIPageType.h"
 #include "QueueMessage/SafeQeue.h"
+#include "Settings/Property.h"
 
 class Flash;
 class Settings;
@@ -28,18 +29,14 @@ class RadioChat
 public:
     RadioChat();
     ~RadioChat();
-    static void run();
+    void init();
+    void loop();
 
 private:
     using MessagePtr = std::unique_ptr<QueueMessageBase>;
-    static RadioChat& instance();
-    static void svc(void* thisPtr);
     static void checkQueueThread(void* thisPtr);
     void runThreadCheckQueue();
-    void runThreadSvc();
     void checkQueue();
-    void init();
-    void loop();
     void pushTypingChar(uint16_t code);
     void pushKeyboardCommand(KeyCommand cmd);
     void pushAcceptMessage(uint16_t sender, uint8_t msgID, const std::string& text);
@@ -47,6 +44,8 @@ private:
     void pushPingDone(uint16_t address, uint32_t delay);
     void pushShowPage(UIPageType pageType);
     void pushShowPageTypingMessage(uint16_t address);
+    void pushShowPagePropertyList(const PropertyMap& properties);
+    void pushShowPageChooseOption(const Property& prop);
 
     Settings*     settings_;
     Esp*          esp_;

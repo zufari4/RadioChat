@@ -2,6 +2,7 @@
 #include "../Flash/Flash.h"
 #include "../Utils.h"
 #include "../Configuration.h"
+#include "../Settings/Settings.h"
 #include <HardwareSerial.h>
 #include <stdarg.h>
 #include <algorithm>
@@ -33,18 +34,27 @@ void Logger::initSerialLogging()
     }
 }
 
-void Logger::init(const LoggerSettings& settings)
+void Logger::init(Settings& settings)
 {
-    settings_ = settings;
+    {
+        auto props = settings.logger();
+        logPath_ = Settings::get_s(eLogPath, props);
+        level_ = (LogTraceLevel)Settings::get_i(eLogTraceLevel, props);
+        logToSerial_ = Settings::get_b(eLogToSerial, props);
+        logToFile_ = Settings::get_b(eLogToFile, props);
+        maxMessageSize_ = Settings::get_i(eLogMaxMessageSize, props);
+        maxCountLines_ = Settings::get_i(eLogMaxCountLines, props);
+        maxCountLogs_ = Settings::get_i(eLogMaxCountLogs, props);
+    }
     std::string path = getPath();
 
-    if (settings_.level != LogTraceLevel::None) {
-        buffer_.resize(settings_.maxMessageSize + 25); // + date time
+    if (level_ != LogTraceLevel::None) {
+        buffer_.resize(maxMessageSize_ + 25); // + date time
 
-        if (settings_.logToSerial) {
+        if (logToSerial_) {
             initSerialLogging();
         }
-        if (settings_.logToFile) {
+        if (logToFile_) {
             if (FLASH.exists(path)) {
                 LOG_DBG("Log path %s already exists", path.c_str());
             }
@@ -56,25 +66,21 @@ void Logger::init(const LoggerSettings& settings)
         }
     }
     isInit_ = true;
-    LOG_INF("settings.level         : %d", (int)settings.level);
-    LOG_INF("settings.logToSerial   : %s", utils::to_str(settings.logToSerial));
-    LOG_INF("settings.logPath       : %s", path.c_str());
-    LOG_INF("settings.maxCountLines : %u", settings.maxCountLines );
-    LOG_INF("settings.maxCountLogs  : %u", settings.maxCountLogs  );
-    LOG_INF("settings.maxMessageSize: %u", settings.maxMessageSize);
 }
 
 void Logger::log(LogTraceLevel level, const char* format, ...)
 {
     if (!isInit_ && !serialIsInit_) 
         return;
-    if ((uint8_t)level > (uint8_t)settings_.level) 
+    if ((uint8_t)level > (uint8_t)level_) 
         return;
         
     std::lock_guard guard(mtx_);
     char* dst = buffer_.data();
     uint8_t offset = utils::datetime_str(dst, buffer_.size());
     dst[offset++] = ' ';
+
+    offset += snprintf(dst + offset, buffer_.size() - offset, "[%s] ", traceLvlToLog(level).data());
 
     va_list arglist;
     va_start(arglist, format);
@@ -84,7 +90,7 @@ void Logger::log(LogTraceLevel level, const char* format, ...)
     dst[offset++] = '\n';
     dst[offset] = '\0';
 
-    if (settings_.logToSerial) {
+    if (logToSerial_) {
         Serial.printf("%s", dst);
     }
 
@@ -95,12 +101,12 @@ void Logger::log(LogTraceLevel level, const char* format, ...)
 
 LogTraceLevel Logger::getLogLevel() const
 {
-    return settings_.level;
+    return level_;
 }
 
 std::string Logger::getPath() const
 {
-    return STORAGE_DIR"/" + settings_.logPath;
+    return STORAGE_DIR"/" + logPath_;
 }
 
 std::string Logger::makeFilename() const

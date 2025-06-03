@@ -2,6 +2,7 @@
 
 #include "UISettings.h"
 #include "UIPageType.h"
+#include "../Settings/Property.h"
 #include <functional>
 #include <memory>
 
@@ -16,6 +17,8 @@ struct UIContext
 {
     using SetCurrentPageFunc = std::function<void(UIPageType)>;
     using ShowPageTypingMessageFunc = std::function<void(uint16_t)>;
+    using ShowPagePropertyList = std::function<void(const PropertyMap& properties)>;
+    using ShowPageChooseOption = std::function<void(const Property& property)>;
 
     UISettings uiSettings;
     Display*   display  = nullptr;
@@ -28,18 +31,22 @@ struct UIContext
     uint8_t    maxCountLines = 0;
     SetCurrentPageFunc setCurrentPage;
     ShowPageTypingMessageFunc showPageTypingMessage;
+    ShowPagePropertyList showPagePropertyList;
+    ShowPageChooseOption showPageChooseOption;
 
     UIContext()
         : uiSettings{}, display(nullptr), settings(nullptr), battery(nullptr), radio(nullptr)
         , contactsManager(nullptr), maxLineChars(0), textHeight(0), maxCountLines(0)
     {
     }
-    UIContext(const UISettings& _uiSettings, Display* _display, Settings* _settings, Battery* _battery, Radio* _radio,
+    UIContext(Display* _display, Settings* _settings, Battery* _battery, Radio* _radio,
         ContactsManager* _contactsManager, uint8_t _maxStrLen, uint8_t _textHeight, uint8_t _maxCountLines, 
-        SetCurrentPageFunc _setCurrentPage, ShowPageTypingMessageFunc _showPageTypingMessage)
-        : uiSettings(_uiSettings), display(_display), settings(_settings), battery(_battery), radio(_radio)
+        SetCurrentPageFunc _setCurrentPage, ShowPageTypingMessageFunc _showPageTypingMessage, 
+        ShowPagePropertyList _showPagePropertyList, ShowPageChooseOption _showPageChooseOption)
+        : display(_display), settings(_settings), battery(_battery), radio(_radio)
         , contactsManager(_contactsManager), maxLineChars(_maxStrLen), textHeight(_textHeight), maxCountLines(_maxCountLines)
-        , setCurrentPage(_setCurrentPage), showPageTypingMessage(_showPageTypingMessage)
+        , setCurrentPage(_setCurrentPage), showPageTypingMessage(_showPageTypingMessage), 
+        showPagePropertyList(_showPagePropertyList), showPageChooseOption(_showPageChooseOption)
     {
     }
 };

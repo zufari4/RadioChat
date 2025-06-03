@@ -1,6 +1,7 @@
 #include "Keyboard.h"
 #include "../Logger/Logger.h"
 #include "../Utils.h"
+#include "../Settings/Settings.h"
 #include <HardwareSerial.h>
 #include <Arduino.h>
 
@@ -12,18 +13,15 @@ Keyboard::~Keyboard()
 {
 }
 
-void Keyboard::init(const KeyboardSettings& settings, KeyCallback onKeyDown, KeyCallback onKeyUp)
+void Keyboard::init(Settings& settings, KeyCallback onKeyDown, KeyCallback onKeyUp)
 {
-    settings_  = settings_;
+    loadSettings(settings);
     onKeyDown_ = onKeyDown;
     onKeyUp_   = onKeyUp;
 
     for (uint8_t key = 1; key <= settings_.maxKeyNum; ++key) {
         state_[key] = KeyState::Release;
     }
-
-    LOG_DBG("SH %u CLK %u QH %u", settings_.pins.SH_LD, settings_.pins.CLK, settings_.pins.QH);
-    LOG_DBG("maxKeyNum %u countRegisters %u", settings_.maxKeyNum, settings_.countRegisters);
 
     pinMode(settings_.pins.CLK, OUTPUT);
     pinMode(settings_.pins.SH_LD, OUTPUT);
@@ -95,5 +93,23 @@ KeyState Keyboard::getState(uint8_t keyNum) const
 {
     const auto it = state_.find(keyNum);
     return it == state_.end() ? KeyState::Release : it->second;
+}
+
+void Keyboard::loadSettings(Settings& settings)
+{
+    auto props = settings.keyboard();
+    settings_.pins.SH_LD = Settings::get_i(eKeyboardPinShLd, props);
+    settings_.pins.CLK = Settings::get_i(eKeyboardPinClk, props);
+    settings_.pins.QH = Settings::get_i(eKeyboardPinQh, props);
+    settings_.maxKeyNum = Settings::get_i(eKeyboardMaxKeyNum, props);
+    settings_.countRegisters = Settings::get_i(eKeyboardCountRegisters, props);
+    settings_.enterKey = Settings::get_i(eKeyboardEnterKey, props);
+    settings_.fnKey = Settings::get_i(eKeyboardFnKey, props);
+    settings_.lang = static_cast<Language>(Settings::get_i(eKeyboardLang, props));
+}
+
+const KeyboardSettings& Keyboard::getSettings() const
+{
+    return settings_;
 }
 

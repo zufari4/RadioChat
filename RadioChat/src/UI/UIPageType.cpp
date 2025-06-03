@@ -7,7 +7,9 @@ const char* uiPageTypeToStr(UIPageType type)
     case UIPageType::Main:            return "Main";
     case UIPageType::ChatSelect:      return "ChatSelect";
     case UIPageType::TypingMessage:   return "TypingMessage";
-    case UIPageType::Settings:        return "Settings";
+    case UIPageType::SettingsSelect:  return "SettingsSelect";
+    case UIPageType::PropertyList:    return "PropertyList";
+    case UIPageType::ChooseOption:    return "ChooseOption";
     case UIPageType::Statistics:      return "Statistics";
     case UIPageType::Monitoring:      return "Monitoring";
     case UIPageType::IncomingMessage: return "IncomingMessage";

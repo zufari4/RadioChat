@@ -11,34 +11,41 @@ BaseMenu::BaseMenu(UIPageType type, UIPageType parent, const UIContext* context)
 
 BaseMenu::~BaseMenu() = default;
 
-void BaseMenu::addItem(ItemType type, const std::string& caption, const std::string& value)
+void BaseMenu::addItem(ItemType type, std::string_view caption, std::string_view value)
 {
     items_.emplace_back(type, caption, value);
 }
 
-void BaseMenu::addItemSimple(const std::string &caption)
+void BaseMenu::addItemSimple(std::string_view caption)
 {
     items_.emplace_back(ItemType::String, caption, "");
 }
 
-void BaseMenu::setItemValue(uint8_t index, const std::string &value)
+void BaseMenu::setItemValue(uint8_t index, std::string_view value)
 {
     if (index < items_.size()) {
         items_[index].value = value;
     }
 }
 
-void BaseMenu::drawItem(uint8_t y, const Item &item, bool invert)
+void BaseMenu::drawText(uint8_t x, uint8_t y, uint8_t width, std::string_view str, bool invert)
 {
-    std::string line = item.caption;
-    if (!item.value.empty()) {
-        line += ":\t" + item.value;
-    }
     if (invert) {
-        ctx_->display->drawButtonFullWith(0, y, line);
+        ctx_->display->drawButtonWith(x, y, width, str);
     }
     else {
-        ctx_->display->drawStr(0, y, line);
+        ctx_->display->drawStr(x, y, str);
+    }
+}
+void BaseMenu::drawItem(uint8_t y, const Item& item, bool invert)
+{
+    uint16_t dsipW = ctx_->display->getDisplayWidth();
+    uint8_t width = item.value.empty() ? dsipW : dsipW - ctx_->display->getStrWidth(item.value);
+    drawText(0, y, width, item.caption, invert);
+
+    if (!item.value.empty()) {
+        uint8_t x = dsipW - ctx_->display->getStrWidth(item.value);
+        drawText(x, y, dsipW, item.value, invert);
     }
 }
 
@@ -84,4 +91,14 @@ void BaseMenu::onKeyCommand(KeyCommand cmd)
 
 void BaseMenu::onItemClick(uint8_t itemIndex)
 {
+}
+
+std::string_view BaseMenu::bool_str(bool val)
+{
+    return val ? "да" : "нет";
+}
+
+bool BaseMenu::str_bool(std::string_view str)
+{
+    return str == "да";
 }

@@ -1,5 +1,6 @@
 #include "Flash.h"
 #include "../Logger/Logger.h"
+#include "../Configuration.h"
 #include <FS.h>
 #include <SD.h>
 #include <SPI.h>
@@ -13,12 +14,11 @@ Flash::~Flash()
 {
 }
 
-void Flash::init(const FlashSettings& settings)
+void Flash::init()
 {
     LOG_INF("--- Init flash ---");
-    settings_ = settings;
 
-    if (!SD.begin(settings_.pins.cs)) {
+    if (!SD.begin(FLASH_PIN_CS)) {
         LOG_ERR("Card Mount Failed");
         state_ = State::NotInit;
         return;
@@ -65,24 +65,24 @@ void Flash::printInfo() const
     LOG_INF("SD Card Size: %llu MB", cardSize);
 }
 
-std::string Flash::read(const std::string& filename)
+std::string Flash::read(std::string_view filename)
 {
     std::lock_guard<std::recursive_mutex> lock(fsMutex_);
-    LOG_DBG("Read file %s", filename.c_str());
+    LOG_DBG("Read file %s", filename.data());
 
     if (state_ != State::Init) {
         LOG_ERR("Flash is not init");
         return "";
     }
 
-    if (!SD.exists(filename.c_str())) {
-        LOG_ERR("File not found (%s)", filename.c_str());
+    if (!SD.exists(filename.data())) {
+        LOG_ERR("File not found (%s)", filename.data());
         return "";
     }
 
-    File file = SD.open(filename.c_str(), FILE_READ);
+    File file = SD.open(filename.data(), FILE_READ);
     if (!file) {
-        LOG_ERR("Failed to open file for reading (%s)", filename.c_str());
+        LOG_ERR("Failed to open file for reading (%s)", filename.data());
         return "";
     }
 
@@ -95,7 +95,7 @@ std::string Flash::read(const std::string& filename)
     return res;
 }
 
-bool Flash::write(const std::string& filename, const std::string& content)
+bool Flash::write(std::string_view filename, const std::string& content)
 {
     std::lock_guard<std::recursive_mutex> lock(fsMutex_);
 
@@ -104,7 +104,7 @@ bool Flash::write(const std::string& filename, const std::string& content)
         return false;
     }
 
-    File file = SD.open(filename.c_str(), FILE_WRITE);
+    File file = SD.open(filename.data(), FILE_WRITE);
     if (!file) {
         return false;
     }

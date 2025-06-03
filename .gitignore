@@ -1,2 +1,5 @@
-/.vs
+/msvc/.vs
 /out
+/msvc/CMakeCache.txt
+/msvc/CMakeFiles
+/msvc/cmake_install.cmake

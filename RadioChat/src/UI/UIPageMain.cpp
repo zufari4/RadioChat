@@ -7,7 +7,7 @@
 UIPageMain::UIPageMain(const UIContext* context)
     : BaseMenu(UIPageType::Main, UIPageType::None, context)
 {
-    addItem(ItemType::Real, "Батарея");
+    addItem(ItemType::Real, "Батарея", "");
     addItemSimple("Чат");
     addItemSimple("Контакты");
     addItemSimple("Настройки");
@@ -50,7 +50,7 @@ void UIPageMain::onItemClick(uint8_t itemIndex)
         ctx_->setCurrentPage(UIPageType::Contacts);
         break;
     case 3: // Settings
-        ctx_->setCurrentPage(UIPageType::Settings);
+        ctx_->setCurrentPage(UIPageType::SettingsSelect);
         break;
     case 4: // Logs
         ctx_->setCurrentPage(UIPageType::Logs);

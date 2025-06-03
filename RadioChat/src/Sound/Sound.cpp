@@ -1,5 +1,6 @@
 #include "Sound.h"
 #include "../Logger/Logger.h"
+#include "../Settings/Settings.h"
 #include <Arduino.h>
 
 Sound::Sound()
@@ -8,12 +9,10 @@ Sound::Sound()
 Sound::~Sound()
 {}
 
-void Sound::init(const SoundSettings& settings)
+void Sound::init(Settings& settings)
 {
     LOG_INF("-- Initialize sound --");
-    LOG_INF("io pin: %u", settings.pins.io);
-    LOG_INF("tempo: %u", settings.tempo);
-    settings_ = settings;
+    loadSettings(settings);
     pinMode(settings_.pins.io, OUTPUT);
     wholenote_ = (60000 * 4) / settings_.tempo;
 }
@@ -76,4 +75,18 @@ void Sound::myTone(unsigned int frequency, unsigned long duration)
 void Sound::myNoTone()
 {
     noTone(settings_.pins.io);
+}
+
+void Sound::loadSettings(Settings& settings)
+{
+    auto props = settings.sound();
+    settings_.enable = Settings::get_b(eSoundEnable, props);
+    settings_.pins.io = Settings::get_i(eSoundPinIO, props);
+    settings_.tempo = Settings::get_i(eSoundTempo, props);
+    settings_.enablePlayOnPowerOn = Settings::get_b(eSoundEnablePlayOnPowerOn, props);
+}
+
+const SoundSettings& Sound::getSettings() const
+{
+    return settings_;
 }

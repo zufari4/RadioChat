@@ -7,6 +7,8 @@
 #include <stdint.h>
 #include <map>
 
+class Settings;
+
 class Radio
 {
 public:
@@ -16,7 +18,7 @@ public:
 
     Radio();
     ~Radio();
-    void init(const RadioSettings& settings, OnNewMessageCallback onNewMessage, OnMessageDeliveryCallback onMessageDelivered, OnPingDone onPingDone);
+    void init(Settings& settings, OnNewMessageCallback onNewMessage, OnMessageDeliveryCallback onMessageDelivered, OnPingDone onPingDone);
     void check();
     bool isInit() const;
 
@@ -45,6 +47,7 @@ private:
     void sendPingDelivered(uint16_t sender);
     void addHeader(std::vector<uint8_t>& out, uint16_t destAddr, RadioCommand command);
     void traceTraffic(const char* direction, uint8_t* data, size_t dataSize) const;
+    void loadSettings(Settings& settings);
 
     RadioSettings settings_;
     Lora::Mode currentMode_;

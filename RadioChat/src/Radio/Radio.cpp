@@ -1,5 +1,6 @@
 #include "Radio.h"
 #include "../Logger/Logger.h"
+#include "../Settings/Settings.h"
 #include "RadioCommand.h"
 #include <HardwareSerial.h>
 #include <Arduino.h>
@@ -18,19 +19,14 @@ Radio::~Radio()
 
 }
 
-void Radio::init(const RadioSettings& settings, OnNewMessageCallback onNewMessage, OnMessageDeliveryCallback onMessageDelivered, OnPingDone onPingDone)
+void Radio::init(Settings& settings, OnNewMessageCallback onNewMessage, OnMessageDeliveryCallback onMessageDelivered, OnPingDone onPingDone)
 {
     LOG_INF("-- Initialize radio module --");
-
-    settings_ = settings;
+    loadSettings(settings);
     onNewMessage_ = onNewMessage;
     onMessageDelivered_ = onMessageDelivered;
     onPingDone_ = onPingDone;
-
-    LOG_DBG("RX %u TX %u AUX %u M0 %u M1 %u", settings_.pins.RX, settings_.pins.TX, settings_.pins.AUX, settings_.pins.M0, settings_.pins.M1);
-    LOG_INF("channel %u self address %u", settings_.channel, settings_.selfAddress);
-    LOG_DBG("baud rate %u timeout %u parity %u", settings_.uart.baudrate, settings_.uart.timeoutMs, settings_.uart.parity);
-    
+  
     LOG_INF("Setup pins");
     pinMode(settings_.pins.AUX, INPUT);
 	pinMode(settings_.pins.M0, OUTPUT);
@@ -183,7 +179,7 @@ bool Radio::setConfiguration(std::function<void(Lora::Configuration& cfg)> sette
 
 bool Radio::getConfiguration(Lora::Configuration& out)
 {
-    LOG_INF("Get configuration");
+    LOG_DBG("Get configuration");
     Lora::Mode prevMode = currentMode_;
     bool res = false;
 
@@ -354,7 +350,7 @@ bool Radio::setMode(Lora::Mode mode)
 
 bool Radio::writeProgramCommand(Lora::PROGRAM_COMMAND cmd, Lora::REGISTER_ADDRESS addr, Lora::PACKET_LENGHT pl)
 {
-    LOG_INF("Write command"); 
+    LOG_DBG("Write command"); 
 	uint8_t data[3] = {(uint8_t)cmd, (uint8_t)addr, (uint8_t)pl};
     if (!writeData(data, 3)) {
         LOG_ERR("Can't write command");
@@ -610,4 +606,21 @@ uint8_t Radio::getMaxMessageSize() const
     }
 
     return subPacketSize - 9 /*header for text*/;
+}
+
+void Radio::loadSettings(Settings& settings)
+{
+    auto props = settings.radio();
+    settings_.airRate = Settings::get_i(eRadioAirRate, props);
+    settings_.channel = Settings::get_i(eRadioChannel, props);
+    settings_.selfAddress = Settings::get_i(eRadioSelfAddress, props);
+    settings_.subPacketSize = Settings::get_i(eRadioSubPacketSize, props);
+    settings_.pins.RX = Settings::get_i(eRadioPinRX, props);
+    settings_.pins.TX = Settings::get_i(eRadioPinTX, props);
+    settings_.pins.AUX = Settings::get_i(eRadioPinAUX, props);
+    settings_.pins.M0 = Settings::get_i(eRadioPinM0, props);
+    settings_.pins.M1 = Settings::get_i(eRadioPinM1, props);
+    settings_.uart.baudrate = Settings::get_i(eRadioUARTBaudrate, props);
+    settings_.uart.timeoutMs = Settings::get_i(eRadioUARTTimeoutMs, props);
+    settings_.uart.parity = Settings::get_i(eRadioUARTParity, props);
 }

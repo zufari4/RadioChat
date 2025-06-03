@@ -1,5 +1,6 @@
 ## Description
-This repository stores firmware files for a device that allows you to exchange text messages via radio broadcast
+This repository stores arduino project for ESP-32.
+This device will implement the exchange of text messages over the radio channel.
 
 ## Schema
 ![alt text](https://github.com/zufari4/RadioChat/blob/main/Docs/Schema.png)

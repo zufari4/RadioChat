@@ -16,14 +16,19 @@ void UIPageBase::onChar(uint16_t symbol) {}
 void UIPageBase::onKeyCommand(KeyCommand cmd)
 {
     if (cmd == KeyCommand::Escape) {
-        if (parent_ != UIPageType::None) {
-            LOG_DBG("%s Return to %s", __FUNCTION__, uiPageTypeToStr(parent_));
-            ctx_->setCurrentPage(parent_);
-        }
+        showParentPage();
     }
 }
 
 UIPageType UIPageBase::getType() const
 {
     return type_;
+}
+
+void UIPageBase::showParentPage()
+{
+    if (parent_ != UIPageType::None) {
+        LOG_DBG("%s Return to %s", __FUNCTION__, uiPageTypeToStr(parent_));
+        ctx_->setCurrentPage(parent_);
+    }
 }

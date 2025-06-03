@@ -12,6 +12,7 @@
 
 class Keyboard;
 class KeyMapBase;
+class Settings;
 
 class KeyHandler
 {
@@ -21,7 +22,7 @@ public:
 
     KeyHandler();
     ~KeyHandler();
-    void init(const KeyboardSettings& settings, CharCallback onChar, CmdCallback onCmd);
+    void init(Settings& settings, CharCallback onChar, CmdCallback onCmd);
     Language getLang() const;
 
 private:

@@ -139,14 +139,14 @@ enum class UART_BPS_TYPE: uint8_t
 
 enum class AIR_DATA_RATE: uint8_t
 {
-    e03  = 0b000,
-    e12  = 0b001,
-    e24  = 0b010,
-    e48  = 0b011,
-    e96  = 0b100,
-    e192 = 0b101,
-    e384 = 0b110,
-    e625 = 0b111
+    e03 = 0b000, // 0.3k
+    e12 = 0b001, // 1.2k
+    e24 = 0b010, // 2.4k (default)
+    e48 = 0b011, // 4.8k
+    e96 = 0b100, // 9.6k
+    e192 = 0b101, // 19.2k
+    e384 = 0b110, // 38.4k
+    e625 = 0b111  // 62.5k
 };
 
 enum class SUB_PACKET_SETTING: uint8_t

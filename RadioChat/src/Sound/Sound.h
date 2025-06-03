@@ -5,19 +5,23 @@
 #include <thread>
 #include <atomic>
 
+class Settings;
+
 class Sound
 {
 public:
     Sound();
     ~Sound();
-    void init(const SoundSettings& settings);
+    void init(Settings& settings);
     void play(Melody::Name melodyName);
+    const SoundSettings& getSettings() const;
 
 private:
     static void playThread(void* thisPtr);
     void playImpl();
     void myTone(unsigned int frequency, unsigned long duration);
     void myNoTone();
+    void loadSettings(Settings& settings);
 
     SoundSettings settings_;
     int wholenote_ = 0;

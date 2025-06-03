@@ -12,16 +12,8 @@ enum class UIPageType
     Contacts,
     Logs,
     SettingsSelect,
-    SettingsLogger,
-    SettingsEsp,
-    SettingsKeyboard,
-    SettingsDisplay,
-    SettingsUI,
-    SettingsRadio,
-    SettingsLed,
-    SettingsSound,
-    SettingsBattery,
-    SettingsContacts,
+    PropertyList,
+    ChooseOption,
 };
 
 const char* uiPageTypeToStr(UIPageType type);

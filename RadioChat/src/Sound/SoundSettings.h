@@ -10,4 +10,5 @@ struct SoundSettings
     } pins;
     uint8_t tempo = 108;
     bool enable = true;
+    bool enablePlayOnPowerOn = true;
 };

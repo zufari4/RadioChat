@@ -19,6 +19,8 @@ public:
     UIPageType getType() const;
 
 protected:
+    void showParentPage();
+
     UIPageType type_;
     UIPageType parent_;
     const UIContext* ctx_;

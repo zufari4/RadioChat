@@ -1,7 +1,7 @@
 #include "RadioChat.h"
 #include "Configuration.h"
 #include "Logger/Logger.h"
-#include "Settings.h"
+#include "Settings/Settings.h"
 #include "Flash/Flash.h"
 #include "Esp/Esp.h"
 #include "Keyboard/KeyHandler.h"
@@ -19,6 +19,8 @@
 #include "QueueMessage/QueueMessageTypingChar.h"
 #include "QueueMessage/QueueMessageShowPage.h"
 #include "QueueMessage/QueueMessageTypingMessage.h"
+#include "QueueMessage/QueueMessageShowProperties.h"
+#include "QueueMessage/QueueMessageChooseOption.h"
 #include <Arduino.h>
 #include <stdexcept>
 
@@ -49,74 +51,69 @@ void RadioChat::init()
     Logger::instance().initSerialLogging();
 #endif
     {
-        FlashSettings flashSettings;
-        FLASH.init(flashSettings);
+        FLASH.init();
         FLASH.mkdir(STORAGE_DIR);
     }
 
     settings_ = new Settings();
     settings_->init(STORAGE_DIR "/" SETTINGS_FILENAME);
+    
     {
-        LoggerSettings loggerSettings = settings_->logger();
-        Logger::instance().init(loggerSettings);
+        Logger::instance().init(*settings_);
         FLASH.printInfo(); // need logger for print
     }
     {
         esp_ = new Esp();
-        EspSettings espSettings = settings_->esp();
-        esp_->init(espSettings);
+        esp_->init(*settings_);
     }
     {
         radio_ = new Radio();
-        RadioSettings radioSettings = settings_->radio();
-        radio_->init(radioSettings,
+        radio_->init(*settings_,
             std::bind(&RadioChat::pushAcceptMessage, this, _1, _2, _3),
             std::bind(&RadioChat::pushDeliveryMessage, this, _1, _2),
             std::bind(&RadioChat::pushPingDone, this, _1, _2));
     }
     {
         ledIndicator_ = new LedIndicator();
-        LedSettings ledSettings = settings_->led();
-        ledIndicator_->init(ledSettings);
+        ledIndicator_->init(*settings_);
     }
     {
         sound_ = new Sound();
-        SoundSettings soundSettings = settings_->sound();
-        sound_->init(soundSettings);
+        sound_->init(*settings_);
     }
     {
         battery_ = new Battery();
-        BatterySettings batterySettings = settings_->battery();
-        battery_->init(batterySettings);
+        battery_->init(*settings_);
     }
     {
         contactsManager_ = new ContactsManager();
-        ContactsSettings contactsSettings = settings_->contacts();
-        contactsManager_->init(contactsSettings);
+        contactsManager_->init(*settings_);
     }
     {
         keyHandler_ = new KeyHandler();
-        KeyboardSettings  keybSettings = settings_->keyboard();
-        keyHandler_->init(keybSettings,
+        keyHandler_->init(*settings_,
             std::bind(&RadioChat::pushTypingChar, this, _1),
             std::bind(&RadioChat::pushKeyboardCommand, this, _1));
     }
     {
         display_ = new Display();
-        DisplaySettings dispSettings = settings_->display();
-        display_->init(dispSettings);
+        display_->init(*settings_);
     }
     {
         ui_ = new UI();
-        UISettings uiSettings = settings_->ui();
-        UIContext  uiContext(uiSettings, display_, settings_, battery_, radio_, contactsManager_, 0, 0, 0,
+        UIContext  uiContext(display_, settings_, battery_, radio_, contactsManager_, 0, 0, 0,
             std::bind(&RadioChat::pushShowPage, this, _1),
-            std::bind(&RadioChat::pushShowPageTypingMessage, this, _1)
+            std::bind(&RadioChat::pushShowPageTypingMessage, this, _1),
+            std::bind(&RadioChat::pushShowPagePropertyList, this, _1),
+            std::bind(&RadioChat::pushShowPageChooseOption, this, _1)
         );
         ui_->init(uiContext);
     }
-    //sound_->play(Melody::Name::Nokia);
+    if (sound_->getSettings().enablePlayOnPowerOn) {
+        sound_->play(Melody::Name::Nokia);
+    }
     LOG_INF("Firmware version: %04X", FIRMWARE_VERSION);
+    runThreadCheckQueue();
 }
 
 void RadioChat::loop()
@@ -132,23 +129,7 @@ void RadioChat::runThreadCheckQueue()
 {
     // use raw function for create thread 
     // because in std::thread stack size is small
-    xTaskCreatePinnedToCore(this->checkQueueThread, "QueueCheck", 10 * 1024, this, (configMAX_PRIORITIES - 1) / 2, NULL, ARDUINO_RUNNING_CORE);
-}
-
-
-void RadioChat::runThreadSvc()
-{
-    xTaskCreatePinnedToCore(this->svc, "SvcThread", 10 * 1024, this, (configMAX_PRIORITIES - 1) / 2, NULL, ARDUINO_RUNNING_CORE);
-}
-
-void RadioChat::svc(void* thisPtr)
-{
-    RadioChat* self = static_cast<RadioChat*>(thisPtr);
-    self->init();
-
-    while (true) {
-        self->loop();
-    }
+    xTaskCreatePinnedToCore(this->checkQueueThread, "QueueCheck", 8 * 1024, this, (configMAX_PRIORITIES - 1) / 2, NULL, ARDUINO_RUNNING_CORE);
 }
 
 void RadioChat::checkQueueThread(void* thisPtr)
@@ -205,6 +186,16 @@ void RadioChat::checkQueue()
         ui_->showTypingMessage(m->getAddress());
         break;
     }
+    case QueueMessageType::ShowProperties: {
+        auto m = static_cast<QueueMessageShowProperties*>(msg.get());
+        ui_->showPropertyList(m->getProperties());
+    break;
+    }
+    case QueueMessageType::ChooseOption: {
+        auto m = static_cast<QueueMessageChooseOption*>(msg.get());
+        ui_->showChooseOption(m->getProperty());
+        break;
+    }
     default:
         break;
     }
@@ -252,15 +243,15 @@ void RadioChat::pushShowPageTypingMessage(uint16_t address)
     messageQueue_.enqueue(std::move(msg));
 }
 
-void RadioChat::run()
+
+void RadioChat::pushShowPagePropertyList(const PropertyMap& properties)
 {
-    instance().runThreadSvc();
-    instance().runThreadCheckQueue();
+    auto msg = std::make_unique<QueueMessageShowProperties>(properties);
+    messageQueue_.enqueue(std::move(msg));
 }
 
-RadioChat& RadioChat::instance()
+void RadioChat::pushShowPageChooseOption(const Property& prop)
 {
-    static RadioChat radioChat;
-    return radioChat;
+    auto msg = std::make_unique<QueueMessageChooseOption>(prop);
+    messageQueue_.enqueue(std::move(msg));
 }
-

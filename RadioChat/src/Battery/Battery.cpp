@@ -1,5 +1,6 @@
 #include "Battery.h"
 #include "../Logger/Logger.h"
+#include "../Settings/Settings.h"
 #include <Arduino.h>
 
 Battery::Battery()
@@ -11,12 +12,10 @@ Battery::~Battery()
 {
 }
 
-void Battery::init(const BatterySettings &settings)
+void Battery::init(Settings &settings)
 {
     LOG_INF("-- Initialize battery --");
-    settings_ = settings;
-    LOG_DBG("Pin voltage: %u Max Voltage: %.2f Check interval %u Correction factor %.2f", 
-            settings_.pinVotage, settings_.maxBatteryVoltage, settings_.checkInterval, settings_.cFactor);
+    loadSettings(settings);
     nextCheckTime_ = Clock::now();
     check();
     LOG_INF("Voltage: %.2f", currentVoltage_.load());
@@ -34,4 +33,14 @@ void Battery::check()
 float Battery::getVoltage() const
 {
     return currentVoltage_;
+}
+
+void Battery::loadSettings(Settings& settings)
+{
+    auto props = settings.battery();
+    settings_.cFactor = Settings::get_f(eBatteryCFactor, props);
+    settings_.pinVotage = Settings::get_i(eBatteryPinVoltage, props);
+    settings_.maxBatteryVoltage = Settings::get_f(eBatteryMaxVoltage, props);
+    settings_.checkInterval = Settings::get_i(eBatteryCheckInterval, props);
+    settings_.maxADC = Settings::get_f(eBatteryMaxADC, props);
 }

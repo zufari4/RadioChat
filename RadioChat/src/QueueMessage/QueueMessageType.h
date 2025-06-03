@@ -9,4 +9,6 @@ enum class QueueMessageType
     PingDone,
     ShowPage,
     TypingMessage,
+    ShowProperties,
+    ChooseOption,
 };

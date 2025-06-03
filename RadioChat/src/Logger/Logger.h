@@ -1,12 +1,14 @@
 #pragma once
 
-#include "LoggerSettings.h"
+#include "LogTraceLevel.h"
 #include <vector>
 #include <memory>
 
 #define LOG_ERR(...) Logger::instance().log(LogTraceLevel::Error, __VA_ARGS__)
 #define LOG_INF(...) Logger::instance().log(LogTraceLevel::Info, __VA_ARGS__)
 #define LOG_DBG(...) Logger::instance().log(LogTraceLevel::Debug, __VA_ARGS__)
+
+class Settings;
 
 class Logger
 {
@@ -15,7 +17,7 @@ public:
     ~Logger();
 
     void initSerialLogging();
-    void init(const LoggerSettings& settings);
+    void init(Settings& settings);
     static Logger& instance();
     void log(LogTraceLevel level, const char* format, ...);
     LogTraceLevel getLogLevel() const;
@@ -27,7 +29,13 @@ private:
     
     bool isInit_;
     bool serialIsInit_;
-    LoggerSettings settings_;
+    LogTraceLevel level_;
+    size_t maxMessageSize_;
+    size_t maxCountLines_;
+    size_t maxCountLogs_;
+    bool logToSerial_;
+    bool logToFile_;
+    std::string logPath_;
     std::vector<char> buffer_;
     std::mutex mtx_;
     bool isFileOpen_;

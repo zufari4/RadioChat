@@ -1,10 +1,13 @@
 #include "src/RadioChat.h"
 
+RadioChat radioChat;
+
 void setup() 
 {
-    RadioChat::run();
+    radioChat.init();
 }
 
 void loop() 
 {
+	radioChat.loop();
 }

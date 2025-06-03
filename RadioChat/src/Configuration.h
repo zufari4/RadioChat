@@ -7,7 +7,11 @@
 #define SERIAL_INIT_DELAY 1000
 #define STORAGE_DIR "/radio_chat"
 #define SETTINGS_FILENAME "config.json"
-#define PIN_SPI_SS 5 // default CS pin for external flash
+
+#define FLASH_PIN_MISO 19
+#define FLASH_PIN_MOSI 23
+#define FLASH_PIN_SCK 18
+#define FLASH_PIN_CS 5
 
 #define KEY_CODE_FN     0x0001
 #define KEY_CODE_ENTER  0x000A
