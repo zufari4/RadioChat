@@ -20,7 +20,7 @@
 #include "QueueMessage/QueueMessageShowPage.h"
 #include "QueueMessage/QueueMessageTypingMessage.h"
 #include "QueueMessage/QueueMessageShowProperties.h"
-#include "QueueMessage/QueueMessageChooseOption.h"
+#include "QueueMessage/QueueMessageEditProperty.h"
 #include <Arduino.h>
 #include <stdexcept>
 
@@ -129,7 +129,7 @@ void RadioChat::runThreadCheckQueue()
 {
     // use raw function for create thread 
     // because in std::thread stack size is small
-    xTaskCreatePinnedToCore(this->checkQueueThread, "QueueCheck", 8 * 1024, this, (configMAX_PRIORITIES - 1) / 2, NULL, ARDUINO_RUNNING_CORE);
+    xTaskCreatePinnedToCore(this->checkQueueThread, "QueueCheck", 10 * 1024, this, (configMAX_PRIORITIES - 1) / 2, NULL, ARDUINO_RUNNING_CORE);
 }
 
 void RadioChat::checkQueueThread(void* thisPtr)
@@ -191,9 +191,9 @@ void RadioChat::checkQueue()
         ui_->showPropertyList(m->getProperties());
     break;
     }
-    case QueueMessageType::ChooseOption: {
-        auto m = static_cast<QueueMessageChooseOption*>(msg.get());
-        ui_->showChooseOption(m->getProperty());
+    case QueueMessageType::EditProperty: {
+        auto m = static_cast<QueueMessageEditProperty*>(msg.get());
+        ui_->showEditProperty(m->getProperty());
         break;
     }
     default:
@@ -252,6 +252,6 @@ void RadioChat::pushShowPagePropertyList(const PropertyMap& properties)
 
 void RadioChat::pushShowPageChooseOption(const Property& prop)
 {
-    auto msg = std::make_unique<QueueMessageChooseOption>(prop);
+    auto msg = std::make_unique<QueueMessageEditProperty>(prop);
     messageQueue_.enqueue(std::move(msg));
 }

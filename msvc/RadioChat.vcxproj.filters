@@ -52,10 +52,10 @@
     <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageChooseOption.cpp">
+    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageDeliveryMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageDeliveryMessage.cpp">
+    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageEditProperty.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageKeyboardCommand.cpp">
@@ -88,6 +88,9 @@
     <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\RadioChat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\Property.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\PropertySection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -118,7 +121,7 @@
     <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageChatSelect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageChooseOption.cpp">
+    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageEditProperty.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageIncomingMessage.cpp">
@@ -219,10 +222,10 @@
     <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageChooseOption.h">
+    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageDeliveryMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageDeliveryMessage.h">
+    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageEditProperty.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageKeyboardCommand.h">
@@ -318,7 +321,7 @@
     <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageChatSelect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageChooseOption.h">
+    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageEditProperty.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageIncomingMessage.h">

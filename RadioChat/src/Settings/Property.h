@@ -19,3 +19,4 @@ struct Property
 };
 
 using PropertyMap = std::map<PropertyType, Property>;
+std::string getCaptionValue(const Property& property);

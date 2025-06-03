@@ -6,6 +6,7 @@
 #include "../Keyboard/Language.h"
 #include "../Configuration.h"
 #include "../Radio/Lora.h"
+#include "../Flash/Flash.h"
 #include <HardwareSerial.h>
 
 Settings::Settings() = default;
@@ -16,16 +17,8 @@ void Settings::init(std::string_view filename)
     filename_ = filename;
 
     if (!SettingsReader::isValid(filename_)) {
-        LOG_INF("Settings file %s not found or bad. Create default.", filename_.data());
-        SettingsWriter opt(filename_);
-        {
-            auto props = getLogDefaultProperties();
-            opt.setSection(propSectionToStr(props.front().section));
-            for (const auto& prop : props) {
-                setProp(opt, prop);
-            }
-        }
-        opt.save();
+        LOG_INF("Settings file %s not found or bad", filename_.data());
+        saveDefaultSettings();
     }
 }
 
@@ -105,18 +98,19 @@ void Settings::setProp(SettingsWriter& opt, const Property& option)
     {
     case ValueType::Int:
     case ValueType::Enum:
-        opt.set_i(option.caption, std::stoll(option.value));
+        opt.set_i(option.name, std::stoll(option.value));
         break;
     case ValueType::Float:
-        opt.set_f(option.caption, std::stof(option.value));
+        opt.set_f(option.name, std::stof(option.value));
         break;
     case ValueType::String:
-        opt.set_s(option.caption, option.value);
+        opt.set_s(option.name, option.value);
         break;
     case ValueType::Bool:
-        opt.set_b(option.caption, option.value == "1");
+        opt.set_b(option.name, option.value == "1");
         break;
     default:
+        LOG_ERR("Unknown value type %d for property %s", (int)option.valueType, option.name.c_str());
         break;
     }
 }
@@ -395,11 +389,123 @@ EnumOption Settings::getRadioUARTBaudrateOptions()
     return res;
 }
 
-void Settings::setProperty(const Property& prop)
+bool Settings::setProperty(const Property& prop)
 {
     LOG_INF("Set property %s to %s", prop.name.data(), prop.value.data());
+    if (!validatePropertyValue(prop)) {
+        return false;
+    }
     SettingsWriter opt(filename_);
     opt.setSection(propSectionToStr(prop.section));
     setProp(opt, prop);
-    opt.save();
+    return opt.save();
+}
+
+bool Settings::validatePropertyValue(const Property& prop) const
+{
+    switch (prop.valueType) {
+    case ValueType::Int:
+    case ValueType::Enum:
+        try {
+            std::stoll(prop.value);
+        } catch (...) {
+            LOG_ERR("Invalid int value for property %s: %s", prop.name.c_str(), prop.value.c_str());
+            return false;
+        }
+        break;
+    case ValueType::Float:
+        try {
+            std::stof(prop.value);
+        } catch (...) {
+            LOG_ERR("Invalid float value for property %s: %s", prop.name.c_str(), prop.value.c_str());
+            return false;
+        }
+        break;
+    case ValueType::String:
+        // No validation needed for string
+        break;
+    case ValueType::Bool:
+        if (prop.value != "0" && prop.value != "1") {
+            LOG_ERR("Invalid bool value for property %s: %s", prop.name.c_str(), prop.value.c_str());
+            return false;
+        }
+        break;
+    default:
+        LOG_ERR("Unknown value type %d for property %s", static_cast<int>(prop.valueType), prop.name.c_str());
+        return false;
+    }
+    return true;
+}
+
+void Settings::saveDefaultSettings()
+{
+    LOG_DBG("Save default settings");
+    FLASH.remove(filename_);
+
+    SettingsWriter opt(filename_);
+    {
+        auto props = getLogDefaultProperties();
+        opt.setSection(propSectionToStr(props.front().section));
+        for (const auto& prop : props) {
+            setProp(opt, prop);
+        }
+    }
+    {
+        auto props = getEspDefaultProperties();
+        opt.setSection(propSectionToStr(props.front().section));
+        for (const auto& prop : props) {
+            setProp(opt, prop);
+        }
+    }
+    {
+        auto props = getKeyboardDefaultProperties();
+        opt.setSection(propSectionToStr(props.front().section));
+        for (const auto& prop : props) {
+            setProp(opt, prop);
+        }
+    }
+    {
+        auto props = getDisplayDefaultProperties();
+        opt.setSection(propSectionToStr(props.front().section));
+        for (const auto& prop : props) {
+            setProp(opt, prop);
+        }
+    }
+    {
+        auto props = getRadioDefaultProperties();
+        opt.setSection(propSectionToStr(props.front().section));
+        for (const auto& prop : props) {
+            setProp(opt, prop);
+        }
+    }
+    {
+        auto props = getLedDefaultProperties();
+        opt.setSection(propSectionToStr(props.front().section));
+        for (const auto& prop : props) {
+            setProp(opt, prop);
+        }
+    }
+    {
+        auto props = getSoundDefaultProperties();
+        opt.setSection(propSectionToStr(props.front().section));
+        for (const auto& prop : props) {
+            setProp(opt, prop);
+        }
+    }
+    {
+        auto props = getBatteryDefaultProperties();
+        opt.setSection(propSectionToStr(props.front().section));
+        for (const auto& prop : props) {
+            setProp(opt, prop);
+        }
+    }
+    {
+        auto props = getContactsDefaultProperties();
+        opt.setSection(propSectionToStr(props.front().section));
+        for (const auto& prop : props) {
+            setProp(opt, prop);
+        }
+    }
+    bool res = opt.save();
+    LOG_DBG("Save default settings: %s", res ? "success" : "fail");
 }

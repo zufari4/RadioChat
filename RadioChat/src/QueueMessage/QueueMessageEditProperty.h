@@ -4,11 +4,11 @@
 #include "../Settings/Property.h"
 #include <stdint.h>
 
-class QueueMessageChooseOption : public QueueMessageBase
+class QueueMessageEditProperty : public QueueMessageBase
 {
 public:
-    QueueMessageChooseOption(const Property& prop);
-    ~QueueMessageChooseOption();
+    QueueMessageEditProperty(const Property& prop);
+    ~QueueMessageEditProperty();
     const Property& getProperty() const;
 
 private:

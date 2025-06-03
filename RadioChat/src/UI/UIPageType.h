@@ -13,7 +13,7 @@ enum class UIPageType
     Logs,
     SettingsSelect,
     PropertyList,
-    ChooseOption,
+    EditProperty,
 };
 
 const char* uiPageTypeToStr(UIPageType type);

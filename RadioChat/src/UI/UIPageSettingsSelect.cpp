@@ -15,6 +15,7 @@ UIPageSettingsSelect::UIPageSettingsSelect(UIPageType parent, const UIContext* c
     addItemSimple("Звук");
     addItemSimple("Аккумулятор");
     addItemSimple("Контакты");
+    addItemSimple("Сброс настроек");
 }
 
 UIPageSettingsSelect::~UIPageSettingsSelect() = default;
@@ -50,5 +51,9 @@ void UIPageSettingsSelect::onItemClick(uint8_t itemIndex)
     }
     else if (itemIndex == 9) {
         ctx_->showPagePropertyList(ctx_->settings->contacts());
+    }
+    else if (itemIndex == 10) {
+        ctx_->settings->saveDefaultSettings();
+        ctx_->setCurrentPage(parent_);
     }
 }

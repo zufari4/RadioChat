@@ -5,7 +5,7 @@
 #include "UIPageTypingMessage.h"
 #include "UIPageSettingsSelect.h"
 #include "UIPagePropertyList.h"
-#include "UIPageChooseOption.h"
+#include "UIPageEditProperty.h"
 #include "../Logger/Logger.h"
 #include "../Display/Display.h"
 #include "../Settings/Settings.h"
@@ -74,12 +74,12 @@ void UI::showPropertyList(const PropertyMap& properties)
     }
 }
 
-void UI::showChooseOption(const Property& prop)
+void UI::showEditProperty(const Property& prop)
 {
-    auto page = createPage(UIPageType::ChooseOption);
+    auto page = createPage(UIPageType::EditProperty);
     if (page) {
-        auto pageChooseOption = static_cast<UIPageChooseOption*>(page.get());
-        pageChooseOption->setProperty(prop);
+        auto pageEditProperty = static_cast<UIPageEditProperty*>(page.get());
+        pageEditProperty->setProperty(prop);
         setCurrentPage(std::move(page));
     }
 }
@@ -123,8 +123,8 @@ std::unique_ptr<UIPageBase> UI::createPage(UIPageType pageType)
     case UIPageType::PropertyList:
         newPage = std::make_unique<UIPagePropertyList>(UIPageType::SettingsSelect, &ctx_);
         break;
-    case UIPageType::ChooseOption:
-        newPage = std::make_unique<UIPageChooseOption>(UIPageType::SettingsSelect, &ctx_);
+    case UIPageType::EditProperty:
+        newPage = std::make_unique<UIPageEditProperty>(UIPageType::SettingsSelect, &ctx_);
         break;
     default:
         LOG_ERR("Unknown page type %u", static_cast<uint8_t>(pageType));

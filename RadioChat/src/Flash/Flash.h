@@ -27,6 +27,7 @@ public:
     bool append(const std::string& filename, const std::string& content);
     bool exists(const std::string& filename);
     void mkdir(const std::string& dirname);
+    void remove(const std::string& filename);
 
 private:
     State state_;

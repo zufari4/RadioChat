@@ -3,6 +3,7 @@
 #include "../Battery/Battery.h"
 #include "../Logger/Logger.h"
 #include <cstring>
+#include <Arduino.h>
 
 UIPageMain::UIPageMain(const UIContext* context)
     : BaseMenu(UIPageType::Main, UIPageType::None, context)
@@ -58,6 +59,7 @@ void UIPageMain::onItemClick(uint8_t itemIndex)
     case 5: // Notes
         break;
     case 6: // Reboot
+        esp_restart();
         break;
     default:
         break;

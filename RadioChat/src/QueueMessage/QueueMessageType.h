@@ -10,5 +10,5 @@ enum class QueueMessageType
     ShowPage,
     TypingMessage,
     ShowProperties,
-    ChooseOption,
+    EditProperty,
 };

@@ -102,3 +102,14 @@ bool BaseMenu::str_bool(std::string_view str)
 {
     return str == "да";
 }
+
+void BaseMenu::selectItem(uint8_t index)
+{
+      selected_ = index;
+      if (selected_ >= ctx_->maxCountLines) {
+          offset_ = selected_ - ctx_->maxCountLines + 1;
+      }
+      else {
+          offset_ = 0;
+      }
+}

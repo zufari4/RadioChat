@@ -21,7 +21,7 @@ public:
     void showIncomingMessage(const std::string& message, uint16_t address);
     void showTypingMessage(uint16_t destinationAddress);
     void showPropertyList(const PropertyMap& properties);
-    void showChooseOption(const Property& prop);
+    void showEditProperty(const Property& prop);
     void setCurrentPage(UIPageType pageType);
 
 private:

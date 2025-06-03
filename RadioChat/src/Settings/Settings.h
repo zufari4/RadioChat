@@ -26,10 +26,13 @@ public:
     static std::string get_s(PropertyType type, const PropertyMap& props);
     static bool get_b(PropertyType type, const PropertyMap& props);
 
-    void setProperty(const Property& prop);
+    bool setProperty(const Property& prop);
+    void saveDefaultSettings();
+
 private:
     void setProp(SettingsWriter& opt, const Property& option);
     PropertyMap read(const std::vector<Property>& defProps);
+    bool validatePropertyValue(const Property& prop) const;
 
     std::vector<Property> getLogDefaultProperties();
     std::vector<Property> getEspDefaultProperties();

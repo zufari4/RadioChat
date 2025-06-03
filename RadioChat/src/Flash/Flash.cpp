@@ -223,3 +223,24 @@ void Flash::mkdir(const std::string& dirname)
         LOG_DBG("Directory already exists (%s)", dirname.c_str());
     }
 }
+
+void Flash::remove(const std::string& filename)
+{
+    std::lock_guard<std::recursive_mutex> lock(fsMutex_);
+    LOG_DBG("Remove file %s", filename.c_str());
+
+    if (state_ != State::Init) {
+        LOG_ERR("Flash is not init");
+        return;
+    }
+
+    if (SD.exists(filename.c_str())) {
+        if (!SD.remove(filename.c_str())) {
+            LOG_ERR("Failed to remove file (%s)", filename.c_str());
+        } else {
+            LOG_DBG("File removed (%s)", filename.c_str());
+        }
+    } else {
+        LOG_DBG("File not found (%s)", filename.c_str());
+    }
+}

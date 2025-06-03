@@ -5,3 +5,4 @@
 /msvc/cmake_install.cmake
 /msvc/RadioChat.dir
 /msvc/x64
+/msvc/*.user
