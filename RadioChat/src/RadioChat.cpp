@@ -12,6 +12,7 @@
 #include "Battery/Battery.h"
 #include "Contacts/ContactsManger.h"
 #include "UI/UI.h"
+#include "Chat/ChatManager.h"
 #include "QueueMessage/QueueMessageAcceptMessage.h"
 #include "QueueMessage/QueueMessageDeliveryMessage.h"
 #include "QueueMessage/QueueMessageKeyboardCommand.h"
@@ -21,6 +22,7 @@
 #include "QueueMessage/QueueMessageTypingMessage.h"
 #include "QueueMessage/QueueMessageShowProperties.h"
 #include "QueueMessage/QueueMessageEditProperty.h"
+#include "QueueMessage/QueueMessageShowChatContact.h"
 #include <Arduino.h>
 #include <stdexcept>
 
@@ -69,7 +71,7 @@ void RadioChat::init()
     {
         radio_ = new Radio();
         radio_->init(*settings_,
-            std::bind(&RadioChat::pushAcceptMessage, this, _1, _2, _3),
+            std::bind(&RadioChat::pushAcceptMessage, this, _1, _2, _3, _4),
             std::bind(&RadioChat::pushDeliveryMessage, this, _1, _2),
             std::bind(&RadioChat::pushPingDone, this, _1, _2));
     }
@@ -100,12 +102,17 @@ void RadioChat::init()
         display_->init(*settings_);
     }
     {
+        chatManager_ = new ChatManager();
+        chatManager_->init(*settings_);
+    }
+    {
         ui_ = new UI();
-        UIContext  uiContext(display_, settings_, battery_, radio_, contactsManager_, 0, 0, 0,
+        UIContext uiContext(display_, settings_, battery_, radio_, contactsManager_, chatManager_, 0, 0, 0,
             std::bind(&RadioChat::pushShowPage, this, _1),
             std::bind(&RadioChat::pushShowPageTypingMessage, this, _1),
             std::bind(&RadioChat::pushShowPagePropertyList, this, _1),
-            std::bind(&RadioChat::pushShowPageChooseOption, this, _1)
+            std::bind(&RadioChat::pushShowPageEditProperty, this, _1),
+            std::bind(&RadioChat::pushShowPageChatContact, this, _1)
         );
         ui_->init(uiContext);
     }
@@ -129,7 +136,7 @@ void RadioChat::runThreadCheckQueue()
 {
     // use raw function for create thread 
     // because in std::thread stack size is small
-    xTaskCreatePinnedToCore(this->checkQueueThread, "QueueCheck", 10 * 1024, this, (configMAX_PRIORITIES - 1) / 2, NULL, ARDUINO_RUNNING_CORE);
+    xTaskCreatePinnedToCore(this->checkQueueThread, "QueueCheck", 12 * 1024, this, (configMAX_PRIORITIES - 1) / 2, NULL, ARDUINO_RUNNING_CORE);
 }
 
 void RadioChat::checkQueueThread(void* thisPtr)
@@ -151,9 +158,10 @@ void RadioChat::checkQueue()
     {
     case QueueMessageType::AcceptMessage: {
         auto m = static_cast<QueueMessageAcceptMessage*>(msg.get());
-        LOG_INF("Accept message %u from %u: %s", m->getID(), m->getAddress(), m->getMessage().c_str());
+        LOG_DBG("Accept message from %u to %u: %s", m->getSenderAddress(), m->getDestAddress(), m->getMessage().c_str());
+        chatManager_->storeMessage(m->getSenderAddress(), m->getDestAddress(), m->getMessage(), MessageStatus::New);
+        ui_->onIncomingMessage(m->getMessage(), m->getSenderAddress(), m->getDestAddress());
         sound_->play(Melody::Name::PackmanShort);
-        ui_->showIncomingMessage(m->getMessage(), m->getAddress());
         break;
     }
     case QueueMessageType::DeliveryMessage: {
@@ -196,6 +204,11 @@ void RadioChat::checkQueue()
         ui_->showEditProperty(m->getProperty());
         break;
     }
+    case QueueMessageType::ShowChatContact: {
+        auto m = static_cast<QueueMessageShowChatContact*>(msg.get());
+        ui_->showChatContact(m->getAddress());
+        break;
+    }
     default:
         break;
     }
@@ -213,9 +226,10 @@ void RadioChat::pushKeyboardCommand(KeyCommand cmd)
     messageQueue_.enqueue(std::move(msg));
 }
 
-void RadioChat::pushAcceptMessage(uint16_t sender, uint8_t msgID, const std::string& text)
+void RadioChat::pushAcceptMessage(uint16_t sender, uint16_t dest, uint8_t msgID, const std::string& text)
 {
-    auto msg = std::make_unique<QueueMessageAcceptMessage>(sender, msgID , text);
+    LOG_DBG("%s: enter", __FUNCTION__);
+    auto msg = std::make_unique<QueueMessageAcceptMessage>(sender, dest, msgID , text);
     messageQueue_.enqueue(std::move(msg));
 }
 
@@ -250,8 +264,14 @@ void RadioChat::pushShowPagePropertyList(const PropertyMap& properties)
     messageQueue_.enqueue(std::move(msg));
 }
 
-void RadioChat::pushShowPageChooseOption(const Property& prop)
+void RadioChat::pushShowPageEditProperty(const Property& prop)
 {
     auto msg = std::make_unique<QueueMessageEditProperty>(prop);
+    messageQueue_.enqueue(std::move(msg));
+}
+
+void RadioChat::pushShowPageChatContact(uint16_t address)
+{
+    auto msg = std::make_unique<QueueMessageShowChatContact>(address);
     messageQueue_.enqueue(std::move(msg));
 }

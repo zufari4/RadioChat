@@ -6,13 +6,14 @@
 #include <functional>
 #include <stdint.h>
 #include <map>
+#include <mutex>
 
 class Settings;
 
 class Radio
 {
 public:
-    using OnNewMessageCallback = std::function<void(uint16_t sender, uint8_t msgID, const std::string& text)>;
+    using OnNewMessageCallback = std::function<void(uint16_t sender, uint16_t dest, uint8_t msgID, const std::string& text)>;
     using OnMessageDeliveryCallback = std::function<void(uint16_t address, uint8_t msgID)>;
     using OnPingDone = std::function<void(uint16_t address, uint32_t delay)>;
 
@@ -30,6 +31,7 @@ public:
     uint8_t sendText(const std::string& text, uint16_t address = BROADCAST_ADDRESS);
     bool ping(uint16_t addr, uint32_t& delay);
     uint8_t getMaxMessageSize() const; // max size of text message in bytes
+    const RadioSettings& getSettings() const;
 
 private:
     bool setMode(Lora::Mode mode);
@@ -57,4 +59,5 @@ private:
     OnMessageDeliveryCallback onMessageDelivered_;
     OnPingDone onPingDone_;
     std::map<uint16_t, uint32_t> startPing_;
+    std::mutex mutexSerial_;
 };

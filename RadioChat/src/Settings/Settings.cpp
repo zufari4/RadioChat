@@ -57,6 +57,13 @@ PropertyMap Settings::ui()
     return read(defaultProps);
 }
 
+PropertyMap Settings::chat()
+{
+    LOG_INF("Loading chat settings");
+    auto defaultProps = getChatDefaultProperties();
+    return read(defaultProps);
+}
+
 PropertyMap Settings::radio()
 {
     LOG_INF("Loading radio settings");
@@ -90,6 +97,14 @@ PropertyMap Settings::contacts()
     LOG_INF("Loading contacts settings");
     auto defaultProps = getContactsDefaultProperties();
     return read(defaultProps);
+}
+
+void Settings::setProps(SettingsWriter& opt, const std::vector<Property>& options)
+{
+    opt.setSection(propSectionToStr(options.front().section));
+    for (const auto& prop : options) {
+        setProp(opt, prop);
+    }
 }
 
 void Settings::setProp(SettingsWriter& opt, const Property& option)
@@ -324,6 +339,14 @@ std::vector<Property> Settings::getUiDefaultProperties()
     return props;
 }
 
+std::vector<Property> Settings::getChatDefaultProperties()
+{
+    std::vector<Property> props;
+    props.emplace_back(Property{ eChatPath, PropertySection::Chat, "Путь", "Path", "chat", ValueType::String, {} });
+    props.emplace_back(Property{ eChatSharedFilename, PropertySection::Chat, "Файла общего чата", "SharedFileName", "shared.txt", ValueType::String, {} });
+    return props;
+}
+
 EnumOption Settings::getLogTraceLevelOptions()
 {
     EnumOption res;
@@ -443,69 +466,19 @@ void Settings::saveDefaultSettings()
     FLASH.remove(filename_);
 
     SettingsWriter opt(filename_);
-    {
-        auto props = getLogDefaultProperties();
-        opt.setSection(propSectionToStr(props.front().section));
-        for (const auto& prop : props) {
-            setProp(opt, prop);
-        }
-    }
-    {
-        auto props = getEspDefaultProperties();
-        opt.setSection(propSectionToStr(props.front().section));
-        for (const auto& prop : props) {
-            setProp(opt, prop);
-        }
-    }
-    {
-        auto props = getKeyboardDefaultProperties();
-        opt.setSection(propSectionToStr(props.front().section));
-        for (const auto& prop : props) {
-            setProp(opt, prop);
-        }
-    }
-    {
-        auto props = getDisplayDefaultProperties();
-        opt.setSection(propSectionToStr(props.front().section));
-        for (const auto& prop : props) {
-            setProp(opt, prop);
-        }
-    }
-    {
-        auto props = getRadioDefaultProperties();
-        opt.setSection(propSectionToStr(props.front().section));
-        for (const auto& prop : props) {
-            setProp(opt, prop);
-        }
-    }
-    {
-        auto props = getLedDefaultProperties();
-        opt.setSection(propSectionToStr(props.front().section));
-        for (const auto& prop : props) {
-            setProp(opt, prop);
-        }
-    }
-    {
-        auto props = getSoundDefaultProperties();
-        opt.setSection(propSectionToStr(props.front().section));
-        for (const auto& prop : props) {
-            setProp(opt, prop);
-        }
-    }
-    {
-        auto props = getBatteryDefaultProperties();
-        opt.setSection(propSectionToStr(props.front().section));
-        for (const auto& prop : props) {
-            setProp(opt, prop);
-        }
-    }
-    {
-        auto props = getContactsDefaultProperties();
-        opt.setSection(propSectionToStr(props.front().section));
-        for (const auto& prop : props) {
-            setProp(opt, prop);
-        }
-    }
+
+    setProps(opt, getLogDefaultProperties());
+    setProps(opt, getEspDefaultProperties());
+    setProps(opt, getKeyboardDefaultProperties());
+    setProps(opt, getDisplayDefaultProperties());
+    setProps(opt, getRadioDefaultProperties());
+    setProps(opt, getSoundDefaultProperties());
+    setProps(opt, getLedDefaultProperties());
+    setProps(opt, getBatteryDefaultProperties());
+    setProps(opt, getContactsDefaultProperties());
+    setProps(opt, getUiDefaultProperties());
+    setProps(opt, getChatDefaultProperties());
+
     bool res = opt.save();
     LOG_DBG("Save default settings: %s", res ? "success" : "fail");
 }

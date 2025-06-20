@@ -113,3 +113,12 @@ void BaseMenu::selectItem(uint8_t index)
           offset_ = 0;
       }
 }
+
+const std::string& BaseMenu::getItemValue(uint8_t index) const
+{
+    if (index < items_.size()) {
+        return items_[index].value;
+    }
+    static const std::string emptyStr;
+    return emptyStr;
+}

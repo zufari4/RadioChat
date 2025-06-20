@@ -28,6 +28,7 @@ public:
     bool exists(const std::string& filename);
     void mkdir(const std::string& dirname);
     void remove(const std::string& filename);
+    std::vector<std::string> readLastNLines(const std::string& filename, uint32_t start, uint32_t n);
 
 private:
     State state_;

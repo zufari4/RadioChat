@@ -1,6 +1,7 @@
 #include "Utils.h"
 #include "Logger/Logger.h"
 #include <time.h>
+#include <sstream>
 
 namespace utils
 {
@@ -154,6 +155,19 @@ std::vector<std::string> splitUtf8String(const std::string& input, size_t maxLen
     }
 
     return result;
+}
+
+std::vector<std::string> split(const std::string& str, char delimiter /*= '\t'*/)
+{
+    std::vector<std::string> tokens;
+    std::string token;
+    std::istringstream tokenStream(str);
+
+    while (std::getline(tokenStream, token, delimiter)) {
+        tokens.push_back(token);
+    }
+
+    return tokens;
 }
 
 }

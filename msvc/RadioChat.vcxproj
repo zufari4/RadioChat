@@ -22,7 +22,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{002D2E7F-0464-3D5A-9927-0C5C3715CF7F}</ProjectGuid>
+    <ProjectGuid>{BA7D8247-088C-3E99-A562-8715D1C4CD71}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
@@ -59,26 +59,26 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\Arduino\RadioChat\msvc\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\RadioChat\msvc\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">RadioChat.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">RadioChat</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\Arduino\RadioChat\msvc\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\RadioChat\msvc\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">RadioChat.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">RadioChat</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Dev\Arduino\RadioChat\msvc\MinSizeRel\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Dev\RadioChat\msvc\MinSizeRel\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">RadioChat.dir\MinSizeRel\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">RadioChat</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Dev\Arduino\RadioChat\msvc\RelWithDebInfo\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Dev\RadioChat\msvc\RelWithDebInfo\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">RadioChat.dir\RelWithDebInfo\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">RadioChat</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\Arduino\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) -std=c++17</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -87,19 +87,22 @@
       </ExceptionHandling>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
       <UseFullPaths>false</UseFullPaths>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);U8X8_USE_PINS;SOC_BT_SUPPORTED;SOC_WIFI_SUPPORTED;F_CPU=240000000L;ARDUINO=10607;ARDUINO_ESP32_DEV;ARDUINO_ARCH_ESP32;ARDUINO_BOARD="ESP32_DEV";ARDUINO_VARIANT="esp32";ARDUINO_PARTITION_huge_app;ARDUINO_HOST_OS="windows";ARDUINO_FQBN="esp32:esp32:esp32:UploadSpeed=921600,CPUFreq=240,FlashFreq=80,FlashMode=qio,FlashSize=4M,PartitionScheme=huge_app,DebugLevel=verbose,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default";ESP32=ESP32;CORE_DEBUG_LEVEL=5;ARDUINO_RUNNING_CORE=1;ARDUINO_EVENT_RUNNING_CORE=1;ARDUINO_USB_CDC_ON_BOOT=0;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;U8X8_USE_PINS;SOC_BT_SUPPORTED;SOC_WIFI_SUPPORTED;F_CPU=240000000L;ARDUINO=10607;ARDUINO_ESP32_DEV;ARDUINO_ARCH_ESP32;ARDUINO_BOARD=\"ESP32_DEV\";ARDUINO_VARIANT=\"esp32\";ARDUINO_PARTITION_huge_app;ARDUINO_HOST_OS=\"windows\";ARDUINO_FQBN=\"esp32:esp32:esp32:UploadSpeed=921600,CPUFreq=240,FlashFreq=80,FlashMode=qio,FlashSize=4M,PartitionScheme=huge_app,DebugLevel=verbose,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default\";ESP32=ESP32;CORE_DEBUG_LEVEL=5;ARDUINO_RUNNING_CORE=1;ARDUINO_EVENT_RUNNING_CORE=1;ARDUINO_USB_CDC_ON_BOOT=0;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\Arduino\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\Arduino\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -112,28 +115,32 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\Arduino\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) -std=c++17</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ExceptionHandling>
       </ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
       <UseFullPaths>false</UseFullPaths>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);NDEBUG;U8X8_USE_PINS;SOC_BT_SUPPORTED;SOC_WIFI_SUPPORTED;F_CPU=240000000L;ARDUINO=10607;ARDUINO_ESP32_DEV;ARDUINO_ARCH_ESP32;ARDUINO_BOARD="ESP32_DEV";ARDUINO_VARIANT="esp32";ARDUINO_PARTITION_huge_app;ARDUINO_HOST_OS="windows";ARDUINO_FQBN="esp32:esp32:esp32:UploadSpeed=921600,CPUFreq=240,FlashFreq=80,FlashMode=qio,FlashSize=4M,PartitionScheme=huge_app,DebugLevel=verbose,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default";ESP32=ESP32;CORE_DEBUG_LEVEL=5;ARDUINO_RUNNING_CORE=1;ARDUINO_EVENT_RUNNING_CORE=1;ARDUINO_USB_CDC_ON_BOOT=0;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;NDEBUG;U8X8_USE_PINS;SOC_BT_SUPPORTED;SOC_WIFI_SUPPORTED;F_CPU=240000000L;ARDUINO=10607;ARDUINO_ESP32_DEV;ARDUINO_ARCH_ESP32;ARDUINO_BOARD=\"ESP32_DEV\";ARDUINO_VARIANT=\"esp32\";ARDUINO_PARTITION_huge_app;ARDUINO_HOST_OS=\"windows\";ARDUINO_FQBN=\"esp32:esp32:esp32:UploadSpeed=921600,CPUFreq=240,FlashFreq=80,FlashMode=qio,FlashSize=4M,PartitionScheme=huge_app,DebugLevel=verbose,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default\";ESP32=ESP32;CORE_DEBUG_LEVEL=5;ARDUINO_RUNNING_CORE=1;ARDUINO_EVENT_RUNNING_CORE=1;ARDUINO_USB_CDC_ON_BOOT=0;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\Arduino\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\Arduino\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -146,28 +153,32 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\Arduino\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) -std=c++17</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ExceptionHandling>
       </ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
       <Optimization>MinSpace</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
       <UseFullPaths>false</UseFullPaths>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);NDEBUG;U8X8_USE_PINS;SOC_BT_SUPPORTED;SOC_WIFI_SUPPORTED;F_CPU=240000000L;ARDUINO=10607;ARDUINO_ESP32_DEV;ARDUINO_ARCH_ESP32;ARDUINO_BOARD="ESP32_DEV";ARDUINO_VARIANT="esp32";ARDUINO_PARTITION_huge_app;ARDUINO_HOST_OS="windows";ARDUINO_FQBN="esp32:esp32:esp32:UploadSpeed=921600,CPUFreq=240,FlashFreq=80,FlashMode=qio,FlashSize=4M,PartitionScheme=huge_app,DebugLevel=verbose,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default";ESP32=ESP32;CORE_DEBUG_LEVEL=5;ARDUINO_RUNNING_CORE=1;ARDUINO_EVENT_RUNNING_CORE=1;ARDUINO_USB_CDC_ON_BOOT=0;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;NDEBUG;U8X8_USE_PINS;SOC_BT_SUPPORTED;SOC_WIFI_SUPPORTED;F_CPU=240000000L;ARDUINO=10607;ARDUINO_ESP32_DEV;ARDUINO_ARCH_ESP32;ARDUINO_BOARD=\"ESP32_DEV\";ARDUINO_VARIANT=\"esp32\";ARDUINO_PARTITION_huge_app;ARDUINO_HOST_OS=\"windows\";ARDUINO_FQBN=\"esp32:esp32:esp32:UploadSpeed=921600,CPUFreq=240,FlashFreq=80,FlashMode=qio,FlashSize=4M,PartitionScheme=huge_app,DebugLevel=verbose,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default\";ESP32=ESP32;CORE_DEBUG_LEVEL=5;ARDUINO_RUNNING_CORE=1;ARDUINO_EVENT_RUNNING_CORE=1;ARDUINO_USB_CDC_ON_BOOT=0;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\Arduino\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\Arduino\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -180,27 +191,31 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\Arduino\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) -std=c++17</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>
       </ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
       <UseFullPaths>false</UseFullPaths>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);NDEBUG;U8X8_USE_PINS;SOC_BT_SUPPORTED;SOC_WIFI_SUPPORTED;F_CPU=240000000L;ARDUINO=10607;ARDUINO_ESP32_DEV;ARDUINO_ARCH_ESP32;ARDUINO_BOARD="ESP32_DEV";ARDUINO_VARIANT="esp32";ARDUINO_PARTITION_huge_app;ARDUINO_HOST_OS="windows";ARDUINO_FQBN="esp32:esp32:esp32:UploadSpeed=921600,CPUFreq=240,FlashFreq=80,FlashMode=qio,FlashSize=4M,PartitionScheme=huge_app,DebugLevel=verbose,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default";ESP32=ESP32;CORE_DEBUG_LEVEL=5;ARDUINO_RUNNING_CORE=1;ARDUINO_EVENT_RUNNING_CORE=1;ARDUINO_USB_CDC_ON_BOOT=0;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;NDEBUG;U8X8_USE_PINS;SOC_BT_SUPPORTED;SOC_WIFI_SUPPORTED;F_CPU=240000000L;ARDUINO=10607;ARDUINO_ESP32_DEV;ARDUINO_ARCH_ESP32;ARDUINO_BOARD=\"ESP32_DEV\";ARDUINO_VARIANT=\"esp32\";ARDUINO_PARTITION_huge_app;ARDUINO_HOST_OS=\"windows\";ARDUINO_FQBN=\"esp32:esp32:esp32:UploadSpeed=921600,CPUFreq=240,FlashFreq=80,FlashMode=qio,FlashSize=4M,PartitionScheme=huge_app,DebugLevel=verbose,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default\";ESP32=ESP32;CORE_DEBUG_LEVEL=5;ARDUINO_RUNNING_CORE=1;ARDUINO_EVENT_RUNNING_CORE=1;ARDUINO_USB_CDC_ON_BOOT=0;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\Arduino\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\Ruslan\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\Arduino\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SD\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\FS\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\SPI\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\libraries\WiFi\src;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\cores\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.2.0\variants\esp32;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\soc\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include\esp_wifi\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\include;C:\Users\User\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.4-2f7dcd86-v1\esp32\qio_qspi\include;C:\Dev\RadioChat\RadioChat\src;c:\Dev\Arduino\libraries\U8g2\src;c:\Dev\Arduino\libraries\nlohmann-json\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -212,11 +227,11 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Dev\Arduino\RadioChat\CMakeLists.txt">
+    <CustomBuild Include="C:\Dev\RadioChat\CMakeLists.txt">
       <UseUtf8Encoding>Always</UseUtf8Encoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Dev/Arduino/RadioChat/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Dev/RadioChat/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Dev/Arduino/RadioChat -BC:/Dev/Arduino/RadioChat/msvc --check-stamp-file C:/Dev/Arduino/RadioChat/msvc/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Dev/RadioChat -BC:/Dev/RadioChat/msvc --check-stamp-file C:/Dev/RadioChat/msvc/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -224,12 +239,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\Arduino\RadioChat\esp32_toolchain.cmake;C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\3.27.6\CMakeCCompiler.cmake;C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\3.27.6\CMakeCXXCompiler.cmake;C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\3.27.6\CMakeRCCompiler.cmake;C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\3.27.6\CMakeSystem.cmake;C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\cmake.verify_globs;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\RadioChat\esp32_toolchain.cmake;C:\Dev\RadioChat\msvc\CMakeFiles\3.30.2\CMakeCCompiler.cmake;C:\Dev\RadioChat\msvc\CMakeFiles\3.30.2\CMakeCXXCompiler.cmake;C:\Dev\RadioChat\msvc\CMakeFiles\3.30.2\CMakeRCCompiler.cmake;C:\Dev\RadioChat\msvc\CMakeFiles\3.30.2\CMakeSystem.cmake;C:\Dev\RadioChat\msvc\CMakeFiles\cmake.verify_globs;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\RadioChat\msvc\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Dev/Arduino/RadioChat/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Dev/RadioChat/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Dev/Arduino/RadioChat -BC:/Dev/Arduino/RadioChat/msvc --check-stamp-file C:/Dev/Arduino/RadioChat/msvc/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Dev/RadioChat -BC:/Dev/RadioChat/msvc --check-stamp-file C:/Dev/RadioChat/msvc/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -237,12 +252,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\Arduino\RadioChat\esp32_toolchain.cmake;C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\3.27.6\CMakeCCompiler.cmake;C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\3.27.6\CMakeCXXCompiler.cmake;C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\3.27.6\CMakeRCCompiler.cmake;C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\3.27.6\CMakeSystem.cmake;C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\cmake.verify_globs;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\RadioChat\esp32_toolchain.cmake;C:\Dev\RadioChat\msvc\CMakeFiles\3.30.2\CMakeCCompiler.cmake;C:\Dev\RadioChat\msvc\CMakeFiles\3.30.2\CMakeCXXCompiler.cmake;C:\Dev\RadioChat\msvc\CMakeFiles\3.30.2\CMakeRCCompiler.cmake;C:\Dev\RadioChat\msvc\CMakeFiles\3.30.2\CMakeSystem.cmake;C:\Dev\RadioChat\msvc\CMakeFiles\cmake.verify_globs;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\RadioChat\msvc\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Dev/Arduino/RadioChat/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Dev/RadioChat/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Dev/Arduino/RadioChat -BC:/Dev/Arduino/RadioChat/msvc --check-stamp-file C:/Dev/Arduino/RadioChat/msvc/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Dev/RadioChat -BC:/Dev/RadioChat/msvc --check-stamp-file C:/Dev/RadioChat/msvc/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -250,12 +265,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Dev\Arduino\RadioChat\esp32_toolchain.cmake;C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\3.27.6\CMakeCCompiler.cmake;C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\3.27.6\CMakeCXXCompiler.cmake;C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\3.27.6\CMakeRCCompiler.cmake;C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\3.27.6\CMakeSystem.cmake;C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\cmake.verify_globs;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Dev\RadioChat\esp32_toolchain.cmake;C:\Dev\RadioChat\msvc\CMakeFiles\3.30.2\CMakeCCompiler.cmake;C:\Dev\RadioChat\msvc\CMakeFiles\3.30.2\CMakeCXXCompiler.cmake;C:\Dev\RadioChat\msvc\CMakeFiles\3.30.2\CMakeRCCompiler.cmake;C:\Dev\RadioChat\msvc\CMakeFiles\3.30.2\CMakeSystem.cmake;C:\Dev\RadioChat\msvc\CMakeFiles\cmake.verify_globs;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Dev\RadioChat\msvc\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Dev/Arduino/RadioChat/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Dev/RadioChat/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Dev/Arduino/RadioChat -BC:/Dev/Arduino/RadioChat/msvc --check-stamp-file C:/Dev/Arduino/RadioChat/msvc/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Dev/RadioChat -BC:/Dev/RadioChat/msvc --check-stamp-file C:/Dev/RadioChat/msvc/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -263,131 +278,142 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Dev\Arduino\RadioChat\esp32_toolchain.cmake;C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\3.27.6\CMakeCCompiler.cmake;C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\3.27.6\CMakeCXXCompiler.cmake;C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\3.27.6\CMakeRCCompiler.cmake;C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\3.27.6\CMakeSystem.cmake;C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\cmake.verify_globs;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Dev\Arduino\RadioChat\msvc\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Dev\RadioChat\esp32_toolchain.cmake;C:\Dev\RadioChat\msvc\CMakeFiles\3.30.2\CMakeCCompiler.cmake;C:\Dev\RadioChat\msvc\CMakeFiles\3.30.2\CMakeCXXCompiler.cmake;C:\Dev\RadioChat\msvc\CMakeFiles\3.30.2\CMakeRCCompiler.cmake;C:\Dev\RadioChat\msvc\CMakeFiles\3.30.2\CMakeSystem.cmake;C:\Dev\RadioChat\msvc\CMakeFiles\cmake.verify_globs;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Dev\RadioChat\msvc\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Battery\Battery.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Battery\Battery.h" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Battery\BatterySettings.h" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Configuration.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Contacts\ContactsManger.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Contacts\ContactsManger.h" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Contacts\ContactsSettings.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Display\Display.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Display\Display.h" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Display\DisplaySettings.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Esp\Esp.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Esp\Esp.h" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Esp\EspSettings.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Flash\Flash.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Flash\Flash.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyCommand.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyCommand.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyHandler.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyHandler.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyMapBase.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyMapBase.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyMapEng.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyMapEng.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyMapRus.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyMapRus.h" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyState.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\Keyboard.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\Keyboard.h" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyboardSettings.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\Language.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\Language.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Led\LedIndicator.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Led\LedIndicator.h" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Led\LedSettings.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Logger\LogTraceLevel.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Logger\LogTraceLevel.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Logger\Logger.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Logger\Logger.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageAcceptMessage.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageAcceptMessage.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageBase.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageBase.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageDeliveryMessage.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageDeliveryMessage.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageEditProperty.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageEditProperty.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageKeyboardCommand.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageKeyboardCommand.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessagePingDone.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessagePingDone.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowPage.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowPage.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowProperties.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowProperties.h" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageType.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageTypingChar.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageTypingChar.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageTypingMessage.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageTypingMessage.h" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\SafeQeue.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Radio\Lora.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Radio\Lora.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Radio\Radio.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Radio\Radio.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Radio\RadioCommand.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Radio\RadioCommand.h" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Radio\RadioSettings.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\RadioChat.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\RadioChat.h" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\ScopeGuard.h" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\EnumOption.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\Property.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\Property.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\PropertySection.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\PropertySection.h" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\PropertyType.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\Settings.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\Settings.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\SettingsReader.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\SettingsReader.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\SettingsWriter.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\SettingsWriter.h" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\ValueType.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Sound\Melody.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Sound\Melody.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Sound\Sound.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Sound\Sound.h" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Sound\SoundSettings.h" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Sound\pitches.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\BaseMenu.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\BaseMenu.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UI.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UI.h" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIContext.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageBase.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageBase.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageChatSelect.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageChatSelect.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageEditProperty.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageEditProperty.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageIncomingMessage.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageIncomingMessage.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageMain.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageMain.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPagePropertyList.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPagePropertyList.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageSettingsSelect.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageSettingsSelect.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageType.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageType.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageTypingMessage.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageTypingMessage.h" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UISettings.h" />
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Utils.cpp" />
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Utils.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Battery\Battery.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Battery\Battery.h" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Battery\BatterySettings.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Chat\ChatManager.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Chat\ChatManager.h" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Chat\ChatMessage.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Chat\MessageStatus.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Chat\MessageStatus.h" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Configuration.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Contacts\ContactsManger.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Contacts\ContactsManger.h" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Contacts\ContactsSettings.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Display\Display.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Display\Display.h" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Display\DisplaySettings.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Esp\Esp.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Esp\Esp.h" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Esp\EspSettings.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Flash\Flash.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Flash\Flash.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyCommand.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyCommand.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyHandler.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyHandler.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyMapBase.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyMapBase.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyMapEng.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyMapEng.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyMapRus.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyMapRus.h" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyState.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\Keyboard.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\Keyboard.h" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyboardSettings.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\Language.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\Language.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Led\LedIndicator.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Led\LedIndicator.h" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Led\LedSettings.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Logger\LogTraceLevel.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Logger\LogTraceLevel.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Logger\Logger.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Logger\Logger.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageAcceptMessage.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageAcceptMessage.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageBase.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageBase.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageDeliveryMessage.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageDeliveryMessage.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageEditProperty.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageEditProperty.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageKeyboardCommand.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageKeyboardCommand.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessagePingDone.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessagePingDone.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowChatContact.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowChatContact.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowPage.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowPage.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowProperties.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowProperties.h" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageType.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageTypingChar.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageTypingChar.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageTypingMessage.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageTypingMessage.h" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\SafeQeue.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Radio\Lora.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Radio\Lora.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Radio\Radio.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Radio\Radio.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Radio\RadioCommand.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Radio\RadioCommand.h" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Radio\RadioSettings.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\RadioChat.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\RadioChat.h" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\ScopeGuard.h" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Settings\EnumOption.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Settings\Property.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Settings\Property.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Settings\PropertySection.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Settings\PropertySection.h" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Settings\PropertyType.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Settings\Settings.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Settings\Settings.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Settings\SettingsReader.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Settings\SettingsReader.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Settings\SettingsWriter.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Settings\SettingsWriter.h" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Settings\ValueType.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Sound\Melody.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Sound\Melody.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Sound\Sound.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Sound\Sound.h" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Sound\SoundSettings.h" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Sound\pitches.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\BaseMenu.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\BaseMenu.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UI.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UI.h" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIContext.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageBase.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageBase.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatContact.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatContact.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatSelect.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatSelect.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatShared.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatShared.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageEditProperty.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageEditProperty.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageIncomingMessage.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageIncomingMessage.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageMain.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageMain.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPagePropertyList.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPagePropertyList.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageSettingsSelect.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageSettingsSelect.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageType.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageType.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageTypingMessage.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageTypingMessage.h" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UISettings.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Utils.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:\Dev\Arduino\RadioChat\msvc\ZERO_CHECK.vcxproj">
-      <Project>{F259E412-F1B2-34BD-9275-080C5FB07A2E}</Project>
+    <ProjectReference Include="C:\Dev\RadioChat\msvc\ZERO_CHECK.vcxproj">
+      <Project>{F4F569A3-A390-387B-A60A-93E0CE3B108D}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

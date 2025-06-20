@@ -22,10 +22,11 @@ UIPageChatSelect::~UIPageChatSelect() = default;
 void UIPageChatSelect::onItemClick(uint8_t itemIndex)
 {
     if (itemIndex == 0) { // Shared chat
-        ctx_->showPageTypingMessage(BROADCAST_ADDRESS);
+        ctx_->showPageChatContact(BROADCAST_ADDRESS);
     }
     else if (itemIndex == 1) { // New contact
     }
-    else if (itemIndex > 2) { // Contact
+    else if (itemIndex > 1) { // Contact
+        ctx_->showPageChatContact(std::stoul(getItemValue(itemIndex)));
     }
 }

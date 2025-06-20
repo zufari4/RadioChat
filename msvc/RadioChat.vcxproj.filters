@@ -1,363 +1,396 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Battery\Battery.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Battery\Battery.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Contacts\ContactsManger.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Chat\ChatManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Display\Display.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Chat\MessageStatus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Esp\Esp.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Contacts\ContactsManger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Flash\Flash.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Display\Display.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyCommand.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Esp\Esp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyHandler.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Flash\Flash.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyMapBase.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyMapEng.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyMapRus.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyMapBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\Keyboard.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyMapEng.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\Language.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyMapRus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Led\LedIndicator.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\Keyboard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Logger\LogTraceLevel.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\Language.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Logger\Logger.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Led\LedIndicator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageAcceptMessage.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Logger\LogTraceLevel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageBase.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Logger\Logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageDeliveryMessage.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageAcceptMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageEditProperty.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageKeyboardCommand.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageDeliveryMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessagePingDone.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageEditProperty.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowPage.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageKeyboardCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowProperties.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessagePingDone.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageTypingChar.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowChatContact.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageTypingMessage.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowPage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Radio\Lora.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowProperties.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Radio\Radio.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageTypingChar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Radio\RadioCommand.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageTypingMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\RadioChat.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Radio\Lora.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\Property.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Radio\Radio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\PropertySection.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Radio\RadioCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\Settings.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\RadioChat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\SettingsReader.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Settings\Property.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\SettingsWriter.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Settings\PropertySection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Sound\Melody.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Settings\Settings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Sound\Sound.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Settings\SettingsReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\BaseMenu.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Settings\SettingsWriter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UI.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Sound\Melody.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageBase.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Sound\Sound.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageChatSelect.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\BaseMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageEditProperty.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageIncomingMessage.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageMain.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatContact.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPagePropertyList.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatSelect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageSettingsSelect.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatShared.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageType.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageEditProperty.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageTypingMessage.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageIncomingMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Utils.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPagePropertyList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageSettingsSelect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageType.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageTypingMessage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Battery\Battery.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Battery\Battery.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Battery\BatterySettings.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Battery\BatterySettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Configuration.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Chat\ChatManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Contacts\ContactsManger.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Chat\ChatMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Contacts\ContactsSettings.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Chat\MessageStatus.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Display\Display.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Configuration.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Display\DisplaySettings.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Contacts\ContactsManger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Esp\Esp.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Contacts\ContactsSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Esp\EspSettings.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Display\Display.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Flash\Flash.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Display\DisplaySettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyCommand.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Esp\Esp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyHandler.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Esp\EspSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyMapBase.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Flash\Flash.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyMapEng.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyMapRus.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyState.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyMapBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\Keyboard.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyMapEng.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\KeyboardSettings.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyMapRus.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Keyboard\Language.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Led\LedIndicator.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\Keyboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Led\LedSettings.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\KeyboardSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Logger\LogTraceLevel.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Keyboard\Language.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Logger\Logger.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Led\LedIndicator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageAcceptMessage.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Led\LedSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageBase.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Logger\LogTraceLevel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageDeliveryMessage.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Logger\Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageEditProperty.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageAcceptMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageKeyboardCommand.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessagePingDone.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageDeliveryMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowPage.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageEditProperty.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowProperties.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageKeyboardCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageType.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessagePingDone.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageTypingChar.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowChatContact.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\QueueMessageTypingMessage.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowPage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\QueueMessage\SafeQeue.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowProperties.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Radio\Lora.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Radio\Radio.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageTypingChar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Radio\RadioCommand.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageTypingMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Radio\RadioSettings.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\SafeQeue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\RadioChat.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Radio\Lora.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\ScopeGuard.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Radio\Radio.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\EnumOption.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Radio\RadioCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\Property.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Radio\RadioSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\PropertySection.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\RadioChat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\PropertyType.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\ScopeGuard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\Settings.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Settings\EnumOption.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\SettingsReader.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Settings\Property.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\SettingsWriter.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Settings\PropertySection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Settings\ValueType.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Settings\PropertyType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Sound\Melody.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Settings\Settings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Sound\Sound.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Settings\SettingsReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Sound\SoundSettings.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Settings\SettingsWriter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Sound\pitches.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Settings\ValueType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\BaseMenu.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Sound\Melody.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UI.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Sound\Sound.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIContext.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Sound\SoundSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageBase.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Sound\pitches.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageChatSelect.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\BaseMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageEditProperty.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageIncomingMessage.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIContext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageMain.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPagePropertyList.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatContact.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageSettingsSelect.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatSelect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageType.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatShared.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UIPageTypingMessage.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageEditProperty.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\UI\UISettings.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageIncomingMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\Arduino\RadioChat\RadioChat\src\Utils.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageMain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPagePropertyList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageSettingsSelect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageTypingMessage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UISettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Dev\Arduino\RadioChat\CMakeLists.txt" />
+    <CustomBuild Include="C:\Dev\RadioChat\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{623899C4-2460-30F6-B0E5-E09E09B2AC8C}</UniqueIdentifier>
+      <UniqueIdentifier>{1EF0B8D4-6DFD-3553-A1E6-DAAAE4F4BD5A}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{21B1BFE7-234C-347D-9754-8B7EF53D8E65}</UniqueIdentifier>
+      <UniqueIdentifier>{E6AE92B1-BD70-3DA7-99B6-C63972B5C675}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

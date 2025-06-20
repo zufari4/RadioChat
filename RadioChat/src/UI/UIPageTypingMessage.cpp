@@ -4,6 +4,8 @@
 #include "../Display/Display.h"
 #include "../Logger/Logger.h"
 #include "../Radio/Radio.h"
+#include "../Radio/Lora.h"
+#include "../Chat/ChatManager.h"
 
 UIPageTypingMessage::UIPageTypingMessage(UIPageType parent, const UIContext* context)
     : UIPageBase(UIPageType::TypingMessage, parent, context)
@@ -96,8 +98,10 @@ void UIPageTypingMessage::onKeyCommand(KeyCommand cmd)
         if (message.empty()) {
             return;
         }
+        uint16_t selfAddress = ctx_->radio->getSettings().selfAddress;
+        ctx_->chatManager->storeMessage(selfAddress, address_, message, MessageStatus::Sended);
         ctx_->radio->sendText(message, address_);
-        resetMessage();
+        ctx_->showPageChatContact(address_);
         break;
     }
     default: 

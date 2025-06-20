@@ -244,3 +244,93 @@ void Flash::remove(const std::string& filename)
         LOG_DBG("File not found (%s)", filename.c_str());
     }
 }
+
+std::vector<std::string> Flash::readLastNLines(const std::string& filename, uint32_t start, uint32_t n) 
+{
+    std::lock_guard<std::recursive_mutex> lock(fsMutex_);
+    LOG_DBG("Read last %u lines from file %s, starting from line %u", n, filename.c_str(), start);
+    std::vector<std::string> lines;
+
+    // Check if file exists
+    if (!SD.exists(filename.c_str())) {
+        LOG_ERR("File %s not found", filename.c_str());
+        return lines;
+    }
+
+    File file = SD.open(filename.c_str(), FILE_READ);
+    if (!file) {
+        LOG_ERR("Failed to open file %s for reading", filename.c_str());
+        return lines;
+    }
+
+    // Get file size
+    size_t fileSize = file.size();
+    if (fileSize == 0) {
+        file.close();
+        return lines;
+    }
+
+    // Buffer for reading chunks
+    const size_t BUFFER_SIZE = 256;  // Adjust based on available RAM
+    char buffer[BUFFER_SIZE];
+
+    // Variables for line assembly
+    std::string currentLine = "";
+    size_t readPosition = fileSize;
+    bool isFirstChunk = true;
+    uint32_t linesSkipped = 0;
+
+    // Read backwards and collect lines
+    while (readPosition > 0 && (lines.size() < n || linesSkipped < start)) {
+        // Calculate how many bytes to read
+        size_t bytesToRead = (readPosition > BUFFER_SIZE) ? BUFFER_SIZE : readPosition;
+        readPosition -= bytesToRead;
+
+        // Seek to position and read
+        file.seek(readPosition);
+        file.read((uint8_t*)buffer, bytesToRead);
+
+        // Process buffer from end to beginning
+        for (int32_t i = bytesToRead - 1; i >= 0 && (lines.size() < n || linesSkipped < start); i--) {
+            char c = buffer[i];
+
+            if (c == '\n') {
+                // Skip empty lines at the very end of file
+                if (!currentLine.empty() || !isFirstChunk) {
+                    // Check if we need to skip this line
+                    if (linesSkipped < start) {
+                        linesSkipped++;
+                        currentLine.clear();
+                    }
+                    else {
+                        // Reverse the accumulated line (since we read backwards)
+                        std::reverse(currentLine.begin(), currentLine.end());
+                        lines.push_back(currentLine);
+                        currentLine.clear();
+                    }
+                }
+            }
+            else if (c != '\r') {
+                // Build line backwards
+                currentLine += c;
+            }
+        }
+
+        isFirstChunk = false;
+    }
+    file.close();
+
+    // Add any remaining line (first line of the selection that might not end with \n)
+    if (!currentLine.empty() && linesSkipped >= start && lines.size() < n) {
+        std::reverse(currentLine.begin(), currentLine.end());
+        lines.push_back(currentLine);
+    }
+
+    // If we have more than n lines (shouldn't happen with our logic), trim
+    while (lines.size() > n) {
+        lines.pop_back();
+    }
+
+    std::reverse(lines.begin(), lines.end());
+    return lines;
+}

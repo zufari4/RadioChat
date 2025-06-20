@@ -20,6 +20,7 @@ public:
     PropertyMap battery();
     PropertyMap contacts();
     PropertyMap ui();
+    PropertyMap chat();
 
     static int64_t get_i(PropertyType type, const PropertyMap& props);
     static float get_f(PropertyType type, const PropertyMap& props);
@@ -30,6 +31,7 @@ public:
     void saveDefaultSettings();
 
 private:
+    void setProps(SettingsWriter& opt, const std::vector<Property>& options);
     void setProp(SettingsWriter& opt, const Property& option);
     PropertyMap read(const std::vector<Property>& defProps);
     bool validatePropertyValue(const Property& prop) const;
@@ -44,6 +46,7 @@ private:
     std::vector<Property> getBatteryDefaultProperties();
     std::vector<Property> getContactsDefaultProperties();
     std::vector<Property> getUiDefaultProperties();
+    std::vector<Property> getChatDefaultProperties();
 
     static EnumOption getLogTraceLevelOptions();
     static EnumOption getLangOptions();

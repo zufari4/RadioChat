@@ -11,4 +11,5 @@ enum class QueueMessageType
     TypingMessage,
     ShowProperties,
     EditProperty,
+    ShowChatContact,
 };

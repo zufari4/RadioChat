@@ -2,6 +2,8 @@
 #include "UIPageMain.h"
 #include "UIPageIncomingMessage.h"
 #include "UIPageChatSelect.h"
+#include "UIPageChatShared.h"
+#include "UIPageChatContact.h"
 #include "UIPageTypingMessage.h"
 #include "UIPageSettingsSelect.h"
 #include "UIPagePropertyList.h"
@@ -9,6 +11,8 @@
 #include "../Logger/Logger.h"
 #include "../Display/Display.h"
 #include "../Settings/Settings.h"
+#include "../Radio/Lora.h"
+#include "../Chat/ChatManager.h"
 
 UI::UI() = default;
 UI::~UI() = default;
@@ -44,14 +48,13 @@ void UI::onKeyCommand(KeyCommand cmd)
     currentPage_->onKeyCommand(cmd);
 }
 
-void UI::showIncomingMessage(const std::string &message, uint16_t address)
+void UI::onIncomingMessage(const std::string &message, uint16_t senderAddress, uint16_t destAddress)
 {
-    auto page = createPage(UIPageType::IncomingMessage);
-    if (page) {
-        auto pageIncomingMessage = static_cast<UIPageIncomingMessage*>(page.get());
-        pageIncomingMessage->setMessage(message, address);
-        setCurrentPage(std::move(page));
-    }
+     std::lock_guard guard(pageMutex_);
+     if (currentPage_->getType() == UIPageType::ChatShared && destAddress == BROADCAST_ADDRESS) {
+         auto chatPage = static_cast<UIPageChatShared*>(currentPage_.get());
+         chatPage->onIncomingMessage(message, senderAddress);
+     }
 }
 
 void UI::showTypingMessage(uint16_t destinationAddress)
@@ -84,6 +87,20 @@ void UI::showEditProperty(const Property& prop)
     }
 }
 
+void UI::showChatContact(uint16_t address)
+{
+    bool isBroadcast = (address == BROADCAST_ADDRESS);
+    auto page = createPage(isBroadcast ? UIPageType::ChatShared : UIPageType::ChatContact);
+    if (page) {
+        if (!isBroadcast) {
+            // For non-broadcast chats, we need to set the address
+            auto pageChatContact = static_cast<UIPageChatContact*>(page.get());
+            pageChatContact->setAddress(address);
+        }
+        setCurrentPage(std::move(page));
+    }
+}
+
 void UI::setCurrentPage(UIPageType pageType)
 {
     std::unique_ptr<UIPageBase> page = createPage(pageType);
@@ -107,12 +124,17 @@ std::unique_ptr<UIPageBase> UI::createPage(UIPageType pageType)
     case UIPageType::Main:
         newPage = std::make_unique<UIPageMain>(&ctx_);
         break;
-    case UIPageType::IncomingMessage: {
+    case UIPageType::IncomingMessage:
         newPage = std::make_unique<UIPageIncomingMessage>(UIPageType::Main, &ctx_);
         break;
-    }
     case UIPageType::ChatSelect:
         newPage = std::make_unique<UIPageChatSelect>(UIPageType::Main, &ctx_);
+        break;
+    case UIPageType::ChatShared:
+        newPage = std::make_unique<UIPageChatShared>(UIPageType::ChatSelect, &ctx_);
+        break;
+    case UIPageType::ChatContact:
+        newPage = std::make_unique<UIPageChatContact>(UIPageType::ChatSelect, &ctx_);
         break;
     case UIPageType::TypingMessage:
         newPage = std::make_unique<UIPageTypingMessage>(UIPageType::ChatSelect, &ctx_);

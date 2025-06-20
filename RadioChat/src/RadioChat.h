@@ -21,6 +21,7 @@ class Sound;
 class Battery;
 class ContactsManager;
 class QueueMessageBase;
+class ChatManager;
 enum class KeyCommand;
 
 
@@ -39,13 +40,14 @@ private:
     void checkQueue();
     void pushTypingChar(uint16_t code);
     void pushKeyboardCommand(KeyCommand cmd);
-    void pushAcceptMessage(uint16_t sender, uint8_t msgID, const std::string& text);
+    void pushAcceptMessage(uint16_t sender, uint16_t dest, uint8_t msgID, const std::string& text);
     void pushDeliveryMessage(uint16_t address, uint8_t msgID);
     void pushPingDone(uint16_t address, uint32_t delay);
     void pushShowPage(UIPageType pageType);
     void pushShowPageTypingMessage(uint16_t address);
     void pushShowPagePropertyList(const PropertyMap& properties);
-    void pushShowPageChooseOption(const Property& prop);
+    void pushShowPageEditProperty(const Property& prop);
+    void pushShowPageChatContact(uint16_t address);
 
     Settings*     settings_;
     Esp*          esp_;
@@ -57,6 +59,7 @@ private:
     Battery*      battery_;
     UI*           ui_;
     ContactsManager* contactsManager_;
+    ChatManager* chatManager_;
     SafeQueue<MessagePtr> messageQueue_;
     std::thread   svcThread_;
 };

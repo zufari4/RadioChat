@@ -16,6 +16,7 @@ enum class PropertySection
     Radio,
     Sound,
     UI,
+    Chat
 };
 
 std::string_view propSectionToStr(PropertySection section);

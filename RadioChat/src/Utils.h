@@ -18,4 +18,5 @@ const char* to_str(bool val);
 std::string bits2str(uint8_t val);
 // Function to split a UTF-8 string into a vector of strings with a maximum length
 std::vector<std::string> splitUtf8String(const std::string& input, size_t maxLength);
+std::vector<std::string> split(const std::string& str, char delimiter = '\t');
 }

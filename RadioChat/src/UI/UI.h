@@ -18,10 +18,11 @@ public:
     void draw();
     void onChar(uint16_t symbol);
     void onKeyCommand(KeyCommand cmd);
-    void showIncomingMessage(const std::string& message, uint16_t address);
+    void onIncomingMessage(const std::string& message, uint16_t senderAddress, uint16_t destAddress);
     void showTypingMessage(uint16_t destinationAddress);
     void showPropertyList(const PropertyMap& properties);
     void showEditProperty(const Property& prop);
+    void showChatContact(uint16_t address);
     void setCurrentPage(UIPageType pageType);
 
 private:

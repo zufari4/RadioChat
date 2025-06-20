@@ -5,6 +5,8 @@ enum class UIPageType
     None,
     Main,
     ChatSelect,
+    ChatShared,
+    ChatContact,
     TypingMessage,
     Statistics,
     Monitoring,

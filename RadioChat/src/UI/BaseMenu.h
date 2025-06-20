@@ -37,6 +37,7 @@ protected:
     void addItemSimple(std::string_view caption);
     void setItemValue(uint8_t index, std::string_view value);
     void selectItem(uint8_t index);
+    const std::string& getItemValue(uint8_t index) const;
     virtual void onItemClick(uint8_t itemIndex);
     static std::string_view bool_str(bool val);
     static bool str_bool(std::string_view str);

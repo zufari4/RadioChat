@@ -1,8 +1,8 @@
 #pragma once
 
 #define DEBUG_MODE 0
-#define FIRMWARE_VERSION 0x0001
-#define DEVICE_ADDRESS 2
+#define FIRMWARE_VERSION 0x0002
+#define DEVICE_ADDRESS 1
 #define SERIAL_SPEED 9600
 #define SERIAL_INIT_DELAY 1000
 #define STORAGE_DIR "/radio_chat"

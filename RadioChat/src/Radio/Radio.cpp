@@ -140,6 +140,8 @@ bool Radio::setConfiguration(std::function<void(Lora::Configuration& cfg)> sette
     bool res = false;
 
     do {
+        std::lock_guard guard(mutexSerial_);
+
         if (!setMode(Lora::Mode::Configuration)) {
             break;
         }
@@ -237,6 +239,11 @@ bool Radio::waitReady()
 
 void Radio::check()
 {
+    if (!isInit_) {
+        return;
+    }
+    std::lock_guard guard(mutexSerial_);
+
     if (!Serial2.available()) {
         return;
     }
@@ -244,6 +251,7 @@ void Radio::check()
     uint8_t sender_addh;
     uint8_t sender_addl;
     RadioCommand cmd;
+    uint8_t isBroadcast = 0;
 
     if (!readData(&sender_addh, 1, false)) {
         LOG_ERR("Radio: Can't read sender_addh");
@@ -257,6 +265,12 @@ void Radio::check()
     uint16_t sender = Lora::get_address(sender_addh, sender_addl);
     LOG_DBG("Radio: Sender address %u", sender);
 
+    if (!readData(&isBroadcast, 1, false)) {
+        LOG_ERR("Radio: Can't read broadcast flag");
+        return;
+    }
+    LOG_DBG("Radio: broadcast flag: %u", isBroadcast);
+
     if (!readData(&cmd, 1, false)) {
         LOG_ERR("Radio: Can't read cmd");
         return;
@@ -269,8 +283,13 @@ void Radio::check()
         std::string text;
         uint8_t msgID = receiveText(text);
         if (msgID > 0) {
-            sendDelivered(sender, msgID);
-            onNewMessage_(sender, msgID, text);
+            if (isBroadcast == 0) {
+                sendDelivered(sender, msgID);
+            }
+            if (onNewMessage_) {
+                uint16_t destAddress = isBroadcast == 1 ? BROADCAST_ADDRESS : settings_.selfAddress;
+                onNewMessage_(sender, destAddress, msgID, text);
+            }
         }
         break;
     }
@@ -425,11 +444,14 @@ void Radio::addHeader(std::vector<uint8_t>& out, uint16_t destAddr, RadioCommand
 
     out.push_back(Lora::get_addr_h(settings_.selfAddress));
     out.push_back(Lora::get_addr_l(settings_.selfAddress));
+    out.push_back(destAddr == BROADCAST_ADDRESS ? 1 : 0);
     out.push_back(static_cast<uint8_t>(command));
 }
 
 bool Radio::ping(uint16_t addr, uint32_t& delay)
 {
+    std::lock_guard guard(mutexSerial_);
+
     if (!sendPing(addr)) {
         return false;
     }
@@ -441,15 +463,18 @@ uint8_t Radio::sendText(const std::string& text, uint16_t destAddr /*= BROADCAST
 {
     uint16_t textSize = static_cast<uint16_t>(text.size());
     LOG_INF("Send text '%s' to %u. Size %u", text.c_str(), destAddr, textSize);
+    std::lock_guard guard(mutexSerial_);
+
     // 1: byte dest ADDH
     // 2: byte dest ADDL
     // 3: byte CHAN
 
     // 4: byte sender ADDH
     // 5: byte sender ADDL
-    // 6: byte cmd
+    // 6: broadcast flag
+    // 7: byte cmd
 
-    // 7: byte msg_id
+    // 8: byte msg_id
     // 9: byte msg_len
     // byte message[msg_len];
     std::vector<uint8_t> data;
@@ -551,6 +576,7 @@ void Radio::sendPingDelivered(uint16_t sender)
 
     // byte sender ADDH
     // byte sender ADDL
+    // byte isBroadcast // 0 - not broadcast, 1 - broadcast
     // byte cmd
 
     std::vector<uint8_t> data;
@@ -606,6 +632,11 @@ uint8_t Radio::getMaxMessageSize() const
     }
 
     return subPacketSize - 9 /*header for text*/;
+}
+
+const RadioSettings& Radio::getSettings() const
+{
+    return settings_;
 }
 
 void Radio::loadSettings(Settings& settings)

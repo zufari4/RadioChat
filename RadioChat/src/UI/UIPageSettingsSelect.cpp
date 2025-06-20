@@ -1,6 +1,7 @@
 #include "UIPageSettingsSelect.h"
 #include "UIContext.h"
 #include "../Settings/Settings.h"
+#include "../Chat/ChatManager.h"
 
 UIPageSettingsSelect::UIPageSettingsSelect(UIPageType parent, const UIContext* context)
     : BaseMenu(UIPageType::SettingsSelect, parent, context)
@@ -16,6 +17,7 @@ UIPageSettingsSelect::UIPageSettingsSelect(UIPageType parent, const UIContext* c
     addItemSimple("Аккумулятор");
     addItemSimple("Контакты");
     addItemSimple("Сброс настроек");
+    addItemSimple("Очистить общий чат");
 }
 
 UIPageSettingsSelect::~UIPageSettingsSelect() = default;
@@ -54,6 +56,10 @@ void UIPageSettingsSelect::onItemClick(uint8_t itemIndex)
     }
     else if (itemIndex == 10) {
         ctx_->settings->saveDefaultSettings();
+        ctx_->setCurrentPage(parent_);
+    }
+    else if (itemIndex == 11) {
+        ctx_->chatManager->clearSharedChat();
         ctx_->setCurrentPage(parent_);
     }
 }

@@ -1,8 +1,9 @@
 #include "QueueMessageAcceptMessage.h"
 
-QueueMessageAcceptMessage::QueueMessageAcceptMessage(uint16_t sender, uint8_t msgID, const std::string& text)
+QueueMessageAcceptMessage::QueueMessageAcceptMessage(uint16_t sender, uint16_t dest, uint8_t msgID, const std::string& text)
     : QueueMessageBase(QueueMessageType::AcceptMessage)
-    , address_(sender)
+    , senderAddress_(sender)
+    , destAddress_(dest)
     , id_(msgID)
     , msg_(text)
 {
@@ -12,9 +13,14 @@ QueueMessageAcceptMessage::~QueueMessageAcceptMessage()
 {
 }
 
-uint16_t QueueMessageAcceptMessage::getAddress() const
+uint16_t QueueMessageAcceptMessage::getSenderAddress() const
 {
-    return address_;
+    return senderAddress_;
+}
+
+uint16_t QueueMessageAcceptMessage::getDestAddress() const
+{
+    return destAddress_;
 }
 
 std::string QueueMessageAcceptMessage::getMessage() const

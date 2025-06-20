@@ -16,6 +16,7 @@ std::string_view propSectionToStr(PropertySection section)
     case PropertySection::Radio:    return "Radio";
     case PropertySection::Sound:    return "Sound";
     case PropertySection::UI:       return "UI";
+    case PropertySection::Chat:     return "Chat";
     default:                        return "Unknown";
     }
 }

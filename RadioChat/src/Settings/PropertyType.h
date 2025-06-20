@@ -73,4 +73,7 @@ enum PropertyType : uint8_t
     eUITextHeight,
     eUITextCarriageChar,
     eUITextCarriageShowTime,
+    // Chat
+    eChatPath,
+    eChatSharedFilename,
 };
