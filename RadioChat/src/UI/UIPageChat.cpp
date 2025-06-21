@@ -4,6 +4,7 @@
 #include "../Display/Display.h"
 #include "../Radio/Radio.h"
 #include "../Utils.h"
+#include <algorithm>
 
 UIPageChat::UIPageChat(UIPageType parent, const UIContext* context)
     : UIPageBase(UIPageType::Chat, parent, context)
@@ -113,12 +114,13 @@ void UIPageChat::onIncomingMessage(const std::string& message, uint16_t senderAd
         return; // Ignore messages not for the current chat
     }
 
+    ContactList contacts = ctx_->contactsManager->getContacts();
     ChatMessage msg;
     msg.address = senderAddress;
     msg.msg = message;
     msg.status = MessageStatus::New;
     msg.timestamp = std::time(nullptr);
-    auto fmtMsg = formatMessage(msg);
+    auto fmtMsg = formatMessage(msg, contacts);
 
     {
         std::lock_guard g(mutexMsg_);
@@ -146,10 +148,12 @@ void UIPageChat::init(uint16_t destAddress)
 UIPageChat::MessageList UIPageChat::loadMessages(uint16_t startMsgIndex, uint16_t destAddress, uint16_t maxCountMessages)
 {
     auto messages = ctx_->chatManager->getMessages(destAddress, startMsgIndex, maxCountMessages);
+    auto contacts = ctx_->contactsManager->getContacts();
+
     MessageList res;
 
     for (const auto& msg : messages) {
-        auto fmtMsg = formatMessage(msg);
+        auto fmtMsg = formatMessage(msg, contacts);
         res.totalCountLines += (uint16_t)fmtMsg.size();
         res.list.push_back(std::move(fmtMsg));
     }
@@ -157,7 +161,7 @@ UIPageChat::MessageList UIPageChat::loadMessages(uint16_t startMsgIndex, uint16_
     return res;
 }
 
-UIPageChat::FormatedMessage UIPageChat::formatMessage(const ChatMessage& srcMsg)
+UIPageChat::FormatedMessage UIPageChat::formatMessage(const ChatMessage& srcMsg, const ContactList& contacts)
 {
     FormatedMessage msg;
     
@@ -172,8 +176,10 @@ UIPageChat::FormatedMessage UIPageChat::formatMessage(const ChatMessage& srcMsg)
         contactName = "Я";
     }
     else {
-        auto contact = ctx_->contactsManager->getContact(srcMsg.address);
-        contactName = contact.name.empty() ? std::to_string(srcMsg.address) : contact.name;
+        auto it = std::find_if(contacts.begin(), contacts.end(),
+            [&srcMsg](const Contact& c) { return c.address == srcMsg.address; });
+        std::string findedContactName = it != contacts.end() ? it->name : "";
+        contactName = findedContactName.empty() ? std::to_string(srcMsg.address) : findedContactName;
     }
     std::string text = contactName + ":" + srcMsg.msg;
     msg = utils::splitUtf8String(text, ctx_->maxLineChars);

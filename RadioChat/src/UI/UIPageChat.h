@@ -2,6 +2,7 @@
 
 #include "UIPageBase.h"
 #include "../Chat/ChatMessage.h"
+#include "../Contacts/ContactsManger.h"
 #include <mutex>
 #include <vector>
 #include <tuple>
@@ -25,7 +26,7 @@ private:
         uint16_t totalCountLines = 0;
     };
     MessageList loadMessages(uint16_t startMsgIndex, uint16_t destAddress, uint16_t maxCountMessages);
-    FormatedMessage formatMessage(const ChatMessage& srcMsg);
+    FormatedMessage formatMessage(const ChatMessage& srcMsg, const ContactList& contacts);
     void handleScrollDown();
     void handleScrollUp();
 
