@@ -6,15 +6,16 @@
 #include <vector>
 #include <tuple>
 
-class UIPageChatShared : public UIPageBase
+class UIPageChat : public UIPageBase
 {
 public:
-    UIPageChatShared(UIPageType parent, const UIContext* context);
-    ~UIPageChatShared();
+    UIPageChat(UIPageType parent, const UIContext* context);
+    ~UIPageChat();
     
     void draw() override;
     void onKeyCommand(KeyCommand cmd) override;
-    void onIncomingMessage(const std::string& message, uint16_t address);
+    void onIncomingMessage(const std::string& message, uint16_t senderAddress, uint16_t destAddress);
+    void init(uint16_t destAddress);
 
 private:
     using FormatedMessage = std::vector<std::string>;
@@ -23,7 +24,7 @@ private:
         tdMessages list;
         uint16_t totalCountLines = 0;
     };
-    MessageList loadMessages(uint16_t startMsgIndex);
+    MessageList loadMessages(uint16_t startMsgIndex, uint16_t destAddress, uint16_t maxCountMessages);
     FormatedMessage formatMessage(const ChatMessage& srcMsg);
     void handleScrollDown();
     void handleScrollUp();
@@ -35,4 +36,6 @@ private:
     bool canLoadPrevMsg_;
     bool canLoadNextMsg_;
     const uint16_t maxCountMessages_;
+    uint16_t destAddress_;
+    const uint16_t selfAddress_;
 };

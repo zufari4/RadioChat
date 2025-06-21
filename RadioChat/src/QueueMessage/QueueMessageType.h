@@ -12,4 +12,6 @@ enum class QueueMessageType
     ShowProperties,
     EditProperty,
     ShowChatContact,
+    ShowContactActions,
+    ShowPagePing,
 };

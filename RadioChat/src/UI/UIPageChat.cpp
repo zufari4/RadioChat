@@ -1,26 +1,25 @@
-#include "UIPageChatShared.h"
+#include "UIPageChat.h"
 #include "../Chat/ChatManager.h"
+#include "../Contacts/ContactsManger.h"
 #include "../Display/Display.h"
-#include "../Radio/Lora.h"
+#include "../Radio/Radio.h"
 #include "../Utils.h"
 
-UIPageChatShared::UIPageChatShared(UIPageType parent, const UIContext* context)
-    : UIPageBase(UIPageType::ChatShared, parent, context)
+UIPageChat::UIPageChat(UIPageType parent, const UIContext* context)
+    : UIPageBase(UIPageType::Chat, parent, context)
     , lastMsgIndex_(0)
     , lineOffset_(0)
-    , canLoadNextMsg_(true)
     , canLoadPrevMsg_(true)
+    , canLoadNextMsg_(true)
     , maxCountMessages_(context->maxCountLines)
+    , destAddress_(BROADCAST_ADDRESS)
+    , selfAddress_(ctx_->radio->getSettings().selfAddress)
 {
-    std::lock_guard g(mutexMsg_);
-    messages_ = loadMessages(lastMsgIndex_);
-    canLoadNextMsg_ = messages_.list.size() >= maxCountMessages_;
-    canLoadPrevMsg_ = lastMsgIndex_ > 0;
 }
 
-UIPageChatShared::~UIPageChatShared() = default;
+UIPageChat::~UIPageChat() = default;
 
-void UIPageChatShared::draw()
+void UIPageChat::draw()
 {
     std::lock_guard g(mutexMsg_);
 
@@ -51,10 +50,10 @@ void UIPageChatShared::draw()
     }
 }
 
-void UIPageChatShared::onKeyCommand(KeyCommand cmd)
+void UIPageChat::onKeyCommand(KeyCommand cmd)
 {
     if (cmd == KeyCommand::Enter) {
-        ctx_->showPageTypingMessage(BROADCAST_ADDRESS);
+        ctx_->showPageTypingMessage(UIPageType::Chat, TypingMessageAction::SendMessage, destAddress_);
     }
     else if (cmd == KeyCommand::Down) {
         handleScrollDown();
@@ -67,7 +66,7 @@ void UIPageChatShared::onKeyCommand(KeyCommand cmd)
     }
 }
 
-void UIPageChatShared::handleScrollDown()
+void UIPageChat::handleScrollDown()
 {
     std::lock_guard g(mutexMsg_);
 
@@ -77,7 +76,7 @@ void UIPageChatShared::handleScrollDown()
     else if (canLoadNextMsg_ && lastMsgIndex_ > 0) {
         lastMsgIndex_--;
         auto oldTotalLines = messages_.totalCountLines;
-        messages_ = loadMessages(lastMsgIndex_);
+        messages_ = loadMessages(lastMsgIndex_, destAddress_, maxCountMessages_);
 
         if (messages_.totalCountLines > oldTotalLines) {
             lineOffset_ += messages_.totalCountLines - oldTotalLines;
@@ -88,7 +87,7 @@ void UIPageChatShared::handleScrollDown()
     }
 }
 
-void UIPageChatShared::handleScrollUp()
+void UIPageChat::handleScrollUp()
 {
     std::lock_guard g(mutexMsg_);
 
@@ -97,7 +96,7 @@ void UIPageChatShared::handleScrollUp()
     }
     else if (canLoadPrevMsg_) {
         lastMsgIndex_++;
-        messages_ = loadMessages(lastMsgIndex_);
+        messages_ = loadMessages(lastMsgIndex_, destAddress_, maxCountMessages_);
 
         lineOffset_ = 0;
 
@@ -106,10 +105,16 @@ void UIPageChatShared::handleScrollUp()
     }
 }
 
-void UIPageChatShared::onIncomingMessage(const std::string& message, uint16_t address)
+void UIPageChat::onIncomingMessage(const std::string& message, uint16_t senderAddress, uint16_t destAddress)
 {
+    bool isForMe = destAddress == selfAddress_;
+    uint16_t cmpAddress = isForMe ? senderAddress : destAddress;
+    if (cmpAddress != destAddress_) {
+        return; // Ignore messages not for the current chat
+    }
+
     ChatMessage msg;
-    msg.address = address;
+    msg.address = senderAddress;
     msg.msg = message;
     msg.status = MessageStatus::New;
     msg.timestamp = std::time(nullptr);
@@ -128,9 +133,19 @@ void UIPageChatShared::onIncomingMessage(const std::string& message, uint16_t ad
     }
 }
 
-UIPageChatShared::MessageList UIPageChatShared::loadMessages(uint16_t startMsgIndex)
+void UIPageChat::init(uint16_t destAddress)
 {
-    auto messages = ctx_->chatManager->getMessages(BROADCAST_ADDRESS, startMsgIndex, maxCountMessages_);
+    std::lock_guard g(mutexMsg_);
+    destAddress_ = destAddress;
+    lastMsgIndex_ = 0;   
+    messages_ = loadMessages(lastMsgIndex_, destAddress, maxCountMessages_);
+    canLoadNextMsg_ = messages_.list.size() >= maxCountMessages_;
+    canLoadPrevMsg_ = lastMsgIndex_ > 0;
+}
+
+UIPageChat::MessageList UIPageChat::loadMessages(uint16_t startMsgIndex, uint16_t destAddress, uint16_t maxCountMessages)
+{
+    auto messages = ctx_->chatManager->getMessages(destAddress, startMsgIndex, maxCountMessages);
     MessageList res;
 
     for (const auto& msg : messages) {
@@ -142,10 +157,25 @@ UIPageChatShared::MessageList UIPageChatShared::loadMessages(uint16_t startMsgIn
     return res;
 }
 
-UIPageChatShared::FormatedMessage UIPageChatShared::formatMessage(const ChatMessage& srcMsg)
+UIPageChat::FormatedMessage UIPageChat::formatMessage(const ChatMessage& srcMsg)
 {
     FormatedMessage msg;
-    std::string text = std::to_string(srcMsg.address) + ": " + srcMsg.msg;
+    
+    std::string contactName;
+    if (srcMsg.address == BROADCAST_ADDRESS) {
+        contactName = "Широковещательная";
+    }
+    else if (srcMsg.address == 0) {
+        contactName = "Неизвестный";
+    }
+    else if (srcMsg.address == selfAddress_) {
+        contactName = "Я";
+    }
+    else {
+        auto contact = ctx_->contactsManager->getContact(srcMsg.address);
+        contactName = contact.name.empty() ? std::to_string(srcMsg.address) : contact.name;
+    }
+    std::string text = contactName + ":" + srcMsg.msg;
     msg = utils::splitUtf8String(text, ctx_->maxLineChars);
 
     return msg;

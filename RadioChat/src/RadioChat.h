@@ -6,6 +6,7 @@
 #include <atomic>
 #include <memory>
 #include "UI/UIPageType.h"
+#include "UI/TypingMessageAction.h"
 #include "QueueMessage/SafeQeue.h"
 #include "Settings/Property.h"
 
@@ -23,7 +24,6 @@ class ContactsManager;
 class QueueMessageBase;
 class ChatManager;
 enum class KeyCommand;
-
 
 class RadioChat
 {
@@ -44,10 +44,12 @@ private:
     void pushDeliveryMessage(uint16_t address, uint8_t msgID);
     void pushPingDone(uint16_t address, uint32_t delay);
     void pushShowPage(UIPageType pageType);
-    void pushShowPageTypingMessage(uint16_t address);
+    void pushShowPageTypingMessage(UIPageType parent, TypingMessageAction action, uint16_t address);
     void pushShowPagePropertyList(const PropertyMap& properties);
     void pushShowPageEditProperty(const Property& prop);
     void pushShowPageChatContact(uint16_t address);
+    void pushShowPageContactActions(uint16_t address);
+    void pushShowPagePing(uint16_t address);
 
     Settings*     settings_;
     Esp*          esp_;

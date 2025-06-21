@@ -87,11 +87,13 @@
       </ExceptionHandling>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <MinimalRebuild></MinimalRebuild>
+      <MinimalRebuild>
+      </MinimalRebuild>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <SupportJustMyCode></SupportJustMyCode>
+      <SupportJustMyCode>
+      </SupportJustMyCode>
       <UseFullPaths>false</UseFullPaths>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);U8X8_USE_PINS;SOC_BT_SUPPORTED;SOC_WIFI_SUPPORTED;F_CPU=240000000L;ARDUINO=10607;ARDUINO_ESP32_DEV;ARDUINO_ARCH_ESP32;ARDUINO_BOARD="ESP32_DEV";ARDUINO_VARIANT="esp32";ARDUINO_PARTITION_huge_app;ARDUINO_HOST_OS="windows";ARDUINO_FQBN="esp32:esp32:esp32:UploadSpeed=921600,CPUFreq=240,FlashFreq=80,FlashMode=qio,FlashSize=4M,PartitionScheme=huge_app,DebugLevel=verbose,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default";ESP32=ESP32;CORE_DEBUG_LEVEL=5;ARDUINO_RUNNING_CORE=1;ARDUINO_EVENT_RUNNING_CORE=1;ARDUINO_USB_CDC_ON_BOOT=0;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
@@ -123,11 +125,13 @@
       </ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <MinimalRebuild></MinimalRebuild>
+      <MinimalRebuild>
+      </MinimalRebuild>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <SupportJustMyCode></SupportJustMyCode>
+      <SupportJustMyCode>
+      </SupportJustMyCode>
       <UseFullPaths>false</UseFullPaths>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);NDEBUG;U8X8_USE_PINS;SOC_BT_SUPPORTED;SOC_WIFI_SUPPORTED;F_CPU=240000000L;ARDUINO=10607;ARDUINO_ESP32_DEV;ARDUINO_ARCH_ESP32;ARDUINO_BOARD="ESP32_DEV";ARDUINO_VARIANT="esp32";ARDUINO_PARTITION_huge_app;ARDUINO_HOST_OS="windows";ARDUINO_FQBN="esp32:esp32:esp32:UploadSpeed=921600,CPUFreq=240,FlashFreq=80,FlashMode=qio,FlashSize=4M,PartitionScheme=huge_app,DebugLevel=verbose,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default";ESP32=ESP32;CORE_DEBUG_LEVEL=5;ARDUINO_RUNNING_CORE=1;ARDUINO_EVENT_RUNNING_CORE=1;ARDUINO_USB_CDC_ON_BOOT=0;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
@@ -161,11 +165,13 @@
       </ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <MinimalRebuild></MinimalRebuild>
+      <MinimalRebuild>
+      </MinimalRebuild>
       <Optimization>MinSpace</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <SupportJustMyCode></SupportJustMyCode>
+      <SupportJustMyCode>
+      </SupportJustMyCode>
       <UseFullPaths>false</UseFullPaths>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);NDEBUG;U8X8_USE_PINS;SOC_BT_SUPPORTED;SOC_WIFI_SUPPORTED;F_CPU=240000000L;ARDUINO=10607;ARDUINO_ESP32_DEV;ARDUINO_ARCH_ESP32;ARDUINO_BOARD="ESP32_DEV";ARDUINO_VARIANT="esp32";ARDUINO_PARTITION_huge_app;ARDUINO_HOST_OS="windows";ARDUINO_FQBN="esp32:esp32:esp32:UploadSpeed=921600,CPUFreq=240,FlashFreq=80,FlashMode=qio,FlashSize=4M,PartitionScheme=huge_app,DebugLevel=verbose,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default";ESP32=ESP32;CORE_DEBUG_LEVEL=5;ARDUINO_RUNNING_CORE=1;ARDUINO_EVENT_RUNNING_CORE=1;ARDUINO_USB_CDC_ON_BOOT=0;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
@@ -200,11 +206,13 @@
       </ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <MinimalRebuild></MinimalRebuild>
+      <MinimalRebuild>
+      </MinimalRebuild>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <SupportJustMyCode></SupportJustMyCode>
+      <SupportJustMyCode>
+      </SupportJustMyCode>
       <UseFullPaths>false</UseFullPaths>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);NDEBUG;U8X8_USE_PINS;SOC_BT_SUPPORTED;SOC_WIFI_SUPPORTED;F_CPU=240000000L;ARDUINO=10607;ARDUINO_ESP32_DEV;ARDUINO_ARCH_ESP32;ARDUINO_BOARD="ESP32_DEV";ARDUINO_VARIANT="esp32";ARDUINO_PARTITION_huge_app;ARDUINO_HOST_OS="windows";ARDUINO_FQBN="esp32:esp32:esp32:UploadSpeed=921600,CPUFreq=240,FlashFreq=80,FlashMode=qio,FlashSize=4M,PartitionScheme=huge_app,DebugLevel=verbose,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default";ESP32=ESP32;CORE_DEBUG_LEVEL=5;ARDUINO_RUNNING_CORE=1;ARDUINO_EVENT_RUNNING_CORE=1;ARDUINO_USB_CDC_ON_BOOT=0;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
@@ -341,8 +349,12 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessagePingDone.h" />
     <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowChatContact.cpp" />
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowChatContact.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowContactActions.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowContactActions.h" />
     <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowPage.cpp" />
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowPage.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowPing.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowPing.h" />
     <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowProperties.cpp" />
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowProperties.h" />
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageType.h" />
@@ -382,6 +394,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\Sound\pitches.h" />
     <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\BaseMenu.cpp" />
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\BaseMenu.h" />
+    <ClInclude Include="..\RadioChat\src\UI\TypingMessageAction.h" />
     <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UI.cpp" />
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UI.h" />
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIContext.h" />
@@ -391,14 +404,20 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatContact.h" />
     <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatSelect.cpp" />
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatSelect.h" />
-    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatShared.cpp" />
-    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatShared.h" />
+    <ClCompile Include="..\RadioChat\src\UI\UIPageChat.cpp" />
+    <ClInclude Include="..\RadioChat\src\UI\UIPageChat.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageContactActions.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageContactActions.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageContacts.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageContacts.h" />
     <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageEditProperty.cpp" />
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageEditProperty.h" />
     <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageIncomingMessage.cpp" />
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageIncomingMessage.h" />
     <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageMain.cpp" />
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageMain.h" />
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPagePing.cpp" />
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPagePing.h" />
     <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPagePropertyList.cpp" />
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPagePropertyList.h" />
     <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageSettingsSelect.cpp" />

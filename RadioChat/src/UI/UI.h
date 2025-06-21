@@ -1,6 +1,7 @@
 #pragma once
 
 #include "UIContext.h"
+#include "TypingMessageAction.h"
 #include "../Keyboard/KeyCommand.h"
 #include "../Settings/Property.h"
 #include <memory>
@@ -19,10 +20,12 @@ public:
     void onChar(uint16_t symbol);
     void onKeyCommand(KeyCommand cmd);
     void onIncomingMessage(const std::string& message, uint16_t senderAddress, uint16_t destAddress);
-    void showTypingMessage(uint16_t destinationAddress);
+    void showTypingMessage(UIPageType parent, TypingMessageAction action, uint16_t destinationAddress);
     void showPropertyList(const PropertyMap& properties);
     void showEditProperty(const Property& prop);
     void showChatContact(uint16_t address);
+    void showContactActions(uint16_t address);
+    void showPing(uint16_t address);
     void setCurrentPage(UIPageType pageType);
 
 private:

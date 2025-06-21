@@ -17,6 +17,7 @@ public:
     virtual void onChar(uint16_t symbol);
     virtual void onKeyCommand(KeyCommand cmd);
     UIPageType getType() const;
+    void setParent(UIPageType parent);
 
 protected:
     void showParentPage();

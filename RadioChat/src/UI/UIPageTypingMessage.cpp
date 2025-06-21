@@ -6,10 +6,12 @@
 #include "../Radio/Radio.h"
 #include "../Radio/Lora.h"
 #include "../Chat/ChatManager.h"
+#include "../Contacts/ContactsManger.h"
 
 UIPageTypingMessage::UIPageTypingMessage(UIPageType parent, const UIContext* context)
     : UIPageBase(UIPageType::TypingMessage, parent, context)
     , address_(0)
+    , action_(TypingMessageAction::None)
     , carriageChar_(context->uiSettings.carriageChar)
     , carriageVisible_(false)
     , carriageShowTime_(context->uiSettings.carriageShowTime)
@@ -94,14 +96,18 @@ void UIPageTypingMessage::onKeyCommand(KeyCommand cmd)
         break;
     }
     case KeyCommand::Enter: {
-        std::string message = getFullMessage();
-        if (message.empty()) {
-            return;
+        if (action_ == TypingMessageAction::AddContact) {
+            storeContact();
         }
-        uint16_t selfAddress = ctx_->radio->getSettings().selfAddress;
-        ctx_->chatManager->storeMessage(selfAddress, address_, message, MessageStatus::Sended);
-        ctx_->radio->sendText(message, address_);
-        ctx_->showPageChatContact(address_);
+        else if (action_ == TypingMessageAction::EditContact) {
+            editContact();
+        }
+        else if (action_ == TypingMessageAction::SendMessage) {
+            sendMessage();
+        }
+        else {
+            LOG_ERR("Unknown action type: %d", static_cast<int>(action_));
+        }
         break;
     }
     default: 
@@ -127,11 +133,81 @@ std::string UIPageTypingMessage::getFullMessage()
 
 void UIPageTypingMessage::setAddress(uint16_t address)
 {
+    LOG_DBG("Set address: %u", address);
     address_ = address;
+}
+
+void UIPageTypingMessage::setAction(TypingMessageAction action)
+{
+    LOG_DBG("Set action: %d", static_cast<int>(action));
+    action_ = action;
+    if (action_ == TypingMessageAction::EditContact) {
+        auto contact = ctx_->contactsManager->getContact(address_);
+        if (!contact.name.empty() && contact.address != 0) {
+            auto line = ctx_->contactsManager->stringify(contact);
+            std::lock_guard guard(msgMutex_);
+            typingMessage_ = utils::splitUtf8String(line, ctx_->maxLineChars);
+        }
+    }
 }
 
 void UIPageTypingMessage::resetMessage()
 {
     std::lock_guard guard(msgMutex_);
     typingMessage_ = { "" };
+}
+
+void UIPageTypingMessage::sendMessage()
+{
+    std::string message = getFullMessage();
+    if (message.empty()) {
+        return;
+    }
+    uint16_t selfAddress = ctx_->radio->getSettings().selfAddress;
+    ctx_->chatManager->storeMessage(selfAddress, address_, message, MessageStatus::Sended);
+    ctx_->radio->sendText(message, address_);
+    ctx_->showPageChatContact(address_);
+}
+
+void UIPageTypingMessage::storeContact()
+{
+    std::string text = getFullMessage();
+    if (text.empty()) {
+        return;
+    }
+    auto parts = utils::split(text, ' ');
+    if (parts.size() < 2) {
+        LOG_ERR("Invalid contact format. Use: <address> <name>");
+        return;
+    }
+    uint16_t address = std::stoul(parts[0]);
+    std::string name = parts[1];
+    if (address == 0 || name.empty()) {
+        LOG_ERR("Invalid contact data. Address: %u, Name: '%s'", address, name.c_str());
+        return;
+    }
+    ctx_->contactsManager->addContact(address, name);
+    ctx_->setCurrentPage(UIPageType::Contacts);
+}
+
+void UIPageTypingMessage::editContact()
+{
+    std::string text = getFullMessage();
+    if (text.empty()) {
+        return;
+    }
+    auto parts = utils::split(text, ' ');
+    if (parts.size() < 2) {
+        LOG_ERR("Invalid contact format. Use: <address> <name>");
+        return;
+    }
+    uint16_t address = std::stoul(parts[0]);
+    std::string name = parts[1];
+    if (address == 0 || name.empty()) {
+        LOG_ERR("Invalid contact data. Address: %u, Name: '%s'", address, name.c_str());
+        return;
+    }
+    ctx_->contactsManager->editContact(address, name);
+    ctx_->setCurrentPage(UIPageType::Contacts);
+
 }

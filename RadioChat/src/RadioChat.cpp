@@ -23,6 +23,8 @@
 #include "QueueMessage/QueueMessageShowProperties.h"
 #include "QueueMessage/QueueMessageEditProperty.h"
 #include "QueueMessage/QueueMessageShowChatContact.h"
+#include "QueueMessage/QueueMessageShowContactActions.h"
+#include "QueueMessage/QueueMessageShowPing.h"
 #include <Arduino.h>
 #include <stdexcept>
 
@@ -109,10 +111,12 @@ void RadioChat::init()
         ui_ = new UI();
         UIContext uiContext(display_, settings_, battery_, radio_, contactsManager_, chatManager_, 0, 0, 0,
             std::bind(&RadioChat::pushShowPage, this, _1),
-            std::bind(&RadioChat::pushShowPageTypingMessage, this, _1),
+            std::bind(&RadioChat::pushShowPageTypingMessage, this, _1, _2, _3),
             std::bind(&RadioChat::pushShowPagePropertyList, this, _1),
             std::bind(&RadioChat::pushShowPageEditProperty, this, _1),
-            std::bind(&RadioChat::pushShowPageChatContact, this, _1)
+            std::bind(&RadioChat::pushShowPageChatContact, this, _1),
+            std::bind(&RadioChat::pushShowPageContactActions, this, _1),
+            std::bind(&RadioChat::pushShowPagePing, this, _1)
         );
         ui_->init(uiContext);
     }
@@ -191,7 +195,7 @@ void RadioChat::checkQueue()
     }
     case QueueMessageType::TypingMessage: {
         auto m = static_cast<QueueMessageTypingMessage*>(msg.get());
-        ui_->showTypingMessage(m->getAddress());
+        ui_->showTypingMessage(m->getParentPage(), m->getAction(), m->getAddress());
         break;
     }
     case QueueMessageType::ShowProperties: {
@@ -207,6 +211,16 @@ void RadioChat::checkQueue()
     case QueueMessageType::ShowChatContact: {
         auto m = static_cast<QueueMessageShowChatContact*>(msg.get());
         ui_->showChatContact(m->getAddress());
+        break;
+    }
+    case QueueMessageType::ShowContactActions: {
+        auto m = static_cast<QueueMessageShowContactActions*>(msg.get());
+        ui_->showContactActions(m->getAddress());
+        break;
+    }
+    case QueueMessageType::ShowPagePing: {
+        auto m = static_cast<QueueMessageShowPing*>(msg.get());
+        ui_->showPing(m->getAddress());
         break;
     }
     default:
@@ -251,9 +265,9 @@ void RadioChat::pushShowPage(UIPageType pageType)
     messageQueue_.enqueue(std::move(msg));
 }
 
-void RadioChat::pushShowPageTypingMessage(uint16_t address)
+void RadioChat::pushShowPageTypingMessage(UIPageType parent, TypingMessageAction action, uint16_t address)
 {
-    auto msg = std::make_unique<QueueMessageTypingMessage>(address);
+    auto msg = std::make_unique<QueueMessageTypingMessage>(parent, action, address);
     messageQueue_.enqueue(std::move(msg));
 }
 
@@ -273,5 +287,17 @@ void RadioChat::pushShowPageEditProperty(const Property& prop)
 void RadioChat::pushShowPageChatContact(uint16_t address)
 {
     auto msg = std::make_unique<QueueMessageShowChatContact>(address);
+    messageQueue_.enqueue(std::move(msg));
+}
+
+void RadioChat::pushShowPageContactActions(uint16_t address)
+{
+    auto msg = std::make_unique<QueueMessageShowContactActions>(address);
+    messageQueue_.enqueue(std::move(msg));
+}
+
+void RadioChat::pushShowPagePing(uint16_t address)
+{
+    auto msg = std::make_unique<QueueMessageShowPing>(address);
     messageQueue_.enqueue(std::move(msg));
 }

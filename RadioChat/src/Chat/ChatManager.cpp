@@ -13,9 +13,15 @@ ChatManager::~ChatManager() = default;
 void ChatManager::init(Settings& settings)
 {
     LOG_INF("-- Initializing ChatManager --");
-    auto props = settings.chat();
-    path_ = settings.get_s(PropertyType::eChatPath, props);
-    sharedFileName_ = settings.get_s(PropertyType::eChatSharedFilename, props);
+    {
+        auto props = settings.chat();
+        path_ = settings.get_s(PropertyType::eChatPath, props);
+        sharedFileName_ = settings.get_s(PropertyType::eChatSharedFilename, props);
+    }
+    {
+        auto radioProps = settings.radio();
+        selfAddress_ = settings.get_i(PropertyType::eRadioSelfAddress, radioProps);
+    }
     FLASH.mkdir(STORAGE_DIR + std::string("/") + path_);
 }
 
@@ -37,7 +43,11 @@ std::vector<ChatMessage> ChatManager::getMessages(uint16_t address, uint32_t sta
 
 void ChatManager::storeMessage(uint16_t senderAddress, uint16_t destAddress, const std::string& msg, MessageStatus status)
 {
-    std::string filename = getChatFileName(destAddress);
+    bool isForMe = destAddress == selfAddress_;
+    uint16_t storeAddress = isForMe ? senderAddress : destAddress;
+    std::string filename = getChatFileName(storeAddress);
+    LOG_DBG("Store message from %u to %u: '%s' with status %d file %s", senderAddress, destAddress, msg.c_str(), static_cast<int>(status), filename.c_str());
+
     std::vector<char> buffer(512);
     snprintf(buffer.data(), buffer.size(), "%u\t%s\t%u\t%llu\n", senderAddress, msg.c_str(), static_cast<uint8_t>(status), std::time(nullptr));
     if (!FLASH.append(filename, buffer.data())) {

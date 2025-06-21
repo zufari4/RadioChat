@@ -29,7 +29,7 @@ public:
     bool setAirDataRate(uint8_t rate);
 
     uint8_t sendText(const std::string& text, uint16_t address = BROADCAST_ADDRESS);
-    bool ping(uint16_t addr, uint32_t& delay);
+    bool ping(uint16_t addr);
     uint8_t getMaxMessageSize() const; // max size of text message in bytes
     const RadioSettings& getSettings() const;
 
@@ -58,6 +58,5 @@ private:
     OnNewMessageCallback onNewMessage_;
     OnMessageDeliveryCallback onMessageDelivered_;
     OnPingDone onPingDone_;
-    std::map<uint16_t, uint32_t> startPing_;
     std::mutex mutexSerial_;
 };

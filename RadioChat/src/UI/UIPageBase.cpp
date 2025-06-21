@@ -25,6 +25,11 @@ UIPageType UIPageBase::getType() const
     return type_;
 }
 
+void UIPageBase::setParent(UIPageType parent)
+{
+    parent_ = parent;
+}
+
 void UIPageBase::showParentPage()
 {
     if (parent_ != UIPageType::None) {

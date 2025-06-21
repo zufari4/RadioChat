@@ -2,6 +2,7 @@
 
 #include "UISettings.h"
 #include "UIPageType.h"
+#include "TypingMessageAction.h"
 #include "../Settings/Property.h"
 #include <functional>
 #include <memory>
@@ -17,10 +18,12 @@ class ChatManager;
 struct UIContext
 {
     using SetCurrentPageFunc = std::function<void(UIPageType)>;
-    using ShowPageTypingMessageFunc = std::function<void(uint16_t)>;
+    using ShowPageTypingMessageFunc = std::function<void(UIPageType, TypingMessageAction, uint16_t)>;
     using ShowPageChatContact = std::function<void(uint16_t)>;
     using ShowPagePropertyList = std::function<void(const PropertyMap& properties)>;
     using ShowPageEditProperty = std::function<void(const Property& property)>;
+    using ShowPageContactActions = std::function<void(uint16_t)>;
+    using ShowPagePing = std::function<void(uint16_t)>;
 
     UISettings uiSettings;
     Display*   display  = nullptr;
@@ -37,6 +40,8 @@ struct UIContext
     ShowPagePropertyList showPagePropertyList;
     ShowPageEditProperty showPageEditProperty;
     ShowPageChatContact showPageChatContact;
+    ShowPageContactActions showPageContactActions;
+    ShowPageContactActions showPagePing;
 
     UIContext()
         : uiSettings{}, display(nullptr), settings(nullptr), battery(nullptr), radio(nullptr)
@@ -46,11 +51,11 @@ struct UIContext
     UIContext(Display* _display, Settings* _settings, Battery* _battery, Radio* _radio,
         ContactsManager* _contactsManager, ChatManager* _chatManager, uint8_t _maxStrLen, uint8_t _textHeight, uint8_t _maxCountLines,
         SetCurrentPageFunc _setCurrentPage, ShowPageTypingMessageFunc _showPageTypingMessage,
-        ShowPagePropertyList _showPagePropertyList, ShowPageEditProperty _showPageEditProperty, ShowPageChatContact _showPageChatContact)
+        ShowPagePropertyList _showPagePropertyList, ShowPageEditProperty _showPageEditProperty, ShowPageChatContact _showPageChatContact, ShowPageContactActions _showPageContactActions, ShowPagePing _showPagePing)
         : display(_display), settings(_settings), battery(_battery), radio(_radio)
         , contactsManager(_contactsManager), chatManager(_chatManager), maxLineChars(_maxStrLen), textHeight(_textHeight), maxCountLines(_maxCountLines)
         , setCurrentPage(_setCurrentPage), showPageTypingMessage(_showPageTypingMessage),
-        showPagePropertyList(_showPagePropertyList), showPageEditProperty(_showPageEditProperty), showPageChatContact(_showPageChatContact)
+        showPagePropertyList(_showPagePropertyList), showPageEditProperty(_showPageEditProperty), showPageChatContact(_showPageChatContact), showPageContactActions(_showPageContactActions), showPagePing(_showPagePing)
     {
     }
 };

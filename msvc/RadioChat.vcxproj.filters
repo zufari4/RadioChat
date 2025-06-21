@@ -73,7 +73,13 @@
     <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowChatContact.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowContactActions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowPage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowPing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowProperties.cpp">
@@ -133,7 +139,13 @@
     <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatSelect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatShared.cpp">
+    <ClCompile Include="..\RadioChat\src\UI\UIPageChat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageContactActions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageContacts.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageEditProperty.cpp">
@@ -143,6 +155,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPagePing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPagePropertyList.cpp">
@@ -261,7 +276,13 @@
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowChatContact.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowContactActions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowPage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowPing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\QueueMessage\QueueMessageShowProperties.h">
@@ -336,6 +357,9 @@
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\BaseMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\RadioChat\src\UI\TypingMessageAction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -351,7 +375,13 @@
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatSelect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatShared.h">
+    <ClInclude Include="..\RadioChat\src\UI\UIPageChat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageContactActions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageContacts.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageEditProperty.h">
@@ -361,6 +391,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageMain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPagePing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPagePropertyList.h">

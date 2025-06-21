@@ -20,4 +20,5 @@ private:
 
     std::string path_;
     std::string sharedFileName_;
+    uint16_t selfAddress_;
 };

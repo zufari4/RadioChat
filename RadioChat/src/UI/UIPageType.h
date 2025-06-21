@@ -5,17 +5,18 @@ enum class UIPageType
     None,
     Main,
     ChatSelect,
-    ChatShared,
-    ChatContact,
+    Chat,
     TypingMessage,
     Statistics,
     Monitoring,
     IncomingMessage,
     Contacts,
+    ContactActions,
     Logs,
     SettingsSelect,
     PropertyList,
     EditProperty,
+    Ping,
 };
 
 const char* uiPageTypeToStr(UIPageType type);

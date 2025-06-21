@@ -1,6 +1,7 @@
 #pragma once
 
 #include "UIPageBase.h"
+#include "TypingMessageAction.h"
 #include <vector>
 #include <chrono>
 #include <mutex>
@@ -15,13 +16,18 @@ public:
     void onChar(uint16_t symbol) override;
     void onKeyCommand(KeyCommand cmd) override;
     void setAddress(uint16_t address);
+    void setAction(TypingMessageAction action);
 
 private:
     std::string getFullMessage();
     void resetMessage();
+    void sendMessage();
+    void storeContact();
+    void editContact();
 
     using Clock = std::chrono::steady_clock;
     uint16_t address_;
+    TypingMessageAction action_;
     std::vector<std::string> typingMessage_;
     char carriageChar_;
     bool carriageVisible_;

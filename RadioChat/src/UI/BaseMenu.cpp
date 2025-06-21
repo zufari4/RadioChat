@@ -2,6 +2,8 @@
 #include "../Display/Display.h"
 #include "../Logger/Logger.h"
 
+static const std::string emptyStr;
+
 BaseMenu::BaseMenu(UIPageType type, UIPageType parent, const UIContext* context)
     : UIPageBase(type, parent, context)
     , offset_(0)
@@ -119,6 +121,13 @@ const std::string& BaseMenu::getItemValue(uint8_t index) const
     if (index < items_.size()) {
         return items_[index].value;
     }
-    static const std::string emptyStr;
+    return emptyStr;
+}
+
+const std::string& BaseMenu::getItemCaption(uint8_t index) const
+{
+    if (index < items_.size()) {
+        return items_[index].caption;
+    }
     return emptyStr;
 }

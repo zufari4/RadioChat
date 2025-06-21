@@ -182,6 +182,8 @@ bool Radio::setConfiguration(std::function<void(Lora::Configuration& cfg)> sette
 bool Radio::getConfiguration(Lora::Configuration& out)
 {
     LOG_DBG("Get configuration");
+    std::lock_guard guard(mutexSerial_);
+
     Lora::Mode prevMode = currentMode_;
     bool res = false;
 
@@ -306,9 +308,12 @@ void Radio::check()
         break;
     }
     case RadioCommand::PingDelivered: {
-        uint32_t delay = millis() - startPing_[sender];
-        LOG_INF("Radio: ping delivered from %u delay %u", sender, delay);
-        onPingDone_(sender, delay);
+        uint32_t startMillis;
+        if (readData(&startMillis, 4)) {
+            uint32_t delay = millis() - startMillis;
+            LOG_INF("Radio: ping delivered from %u delay %u", sender, delay);
+            onPingDone_(sender, delay);
+        }
         break;
     }
     default: {
@@ -448,14 +453,13 @@ void Radio::addHeader(std::vector<uint8_t>& out, uint16_t destAddr, RadioCommand
     out.push_back(static_cast<uint8_t>(command));
 }
 
-bool Radio::ping(uint16_t addr, uint32_t& delay)
+bool Radio::ping(uint16_t addr)
 {
     std::lock_guard guard(mutexSerial_);
 
     if (!sendPing(addr)) {
         return false;
     }
-    startPing_[addr] = millis();
     return true;
 }
 
@@ -532,6 +536,7 @@ void Radio::sendDelivered(uint16_t sender, uint8_t msgID)
 
     // byte sender ADDH
     // byte sender ADDL
+    // byte broadcast flag
     // byte cmd
 
     // byte msg_id
@@ -554,10 +559,18 @@ bool Radio::sendPing(uint16_t dest)
 
     // byte sender ADDH
     // byte sender ADDL
+    // byte broadcast flag
     // byte cmd
+    // 4 bytes millis() start time
 
     std::vector<uint8_t> data;
     addHeader(data, dest, RadioCommand::Ping);
+
+    std::vector<uint8_t> millisData(4);
+    uint32_t millisValue = millis();
+    memcpy(millisData.data(), &millisValue, sizeof(millisValue));
+
+    data.insert(data.end(), millisData.begin(), millisData.end());
 
     if (!writeData(data.data(), data.size())) {
         LOG_ERR("Can't send ping");
@@ -578,6 +591,7 @@ void Radio::sendPingDelivered(uint16_t sender)
     // byte sender ADDL
     // byte isBroadcast // 0 - not broadcast, 1 - broadcast
     // byte cmd
+    // 4 bytes millis() start time
 
     std::vector<uint8_t> data;
     addHeader(data, sender, RadioCommand::PingDelivered);
