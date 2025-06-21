@@ -110,6 +110,13 @@ void UIPageTypingMessage::onKeyCommand(KeyCommand cmd)
         }
         break;
     }
+    case KeyCommand::Escape: {
+        if (action_ == TypingMessageAction::SendMessage) {
+            ctx_->showPageChatContact(address_);
+            break;
+        }
+    }
+    [[fallthrough]];
     default: 
         UIPageBase::onKeyCommand(cmd);
     }
