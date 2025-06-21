@@ -133,13 +133,10 @@
     <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatContact.cpp">
+    <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatSelect.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\RadioChat\src\UI\UIPageChat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageContactActions.cpp">
@@ -357,7 +354,7 @@
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\BaseMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\RadioChat\src\UI\TypingMessageAction.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\TypingMessageAction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UI.h">
@@ -369,13 +366,10 @@
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatContact.h">
+    <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageChatSelect.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\RadioChat\src\UI\UIPageChat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Dev\RadioChat\RadioChat\src\UI\UIPageContactActions.h">

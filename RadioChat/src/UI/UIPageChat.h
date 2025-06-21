@@ -24,6 +24,7 @@ private:
     struct MessageList {
         tdMessages list;
         uint16_t totalCountLines = 0;
+        bool hasMore = false;
     };
     MessageList loadMessages(uint16_t startMsgIndex, uint16_t destAddress, uint16_t maxCountMessages);
     FormatedMessage formatMessage(const ChatMessage& srcMsg, const ContactList& contacts);
@@ -36,7 +37,7 @@ private:
     MessageList messages_;
     bool canLoadPrevMsg_;
     bool canLoadNextMsg_;
-    const uint16_t maxCountMessages_;
+    const uint16_t countMessagesPerPage_;
     uint16_t destAddress_;
     const uint16_t selfAddress_;
 };

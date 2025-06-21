@@ -225,9 +225,9 @@ std::vector<Property> Settings::getLogDefaultProperties()
     props.emplace_back(Property{ eLogToSerial, PropertySection::Log, "Лог в порт", "LogToSerial", "1", ValueType::Bool, {} });
     props.emplace_back(Property{ eLogToFile, PropertySection::Log, "Лог в файл", "LogToFile", "0", ValueType::Bool, {} });
 #else
-    props.emplace_back(Property{ eLogTraceLevel, PropertySection::Log, "Уровень", "LogTraceLevel", "1", ValueType::Enum, getLogTraceLevelOptions() });
+    props.emplace_back(Property{ eLogTraceLevel, PropertySection::Log, "Уровень", "LogTraceLevel", "0", ValueType::Enum, getLogTraceLevelOptions() });
     props.emplace_back(Property{ eLogToSerial, PropertySection::Log, "Лог в порт", "LogToSerial", "0", ValueType::Bool, {} });
-    props.emplace_back(Property{ eLogToFile, PropertySection::Log, "Лог в файл", "LogToFile", "1", ValueType::Bool, {} });
+    props.emplace_back(Property{ eLogToFile, PropertySection::Log, "Лог в файл", "LogToFile", "0", ValueType::Bool, {} });
 #endif // DEBUG
     props.emplace_back(Property{ eLogPath, PropertySection::Log, "Путь к логам", "LogPath", "logs", ValueType::String, {} });
     props.emplace_back(Property{ eLogMaxCountLogs, PropertySection::Log, "Макс файлов", "LogMaxCountLogs", "10", ValueType::Int, {} });

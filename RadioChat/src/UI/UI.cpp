@@ -27,6 +27,7 @@ void UI::init(const UIContext& context)
     ctx_.maxLineChars = ctx_.display->getDisplayWidth()/ctx_.display->getMaxCharWidth();
     ctx_.textHeight = ctx_.uiSettings.textHeight;
     ctx_.maxCountLines = ctx_.display->getDisplayHeight()/ctx_.textHeight;
+    LOG_DBG("Max lines: %u, Max chars per line: %u", ctx_.maxCountLines, ctx_.maxLineChars);
     setCurrentPage(UIPageType::Main);
 }
 

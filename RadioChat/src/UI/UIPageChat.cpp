@@ -4,6 +4,7 @@
 #include "../Display/Display.h"
 #include "../Radio/Radio.h"
 #include "../Utils.h"
+#include "../Logger/Logger.h"
 #include <algorithm>
 
 UIPageChat::UIPageChat(UIPageType parent, const UIContext* context)
@@ -12,7 +13,7 @@ UIPageChat::UIPageChat(UIPageType parent, const UIContext* context)
     , lineOffset_(0)
     , canLoadPrevMsg_(true)
     , canLoadNextMsg_(true)
-    , maxCountMessages_(context->maxCountLines)
+    , countMessagesPerPage_(context->maxCountLines * 3) // Load 3 times the max count of lines to ensure we have smothing to scroll through
     , destAddress_(BROADCAST_ADDRESS)
     , selfAddress_(ctx_->radio->getSettings().selfAddress)
 {
@@ -77,14 +78,14 @@ void UIPageChat::handleScrollDown()
     else if (canLoadNextMsg_ && lastMsgIndex_ > 0) {
         lastMsgIndex_--;
         auto oldTotalLines = messages_.totalCountLines;
-        messages_ = loadMessages(lastMsgIndex_, destAddress_, maxCountMessages_);
+        messages_ = loadMessages(lastMsgIndex_, destAddress_, countMessagesPerPage_);
 
         if (messages_.totalCountLines > oldTotalLines) {
             lineOffset_ += messages_.totalCountLines - oldTotalLines;
         }
 
         canLoadNextMsg_ = lastMsgIndex_ > 0;
-        canLoadPrevMsg_ = messages_.list.size() >= maxCountMessages_;
+        canLoadPrevMsg_ = messages_.hasMore;
     }
 }
 
@@ -97,12 +98,12 @@ void UIPageChat::handleScrollUp()
     }
     else if (canLoadPrevMsg_) {
         lastMsgIndex_++;
-        messages_ = loadMessages(lastMsgIndex_, destAddress_, maxCountMessages_);
+        messages_ = loadMessages(lastMsgIndex_, destAddress_, countMessagesPerPage_);
 
         lineOffset_ = 0;
 
         canLoadNextMsg_ = true;
-        canLoadPrevMsg_ = messages_.list.size() >= maxCountMessages_;
+        canLoadPrevMsg_ = messages_.hasMore;
     }
 }
 
@@ -130,8 +131,6 @@ void UIPageChat::onIncomingMessage(const std::string& message, uint16_t senderAd
         if (messages_.totalCountLines > ctx_->maxCountLines) {
             lineOffset_ = messages_.totalCountLines - ctx_->maxCountLines;
         }
-
-        canLoadPrevMsg_ = messages_.list.size() >= maxCountMessages_;
     }
 }
 
@@ -140,19 +139,47 @@ void UIPageChat::init(uint16_t destAddress)
     std::lock_guard g(mutexMsg_);
     destAddress_ = destAddress;
     lastMsgIndex_ = 0;   
-    messages_ = loadMessages(lastMsgIndex_, destAddress, maxCountMessages_);
-    canLoadNextMsg_ = messages_.list.size() >= maxCountMessages_;
-    canLoadPrevMsg_ = lastMsgIndex_ > 0;
+    messages_ = loadMessages(lastMsgIndex_, destAddress, countMessagesPerPage_);
+
+    LOG_DBG("init: loaded %zu messages, totalLines=%u, maxCountLines=%u",
+        messages_.list.size(), messages_.totalCountLines, ctx_->maxCountLines);
+
+    canLoadPrevMsg_ = messages_.hasMore;
+    canLoadNextMsg_ = false;
+
+    if (messages_.totalCountLines > ctx_->maxCountLines) {
+        lineOffset_ = messages_.totalCountLines - ctx_->maxCountLines;
+    }
+    else {
+        lineOffset_ = 0;
+    }
+
+    LOG_DBG("init: set lineOffset_=%u", lineOffset_);
 }
 
 UIPageChat::MessageList UIPageChat::loadMessages(uint16_t startMsgIndex, uint16_t destAddress, uint16_t maxCountMessages)
 {
-    auto messages = ctx_->chatManager->getMessages(destAddress, startMsgIndex, maxCountMessages);
+    uint16_t countMessages = maxCountMessages + 1; // Load one extra message to check if there are more messages
+    auto messages = ctx_->chatManager->getMessages(destAddress, startMsgIndex, countMessages);
     auto contacts = ctx_->contactsManager->getContacts();
 
-    MessageList res;
+    LOG_DBG("loadMessages: requested %u messages starting from index %u, got %zu messages",
+        maxCountMessages, startMsgIndex, messages.size());
+    if (!messages.empty()) {
+        LOG_DBG("First message: %s", messages.front().msg.c_str());
+        LOG_DBG("Last message: %s", messages.back().msg.c_str());
+    }
 
-    for (const auto& msg : messages) {
+    MessageList res;
+    res.hasMore = messages.size() > maxCountMessages;
+
+    size_t startIdx = 0;
+    if (messages.size() > maxCountMessages) {
+        startIdx = messages.size() - maxCountMessages;
+    }
+
+    for (size_t i = startIdx; i < messages.size(); ++i) {
+        auto& msg = messages[i];
         auto fmtMsg = formatMessage(msg, contacts);
         res.totalCountLines += (uint16_t)fmtMsg.size();
         res.list.push_back(std::move(fmtMsg));
